@@ -1,16 +1,17 @@
 # ATPrompt: Textual Prompt Learning with Embedded Attributes
 
 
-> [**ATPrompt: Textual Prompt Learning with Embedded Attributes**]() <br>
+> [**PromptKD: Unsupervised Prompt Distillation for Vision-Language Models**]() <br>
 > Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
-> [[Paper(TBD)]()] [[Project Page(TBD)]()] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
+> [[Paper]()] [[Project Page(TBD)]()] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
 
 <hr/>
 
 ### Abstract
 
 In this work, we introduce an attribute-embedded textual prompt learning method for vision-language models, named ATPrompt.
+
 
 ### Framework
 
@@ -29,22 +30,37 @@ In this work, we introduce an attribute-embedded textual prompt learning method 
 
 ## Experimental Results
 
-Results reported below show accuracy for base and novel classes for across 11 recognition datasets averaged over 3 seeds.
+The results are averaged over 3 seeds. Note that due to the limited number of training samples and network parameters, the performance results may fluctuate. If you cannot achieve the reported results, please run more experiments with different seeds.
 
-### Base-to-Novel
+### Base-to-Novel Generalization
 
+<details>
+<summary>Click to expand "Result Figures".</Summary>
 <figure>
 <img src="images/exp_results.png" alt="fail" width="100%"">
 <figcaption class="content has-text-left" style="word-break:normal">Table 1: Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets. HM: Harmonic Mean. ∆: HM improvement of ATPrompt over previous results. "ATPrompt" is abbreviated as "ATP". Our method achieves consistent average performance improvement over different baselines.
 </figure>
+</details>
 
-### Cross-dataset
+### Cross-dataset Experiments
 
+<details>
+<summary>Click to expand "Result Figures".</Summary>
 <figure>
 <img src="images/exp_results2.png" alt="fail" width="100%"">
 <figcaption class="content has-text-left" style="word-break:normal">Table 2: Cross-dataset generalization experiments of three baselines with and without our ATPrompt on 11 datasets. Our method achieves consistent average performance improvements over three baseline methods.
 </figure>
+</details>
 
+### Domain Generalization
+
+<details>
+<summary>Click to expand "Result Figures".</Summary>
+<figure>
+<img src="images/exp_results3.png" alt="fail" width="60%"">
+<figcaption class="content has-text-left" style="word-break:normal">Table 2: Domain generalization experiments of three baselines with and without our ATPrompt on 4 datasets. Our method achieves consistent average performance improvement over three baseline methods.
+</figure>
+</details>
 
 ## Running
 
@@ -52,24 +68,22 @@ Results reported below show accuracy for base and novel classes for across 11 re
 
 1. Create the environment and install Dassl.pytorch library. Please follow the instruction detailed in [INSTALL.md](docs/INSTALL.md).
 
-2. Prepare the dataset. Please follow the instructions detailed in [DATASETS.md](docs/DATASETS.md).
+2. Prepare the dataset. Please follow the instructions detailed in [DATASETS.md](docs/DATASETS.md). If you are unable to access the StanfordCars dataset, we have provided the dataset in [[GitHub Release]((https://github.com/zhengli97/PromptKD/releases/tag/datasets))] for your convenience.
 
-<!-- 3. Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder.   -->
-<!-- [[ViT-B/16 CLIP](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)] [[ViT-L/14 CLIP](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)] -->
+3. (Optional) Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder. Comment the `trainers/coop.py line 42` and uncomment the `line 43`.  
+[[ViT-B/16 CLIP](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)] [[ViT-L/14 CLIP](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)]
 
 ### Running ATPrompt
 
-#### Step I: Attribute Search 
+#### Step I: Attribute Search (Two Options)
 
-**Two Options:**
+(1) Directly use our results.
 
-**(1) Directly use our results.**
+Here we provide the five attribute bases obtained by querying the LLM (GPT-4o) and the final result after the differentiable attribute search. You can directly use our results for subsequent training.
 
-Here we provide the five attribute bases obtained by querying the LLM (GPT-4o) and the final result after the differentiable attribute search. You can directly use our searched results for training.
-
-Please expand the list below to see the results:   
+Expand the list below👇 to see the results:
 <details>
-<summary>Attribute Lists</Summary>
+<summary>Click to expand "Attribute Lists"</Summary>
 
 | Dataset | Attribute Bases | Searched Results |
 |:---------------:|:---------------:|:-----------------:|
@@ -88,50 +102,78 @@ Please expand the list below to see the results:
 Table 1. Attribute bases and searched results for each dataset.
 </details>
 
+(2) Reproduce the whole process on your own.
 
-**(2) Reproduce the whole process on your own.**
-
-- Register a ChatGPT service account and enter the API Key in `gpt_query.py line 27`. Run the code:   
+- Register a ChatGPT service account (We are using [ZhiZengZeng](https://gpt.zhizengzeng.com/#/)) and enter the API Key in `gpt_query.py line 27`. Then run the following code:   
 ```bash
 python gpt_query.py
 ```    
 In this way, you will get five output attributes after running the code.    
-(You can change the input prompt in `gpt_query.py line 94` to specify as many attributes as you need.)   
+(You can change the input prompt in `gpt_query.py line 94` to specify as many attributes as you want.)   
 
 - Enter the five attributes into the variables `ATT1_TEXT`, `ATT2_TEXT`, `ATT3_TEXT`, `ATT4_TEXT` and `ATT5_TEXT` in `scripts/attribute_compute/main.sh`. Then run the attribute search code:
 ```bash
 sh scripts/attribute_compute/main.sh
 ```
-We select the result with the highest confidence in the last epoch as our target attribute.
+Select the result with the **highest confidence** in the last epoch as our target attribute.
 
-In the following **Model Zoo** part, we provide the complete training log on Caltech101 for your reference.
+In the following part, we provide the complete training log on Caltech101 for your reference.
 
 #### Step II: Prompt Learning
 
+Here we take the **CoOp** method as an example. You can switch to other baseline methods if you want.
+
 (1) Base-to-Novel Experiments.
 
-<!-- 1. The config files for each baseline method are provided in `configs/trainers/`. You can modify the hyper-parameters in these config files according to your needs.
+1. The config files for each baseline method are provided in `configs/trainers/`. You can modify the hyper-parameters in these config files.
 
-2.  -->
+2. Change the `DATA` in `scripts/coop/base2new_train.sh line 4` to your current dataset path.
 
-(2) Cross-dataset Experiments.
+3. Run the following commands to train the model using the ATPrompt method:
+
+```bash
+# dataset=imagenet
+sh scripts/coop/base2new_train.sh imagenet
+
+# dataset=caltech101
+sh scripts/coop/base2new_train.sh caltech101
+```
+
+If you don't want to use ATPrompt, you can set `TRAINER.ATPROMPT.USE_ATPROMPT` in `scripts/coop/base2new_train.sh line 31` to **False**.
+
+(2) Cross-dataset & Domain Generalization Experiments.
+
+1. Change the `DATA` in `scripts/coop/xd_train.sh line 4` to your current dataset path.
+
+2. Train the model on the source dataset (ImageNet) and select the best performing model.
+
+```bash
+sh scripts/coop/xd_train.sh
+```
+
+3. After training, evaluate the model on other recognition dataset. For example, the modal trained with **seed 1** has the best performance.
+
+```bash
+# Cross-dataset
+# dataset=caltech101, seed=1
+sh scripts/coop/xd_eval.sh caltech101 1
+
+# Domain Generalization
+# dataset=imagenet_a, seed=1
+sh scripts/coop/xd_eval.sh imagenet_a 1
+```
+
+In the following part, we provide the complete training log and model weights of **CoOp+ATPrompt** for your reference.
 
 
+## Training Logs & Weights
 
-(3) Domain Generalization Experiments.
-
-
-
-## Model Zoo
-
-- Attribute Search.
-
-We provide the complete attribute searching log on the Caltech101 dataset for your reference.
+- Attribute Search.  
+We provide the complete attribute searching log on the Caltech101 dataset for your reference.   
 [[Baidu Cloud]()] [[TeraBox]()] [[Github Releases]()]
 
-- Prompt Learning.
-
-We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset setings. 
+- Prompt Learning (CoOp+ATPrompt).  
+We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset setings.  
 [[Baidu Cloud]()] [[TeraBox]()] [[Github Releases]()]
 
 
