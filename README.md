@@ -36,7 +36,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 <details>
 <summary>Click to expand "Result Figures".</Summary>
 <figure>
-<img src="images/exp_results.png" alt="fail" width="100%"">
+<img src="images/exp_results.png" alt="fail" width="100%"">    
 <figcaption class="content has-text-left" style="word-break:normal">Table 1: Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets. HM: Harmonic Mean. ∆: HM improvement of ATPrompt over previous results. "ATPrompt" is abbreviated as "ATP". Our method achieves consistent average performance improvement over different baselines.
 </figure>
 </details>
@@ -46,7 +46,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 <details>
 <summary>Click to expand "Result Figures".</Summary>
 <figure>
-<img src="images/exp_results2.png" alt="fail" width="100%"">
+<img src="images/exp_results2.png" alt="fail" width="100%"">   
 <figcaption class="content has-text-left" style="word-break:normal">Table 2: Cross-dataset generalization experiments of three baselines with and without our ATPrompt on 11 datasets. Our method achieves consistent average performance improvements over three baseline methods.
 </figure>
 </details>
@@ -56,8 +56,8 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 <details>
 <summary>Click to expand "Result Figures".</Summary>
 <figure>
-<img src="images/exp_results3.png" alt="fail" width="60%"">
-<figcaption class="content has-text-left" style="word-break:normal">Table 2: Domain generalization experiments of three baselines with and without our ATPrompt on 4 datasets. Our method achieves consistent average performance improvement over three baseline methods.
+<img src="images/exp_results3.png" alt="fail" width="60%"">   
+<figcaption class="content has-text-left" style="word-break:normal">Table 3: Domain generalization experiments of three baselines with and without our ATPrompt on 4 datasets. Our method achieves consistent average performance improvement over three baseline methods.
 </figure>
 </details>
 
