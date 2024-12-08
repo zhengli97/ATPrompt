@@ -12,7 +12,6 @@
 
 In this work, we introduce an attribute-embedded textual prompt learning method for vision-language models, named ATPrompt.
 
-
 ### Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
@@ -119,7 +118,7 @@ Select the result with the **highest confidence** in the last epoch as our targe
 
 In the following part, we provide the complete training log on Caltech101 for your reference.
 
-#### Step II: Prompt Learning
+#### Step II: Prompt Learning with ATPrompt.
 
 Here we take the **CoOp** method as an example. You can switch to other baseline methods if you want.
 
@@ -129,17 +128,29 @@ Here we take the **CoOp** method as an example. You can switch to other baseline
 
 2. Change the `DATA` in `scripts/coop/base2new_train.sh line 4` to your current dataset path.
 
-3. Run the following commands to train the model using the ATPrompt method:
+3. Run the following commands to train the model using the ATPrompt method:   
 
+**Training:**
 ```bash
-# dataset=imagenet
-sh scripts/coop/base2new_train.sh imagenet
+# CoOp+ATPrompt, dataset=imagenet
+sh scripts/coop/atp_base2new_train.sh imagenet
 
-# dataset=caltech101
-sh scripts/coop/base2new_train.sh caltech101
+# CoOp+ATPrompt, dataset=caltech101
+sh scripts/coop/atp_base2new_train.sh caltech101
+```
+**Testing:**
+```bash
+# CoOp+ATPrompt, dataset=caltech101
+sh scripts/coop/atp_base2new_test.sh caltech101
 ```
 
-If you don't want to use ATPrompt, you can set `TRAINER.ATPROMPT.USE_ATPROMPT` in `scripts/coop/base2new_train.sh line 31` to **False**.
+If you don't want to use ATPrompt, you can set `TRAINER.ATPROMPT.USE_ATPROMPT` in `scripts/coop/base2new_train.sh line 31` to **False**.   
+Or you can run the following command:
+
+```bash
+# Vanilla CoOp
+sh scripts/coop/vanilla_base2new_train.sh imagenet
+```
 
 (2) Cross-dataset & Domain Generalization Experiments.
 

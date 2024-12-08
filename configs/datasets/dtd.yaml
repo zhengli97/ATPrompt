@@ -1,0 +1,3 @@
+DATASET:
+  NAME: "DescribableTextures"
+  NUM_SHOTS: 16
