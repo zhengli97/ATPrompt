@@ -1,10 +1,16 @@
 # ATPrompt: Textual Prompt Learning with Embedded Attributes
 
-
 > [**PromptKD: Unsupervised Prompt Distillation for Vision-Language Models**]() <br>
 > Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
-> [[Paper]()] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
+> [[Paper(TBD)]()] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
+
+<hr/>
+
+### 💡Tips:
+
+1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
+2. If you are trying to reproduce the results of this implementation on the Stanfordcars dataset, the link to this dataset may be broken and unavailable. We have provided the dataset in [github releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets) for your convenience.
 
 <hr/>
 
@@ -206,6 +212,13 @@ We provide model weights and training logs trained on the source dataset (ImageN
 ## Contact
 
 If you have any questions, you can submit an [issue](https://github.com/zhengli97/ATPrompt/issues) on GitHub, or contact me by email (zhengli97 [at] qq.com).
+
+## Citation
+
+If you find our paper or repo helpful for your research, please consider citing the following paper and giving this repo a star⭐. Thank you!
+
+```
+```
 
 ## Acknowledgements
 
