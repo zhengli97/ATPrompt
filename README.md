@@ -1,11 +1,17 @@
 # ATPrompt: Textual Prompt Learning with Embedded Attributes
 
-> [**PromptKD: Unsupervised Prompt Distillation for Vision-Language Models**]() <br>
+> [**ATPrompt: Textual Prompt Learning with Embedded Attributes**]() <br>
 > Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
 > [[Paper(TBD)]()] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
 
 <hr/>
+
+### 🔥 News
+
+- 2024.12. We release the official code of ATPrompt and create the project page.
+
+<hr />
 
 ### 💡Tips:
 
