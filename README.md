@@ -4,7 +4,7 @@
 > [**PromptKD: Unsupervised Prompt Distillation for Vision-Language Models**]() <br>
 > Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
-> [[Paper]()] [[Project Page(TBD)]()] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
+> [[Paper]()] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
 
 <hr/>
 
