@@ -1,3 +1,0 @@
-DATASET:
-  NAME: "ImageNetV2"
-  NUM_SHOTS: 16

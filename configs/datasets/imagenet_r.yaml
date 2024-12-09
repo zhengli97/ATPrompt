@@ -1,3 +1,0 @@
-DATASET:
-  NAME: "ImageNetR"
-  NUM_SHOTS: 16

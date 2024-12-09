@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>ATPrompt中文解读</title>
+  <link rel="icon" type="image/x-icon" href="None">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ATPrompt: Textural Prompt Learning with Embedded Attributes</h1>
+          <div class="is-size-3 content">
+            中文解读
+          </div>
+          <p class="is-size-5">李政 南开大学/阿里巴巴达摩院</p>
+          <br>
+          <!-- <p class="is-size-5"><a href="https://zhuanlan.zhihu.com/p/684269963">知乎链接</a></p> -->
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- 
+<section class="section hero is-light">
+  <div class="container is-max-desktop ">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">一句话概括</h2>
+        <div class="content has-text-justified">
+          <p>
+            PromptKD是一个简单有效的基于prompt的视觉语言模型蒸馏新方法，在prompt learning的11个benchmark数据集上大幅领先，达到了SOTA。
+          </p>
+          <h2 class="title is-4">大白话背景介绍</h2>
+        
+          <p>已经很了解VLMs和prompt learning的同学可以直接跳过，到<strong>背景问题</strong>～</p>
+          <p>这里的介绍目的是让没有相关基础和背景的同学也可以看懂这篇工作，能有所收获。</p>
+
+          <p><strong>什么是视觉-语言模型(Vision-Language Models, VLMs)？</strong></p>
+          <p>视觉语言模型VLM一般由两个部分构成，即视觉(Vision)部分和语言(Language)部分。以一个经典的VLM网络 CLIP[1] 的结构为例：</p>
+          
+          <figure>
+            <img src="static/interpretation_images/fig1_clip.png" alt="图挂了= =" width="70%">
+            <figcaption>图1.CLIP架构。图片来自于CLIP论文。</figcaption>
+          </figure>
+
+          <p>如图1所示，CLIP由text branch和image branch组成。</p>
+
+          <p>其中，text branch主要由transformer构成，当要进行cls_num个类的分类任务时，会取每个类别对应的名称，如"plane", "car", "dog"，与"a photo of a"进行组合，作为prompt输入进text encoder，得到大小为[cls_num, feat_dim]的text feature。
+
+          <p>image branch的核心就是对输入的图像提取image feature，其通常为ResNet或者ViT[2]。图像经过image encoder之后得到image feature，其大小为[batch_size, feat_dim]。
+
+          <p>将两个feature进行相乘就得到了预测logits。
+
+          <p>CLIP有两个明确的特性，是这个工作的基础：
+
+          <p>1. CLIP可以进行zero-shot分类，即对未见过的类别进行识别，并保持很高的性能。而传统的CNN或者ViT由于模型架构限制不可以。
+          <p> 2.对于已知的类别，CLIP的text branch只需要一次forward就可以得到对应text feature用于分类。
+
+          <strong><p>什么是提示学习(Prompt Learning)？</p></strong>
+
+          <p>在Text Branch部分中，a photo of a {class_name} 这样的描述太过宽泛，明显不是最优的。例如对于图2(b)的花，手工设计的a flower photo a {class}要描述的更加精确，其产生的结果就更好。</p>
+
+          <figure>
+            <img src="static/interpretation_images/fig2_prompt.png" alt="图挂了= =" width="100%">
+            <figcaption>图2.蓝色方块代表手动设计的prompt，绿色方块代表网络学习得到的learnable prompt。绿色方块acc超越了蓝色。图片来自于CoOp论文。</figcaption>
+          </figure>
+
+          <p>这就产生来两个问题，第一，固定模板的prompt不是最优的。第二，针对性的手工设计费时费力，且无法泛化。
+
+          <p>于是，提示学习(Prompt Learning)[3] [4]就提出将prompt变成了一种learnable的方式，通过优化的方法让prompt在下游数据集上学习适用的表征，来替代手工设计的prompt，参考图2中的绿色方块。
+
+          <p>这样优势是，可以在少量数据的情况下，仅通过引入一少部分的可学习参数（即learnable prompt），就可以将原始的CLIP快速适用到下游的任务/数据，同时在性能上比全参数微调的结果更好[4]。
+
+          <strong><p>实验衡量指标是什么？</p></strong>
+
+          <p>有三个指标，分别是base acc，novel acc和harmonic mean。</p>
+
+          <p>以imagenet-1k数据集为例，会取1000类中的前500类作为base class，后500类作为novel class。模型在base class上训练，完成后在base class和novel class上测试acc性能。因为novel class与base class数据类别不重复，所以novel acc可以有效反应模型泛化性能。harmonic mean指标是对base acc和novel acc的综合反映，为harmonic mean = (2*base acc*novel acc) / (base acc+novel acc)。总体的harmonic mean值越高，模型综合性能越好。
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths width:100%">
+
+      <div class="column">
+        <div class="content has-text-centered">
+        <h2 class="title">TBD</h2>
+      </pre>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
