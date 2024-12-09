@@ -12,10 +12,23 @@
 
 In this work, we introduce an attribute-embedded textual prompt learning method for vision-language models, named ATPrompt.
 
+This method extends the learning space of soft prompts from the original
+one-dimensional category level to the multi-dimensional at-
+tribute level by embedding multiple fixed universal attribute
+tokens into the learnable soft prompts. 
+
+Guided by these attributes, soft prompts acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method
+
 ### Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
-<figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-embedded prompt learning. <strong>(a)</strong> Vanilla CLIP employs a hand-crafted text template, “a photo of a {classname}”, as input to the text encoder. <strong>(b)</strong> Classical prompt learning proposes a new text form that concatenates multiple learnable soft tokens with class tokens, replacing the manually designed hard template. <strong>(c)</strong> Our ATPrompt embeds multiple fixed attribute tokens into the set of soft tokens, transforming the original form into an attribute-class mixed form for prompt learning. </figcaption>
+<figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-embedded prompt learning. </figcaption>
+
+<br>
+
+<div style="text-align:center"><img src="images/shallow_deep_version.png" width="100%"></div>
+<figcaption class="content has-text-left"  style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption>
+
 
 ### Highlights
 
@@ -120,7 +133,7 @@ In the following part, we provide the complete training log on Caltech101 for yo
 
 #### Step II: Prompt Learning with ATPrompt.
 
-Here we take the **CoOp** method as an example. You can switch to other baseline methods if you want.
+Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
 
 (1) Base-to-Novel Experiments.
 
@@ -152,6 +165,8 @@ Or you can run the following command:
 sh scripts/coop/vanilla_base2new_train.sh imagenet
 ```
 
+For more details, please refer to `docs/`.
+
 (2) Cross-dataset & Domain Generalization Experiments.
 
 1. Change the `DATA` in `scripts/coop/xd_train.sh line 4` to your current dataset path.
@@ -181,11 +196,11 @@ In the following part, we provide the complete training log and model weights of
 
 - Attribute Search.  
 We provide the complete attribute searching log on the Caltech101 dataset for your reference.   
-[[Baidu Cloud]()] [[TeraBox]()] [[Github Releases]()]
+[[Baidu Cloud(TBD)]()] [[TeraBox(TBD)]()] [[Github Releases(TBD)]()]
 
 - Prompt Learning (CoOp+ATPrompt).  
 We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset setings.  
-[[Baidu Cloud]()] [[TeraBox]()] [[Github Releases]()]
+[[Baidu Cloud(TBD)]()] [[TeraBox(TBD)]()] [[Github Releases(TBD)]()]
 
 
 ## Contact

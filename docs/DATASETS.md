@@ -90,9 +90,8 @@ stanford_cars/
 |–– split_zhou_StanfordCars.json
 ```
 
-**Important Note:**
-
-If you are unable to access the above links, we have provided the dataset in [[GitHub Release]((https://github.com/zhengli97/PromptKD/releases/tag/datasets))] for your convenience.
+**Important Note:**   
+**If you are unable to access the above links, we have provided the dataset in [[GitHub Release]((https://github.com/zhengli97/PromptKD/releases/tag/datasets))] for your convenience.**
 
 
 ### Flowers102

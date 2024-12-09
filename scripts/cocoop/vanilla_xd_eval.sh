@@ -2,7 +2,7 @@
 
 # custom config
 DATA=/root/prompt_dataset
-TRAINER=CoCoOp_ATP
+TRAINER=CoCoOp
 
 CFG=vit_b16_c4_ep10_batch1_ctxv1
 SHOTS=16
@@ -29,9 +29,5 @@ do
                 DATASET.SUBSAMPLE_CLASSES all \
                 TRAINER.COCOOP.N_CTX ${NCTX} \
                 DATASET.NUM_SHOTS ${SHOTS} \
-                TRAINER.ATPROMPT.USE_ATPROMPT True \
-                TRAINER.ATPROMPT.N_ATT1 ${NCTX} \
-                TRAINER.ATPROMPT.N_ATT2 ${NCTX} \
-                TRAINER.ATPROMPT.N_ATT3 ${NCTX} \
                 OPTIM.MAX_EPOCH ${EPO}
 done
