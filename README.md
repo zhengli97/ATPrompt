@@ -16,7 +16,7 @@
 ### 💡Tips:
 
 1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
-2. If you are trying to reproduce the results of this implementation on the Stanfordcars dataset, the link to this dataset may be broken and unavailable. We have provided the dataset in [github releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets) for your convenience.
+2. If you are trying to reproduce the results of this implementation on the Stanfordcars dataset, the link to this dataset may be broken and unavailable. We have provided the dataset in [GitHub releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets) for your convenience.
 
 <hr/>
 
@@ -24,12 +24,9 @@
 
 In this work, we introduce an attribute-embedded textual prompt learning method for vision-language models, named ATPrompt.
 
-This method extends the learning space of soft prompts from the original
-one-dimensional category level to the multi-dimensional at-
-tribute level by embedding multiple fixed universal attribute
-tokens into the learnable soft prompts. 
+This method extends the learning space of soft prompts from the original one-dimensional category level to the multi-dimensional attribute level by embedding multiple fixed universal attribute tokens into the learnable soft prompts. 
 
-Guided by these attributes, soft prompts acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method
+Guided by these attributes, soft prompts acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
 
 ### Framework
 
@@ -39,7 +36,7 @@ Guided by these attributes, soft prompts acquire not only category-specific but 
 <br>
 
 <div style="text-align:center"><img src="images/shallow_deep_version.png" width="100%"></div>
-<figcaption class="content has-text-left"  style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption>
+<figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption>
 
 
 ### Highlights
@@ -48,7 +45,7 @@ Guided by these attributes, soft prompts acquire not only category-specific but 
 
 (2). We introduce a differentiable attribute search method that learns to determine the appropriate attribute content and quantity.
 
-(3). Both shallow and deep versions of ATprompt are introduced to achieve compatibility with existing methods.
+(3). Both shallow and deep versions of ATPrompt are introduced to achieve compatibility with existing methods.
 
 (4). ATPrompt can be seamlessly intergrated into existing textual-based methods and brings general improvement at a negligible computational cost.
 
@@ -90,7 +87,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 
 ### Preliminary
 
-1. Create the environment and install Dassl.pytorch library. Please follow the instruction detailed in [INSTALL.md](docs/INSTALL.md).
+1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [INSTALL.md](docs/INSTALL.md).
 
 2. Prepare the dataset. Please follow the instructions detailed in [DATASETS.md](docs/DATASETS.md). If you are unable to access the StanfordCars dataset, we have provided the dataset in [[GitHub Release]((https://github.com/zhengli97/PromptKD/releases/tag/datasets))] for your convenience.
 
@@ -189,7 +186,8 @@ For more details, please refer to `docs/`.
 sh scripts/coop/xd_train.sh
 ```
 
-3. After training, evaluate the model on other recognition dataset. For example, the modal trained with **seed 1** has the best performance.
+3. After training, evaluate the model on other recognition datasets. For example, the model trained with **seed 1** has the best performance.
+So we evaluate its performance like this:
 
 ```bash
 # Cross-dataset
