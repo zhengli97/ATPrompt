@@ -164,7 +164,7 @@
                     </p>
                     <br>
                     <p style="font-size: 14pt;">
-                      In this work, we propose to embeds multiple fixed attribute tokens into the set of soft tokens, <br/> transforming the original form Tab.2(a)
+                      In this work, we propose to embed multiple fixed attribute tokens into the set of soft tokens, <br/> transforming the original form Tab.2(a)
                       into an attribute-class mixed form Tab.2(b) for prompt learning.
                     </p>
                   </div>
@@ -201,7 +201,7 @@
                 </p>
 
                 <div class="column is-five-fourths width:100%" >
-                  <h2 class="title is 2">Q: How to determine attribute?</h2>
+                  <h2 class="title is 2">Q: How to determine attributes?</h2>
                   <h2 class="title is 2">A: Differentiable Attribute Search 🔎 !</h2>
                   <figure>
                     <img src="static/images/attribute_search.png" alt="fail" width="100%"">
@@ -211,7 +211,7 @@
                   </figure>
                   <br>
                   <p class="content has-text-left" style="font-size: 14pt;">
-                    <strong>Step 1: Form an attribute pool.</strong>  We first query the LLM step by step to obtain multiple independent attributes, then combining them to create an attribute pool for subsequent search methods. 
+                    <strong>Step 1: Form an attribute pool.</strong>  We first query the LLM step by step to obtain multiple independent attributes, then combine them to create an attribute pool for subsequent search methods. 
                     <br>
                     <br>
                     <strong>Step 2: Differentiable attribute search.</strong> For each attribute base in the pool, we propose the use of an alternating algorithm to jointly optimize soft tokens and path weights. After training, the attribute with the highest weight (confidence) is selected for targeted model training.
@@ -396,7 +396,7 @@
         </div>
         <p class="content has-text-left" style="text-indent:1em">
           In ATPrompt-Deep, we exclusively drop class soft tokens while retaining both hard and soft attribute tokens after they pass through the block. 
-          In the following table, we compare the performance of partial drop (i.e., removing attribute soft tokens while retaining hard tokens) and full drop (i.e., removing both attribute softand hard tokens) operations.
+          In the following table, we compare the performance of partial drop (i.e., removing attribute soft tokens while retaining hard tokens) and full drop (i.e., removing both attribute soft and hard tokens) operations.
         </p>
         <figure>
           <img src="static/experiments/table4.png" alt="fail" width="50%"">
@@ -430,10 +430,10 @@
           <p>
             1. If you are interested in prompt learning and want to know more about related work, we also maintain <a href="https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-VLMs" target="_blank" style="color:rgb(31, 147, 255)">[a curated list of awesome prompt/adapter learning methods for VLMs]</a><img src="https://img.shields.io/github/stars/zhengli97/Awesome-Prompt-Learning-for-Vision-Language-Models?style=social"/> for your reference. 
             <br><br>
-            2. In October 2024, I was invited by Jiangmen(将门) to give a talk about prompt learning methods. In this video <a href="https://www.techbeat.net/talk-info?id=915" target="_blank" style="color:rgb(31, 147, 255)">[Link]</a> , I introduce the motivation, principle and related work of the prompt learning method in detail. 
-            If you can speak Chinese, this video might be a good material to help you quickly understand the field of prompt learning.
+            2. In October 2024, I was invited by Jiangmen(将门) to give a talk about prompt learning methods. In this video <a href="https://www.techbeat.net/talk-info?id=915" target="_blank" style="color:rgb(31, 147, 255)">[Link]</a>, I introduce the motivation, principle, and related work of the prompt learning method in detail. 
+            If you can speak Chinese, this video might be good material to help you quickly understand the field of prompt learning.
             <br><br>
-            3. Before this work, I published a paper on prompt learning at CVPR-2024 called <a href="https://arxiv.org/abs/2403.02781" target="_blank" style="color:rgb(31, 147, 255)">PromptKD</a>. In this <a href="https://zhengli97.github.io/PromptKD/" target="_blank" style="color:rgb(31, 147, 255)">[project]</a> <img src="https://img.shields.io/github/stars/zhengli97/PromptKD?style=social"/>, I open-sourced the complete code and wrote a detailed <a href="https://zhuanlan.zhihu.com/p/684269963" target="_blank" style="color:rgb(31, 147, 255)">Chinese paper interpretation</a>.
+            3. Before this work, I published a paper on prompt learning at CVPR-2024 called <a href="https://arxiv.org/abs/2403.02781" target="_blank" style="color:rgb(31, 147, 255)">PromptKD</a>. In this <a href="https://zhengli97.github.io/PromptKD/" target="_blank" style="color:rgb(31, 147, 255)">[project]</a><img src="https://img.shields.io/github/stars/zhengli97/PromptKD?style=social"/>, I open-sourced the complete code and wrote a detailed <a href="https://zhuanlan.zhihu.com/p/684269963" target="_blank" style="color:rgb(31, 147, 255)">Chinese paper interpretation</a>.
             This interpretation is also a good learning material for your reference.
             <br><br>
             <strong>4. If you have any questions, please feel free to submit an <a href="https://github.com/zhengli97/ATPrompt/issues" target="_blank" style="color:rgb(31, 147, 255)">issue</a> on GitHub, or contact me by email (zhengli97[at]qq.com).</strong>
