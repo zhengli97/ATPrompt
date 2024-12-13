@@ -3,7 +3,8 @@
 > [**ATPrompt: Textual Prompt Learning with Embedded Attributes**]() <br>
 > Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
-> [[Paper(TBD)]()] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
+> arXiv:2412.09442 <br>
+> [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读(TBD)]()]
 
 <hr/>
 
