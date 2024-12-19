@@ -224,6 +224,12 @@ If you have any questions, you can submit an [issue](https://github.com/zhengli9
 If you find our paper or repo helpful for your research, please consider citing the following paper and giving this repo a star. Thank you!
 
 ```
+@article{li2024atprompt,
+  title={ATPrompt: Textual Prompt Learning with Embedded Attributes},
+  author={Li, Zheng and Song, Yibing and Zhao, Penghai and Cheng, Ming-Ming and Li, Xiang and Yang, Jian},
+  journal={arXiv preprint arXiv:2412.09442},
+  year={2024}
+}
 ```
 
 ## 👏 Acknowledgements
