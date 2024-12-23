@@ -9,8 +9,6 @@ from .datasets import build_dataset
 from .samplers import build_sampler
 from .transforms import INTERPOLATION_MODES, build_transform
 import json
-from templates.imagenet_templates import IMAGENET_TEMPLATES
-from templates.mapper_data import ctx_templates
 
 
 def build_data_loader(
@@ -25,9 +23,6 @@ def build_data_loader(
         dataset_wrapper=None,
         class_names=None
 ):
-    # Make Data Loader for Text-Only data
-    if is_train and cfg.TRAINER.NAME == "ProText" and (not cfg.TRAINER.PROTEXT.CROSS_DATASET):
-        data_source = DatasetWrapper_TextOnly(cfg, class_names)
     # Build sampler
     sampler = build_sampler(
         sampler_type,
@@ -41,33 +36,19 @@ def build_data_loader(
     if dataset_wrapper is None:
         dataset_wrapper = DatasetWrapper
 
-    if is_train and cfg.TRAINER.NAME == "ProText" and (not cfg.TRAINER.PROTEXT.CROSS_DATASET):
-        # Build data loader for text dataset only!!!
-        data_loader = torch.utils.data.DataLoader(
-            data_source,
-            batch_size=batch_size,
-            sampler=sampler,
-            num_workers=cfg.DATALOADER.NUM_WORKERS,
-            drop_last=is_train and len(data_source) >= batch_size,
-            pin_memory=(torch.cuda.is_available() and cfg.USE_CUDA)
-        )
-    else:
-        # Build data loader for standard image-data
-        data_loader = torch.utils.data.DataLoader(
-            dataset_wrapper(cfg, data_source, transform=tfm, is_train=is_train),
-            batch_size=batch_size,
-            sampler=sampler,
-            num_workers=cfg.DATALOADER.NUM_WORKERS,
-            drop_last=is_train and len(data_source) >= batch_size,
-            pin_memory=(torch.cuda.is_available() and cfg.USE_CUDA)
-        )
-    assert len(data_loader) > 0
-
+    # Build data loader for standard image-data
+    data_loader = torch.utils.data.DataLoader(
+        dataset_wrapper(cfg, data_source, transform=tfm, is_train=is_train),
+        batch_size=batch_size,
+        sampler=sampler,
+        num_workers=cfg.DATALOADER.NUM_WORKERS,
+        drop_last=is_train and len(data_source) >= batch_size,
+        pin_memory=(torch.cuda.is_available() and cfg.USE_CUDA)
+    )
     return data_loader
 
 
 class DataManager:
-
     def __init__(
             self,
             cfg,
@@ -278,95 +259,3 @@ class DatasetWrapper(TorchDataset):
             img = img[0]
 
         return img
-
-
-class DatasetWrapper_TextOnly(TorchDataset):
-
-    def __init__(self, cfg, class_names):
-        self.cfg = cfg
-        self.class_names = class_names
-        name_to_id = {}
-        for idd, class_name in enumerate(self.class_names):
-            name_to_id[class_name.lower().replace("_", " ")] = idd
-        # Create a list of classnames x templates list for input and labels
-        self.text_input_list = []
-        self.text_label_list = []
-        self.one_hot_labels = []
-        nctx_learnable = cfg.TRAINER.PROTEXT.N_CTX_TEXT
-        if cfg.TRAINER.PROTEXT.USE_TEMPLATES:
-            print(f"Using standard 80 templates for data creation")
-            # Loop through the class_names
-            for idx, class_name in enumerate(self.class_names):
-                # Loop through each template with BS of 80
-                input_text = [t.format(class_name.replace("_", " ")) for t in IMAGENET_TEMPLATES]
-                # Need to set-up input label_text according to number of learnable prompts
-                if nctx_learnable <= 4:  # Less than 2 will be automatically handled
-                    label_text = [input_text[0]] * (
-                                len(input_text) - 1)  # as first template is the GT text (a photo of a CLS)
-                else:
-                    # Means random initialization
-                    prompt_prefix = " ".join(["X"] * nctx_learnable)
-                    label_text = [prompt_prefix + " " + class_name.replace("_", " ") + "."] * (len(input_text) - 1)
-                input_text = input_text[1::]  # as first input text is the GT text
-                labels = [name_to_id[class_name.lower().replace("_", " ")]] * (len(input_text))
-                self.text_input_list += input_text
-                self.text_label_list += label_text
-                self.one_hot_labels += labels
-                # Also add the provided attribute dataset
-        if cfg.TRAINER.PROTEXT.USE_ATTRIBUTE_DATA:
-            print(f"Using 46 attribute prompt templates for data creation")
-            for idx, class_name in enumerate(self.class_names):
-                input_text = [t.format(class_name.replace("_", " ")) for t in ctx_templates]
-                # Need to set-up input label_text according to number of learnable prompts
-                if nctx_learnable <= 4:  # Less than 2 will be automatically handled
-                    label_text = [input_text[0]] * (
-                                len(input_text) - 1)  # as first template is the GT text (a photo of a CLS)
-                else:
-                    # Means random initialization
-                    prompt_prefix = " ".join(["X"] * nctx_learnable)
-                    label_text = [prompt_prefix + " " + class_name.replace("_", " ") + "."] * (len(input_text) - 1)
-                input_text = input_text[1::]  # as first input text is the GT text
-                labels = [name_to_id[class_name.lower().replace("_", " ")]] * (len(input_text))
-                self.text_input_list += input_text
-                self.text_label_list += label_text
-                self.one_hot_labels += labels
-        # Also load the GPT3 prompts
-        if cfg.TRAINER.PROTEXT.GPT_PATH != "":
-            file = open(cfg.TRAINER.PROTEXT.GPT_PATH, "r")
-            GPT_prompt_dict = json.load(file)
-            k = 0
-            for id, single_key in enumerate(GPT_prompt_dict.keys()):
-                single_key_formatted = single_key.replace("_", " ").lower()
-                temp_input_text = GPT_prompt_dict[single_key]
-                # Need to set up input label_text according to number of learnable prompts
-                if nctx_learnable <= 4:  # Less than 2 will be automatically handled
-                    # print(f'len temp_input_text is {len(temp_input_text)}')  # 20
-                    temp_label_text = ["a photo of a {}.".format(single_key_formatted)] * len(
-                        temp_input_text)  # as first template is the GT text (a photo of a CLS)
-                else:
-                    # Means random initialization
-                    prompt_prefix = " ".join(["X"] * nctx_learnable)
-                    temp_label_text = [prompt_prefix + " " + single_key + "."] * (len(temp_input_text))
-                if single_key_formatted in name_to_id:
-                    temp_labels = [name_to_id[single_key_formatted]] * len(temp_input_text)
-                    self.text_input_list += temp_input_text
-                    self.text_label_list += temp_label_text
-                    self.one_hot_labels += temp_labels
-                    k += 1
-
-            print(f"Total classes used from GPT CUPL dataset are {k}")
-        assert len(self.text_input_list) == len(self.one_hot_labels) == len(self.text_label_list)
-        # print(f"Total number of text samples in the dataset are {len(self.text_input_list)}")
-        # 每个class有20个
-        self.data_source = self.text_input_list
-
-    def __len__(self):
-        return len(self.text_input_list)
-
-    def __getitem__(self, idx):
-        single_input_label = clip.tokenize(self.text_input_list[idx])
-        single_input_text = clip.tokenize(self.text_label_list[idx])
-        label = self.one_hot_labels[idx]
-        # No transforms as data is text only for now!
-        output = {"input_text": single_input_text, "output_text": single_input_label, "label": label}
-        return output
