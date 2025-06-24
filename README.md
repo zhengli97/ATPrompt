@@ -1,35 +1,44 @@
-# ATPrompt: Textual Prompt Learning with Embedded Attributes
+# Official code for "Advancing Textual Prompt Learning with Anchored Attributes"
 
-> [**ATPrompt: Textual Prompt Learning with Embedded Attributes**]() <br>
-> Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
+> **Advancing Textual Prompt Learning with Anchored Attributes** <br>
+> Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
 > arXiv:2412.09442 <br>
-> [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Paper Interpretation(TBD)]()] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)]
+> [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)]
 
 <hr/>
 
-### 🔥 News
+## 🔥 News
 
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769).
 
 <hr />
 
-### 💡 Tips:
+## 💡 Tips:
 
 1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
 2. If you are trying to reproduce the results of this implementation on the Stanfordcars dataset, the link to this dataset may be broken and unavailable. We have provided the dataset in [GitHub releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets) for your convenience.
 
+### 💻 Some other prompt learning projects from our lab may interest you:
+
+We also have other prompt learning works that may interest you: <br>
+> ATPrompt: Textual Prompt Learning with Embedded Attributes. <br>
+> Zheng Li, Yibing Song, Penghai Zhao, Ming-Ming Cheng, Xiang Li#, Jian Yang#. <br>
+> arxiv 2412.09442 <br>
+> [[Paper](https://arxiv.org/abs/2412.09442)] [[Code](https://github.com/zhengli97/ATPrompt)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] <br>
+
+
 <hr/>
 
-### Abstract
+## Abstract
 
-In this work, we introduce an attribute-embedded textual prompt learning method for vision-language models, named ATPrompt.
+In this work, we introduce an attribute-anchored textual prompt learning method for vision-language models, named ATPrompt.
 
 This method extends the learning space of soft prompts from the original one-dimensional category level to the multi-dimensional attribute level by embedding multiple fixed universal attribute tokens into the learnable soft prompts. 
 
 Guided by these attributes, soft prompts acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
 
-### Framework
+## Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
 <figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-embedded prompt learning. </figcaption>
@@ -40,9 +49,9 @@ Guided by these attributes, soft prompts acquire not only category-specific but 
 <figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption>
 
 
-### Highlights
+## Highlights
 
-(1). We introduce an attribute-templated prompt learning method for VLMs that utilizes universal attributes to regularize the learning of soft prompts.
+(1). We introduce an attribute-anchored prompt learning method for VLMs that utilizes universal attributes to regularize the learning of soft prompts.
 
 (2). We introduce a differentiable attribute search method that learns to determine the appropriate attribute content and quantity.
 
@@ -64,7 +73,7 @@ Guided by these attributes, soft prompts acquire not only category-specific but 
 
 ### 🚀 Running ATPrompt
 
-#### Step I: Attribute Search (Optional)
+### Step I: Attribute Search (Optional)
 
 (1) Directly use our results.
 
@@ -108,7 +117,7 @@ Select the result with the **highest confidence** in the last epoch as our targe
 
 In the following part, we provide the complete training log on Caltech101 for your reference.
 
-#### Step II: Prompt Learning with ATPrompt.
+### Step II: Prompt Learning with ATPrompt.
 
 Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
 
@@ -120,7 +129,7 @@ Here we take the **CoOp+ATPrompt** method as an example. You can switch to other
 
 3. Run the following commands to train the model using the ATPrompt method:   
 
-**🚀  Training:**
+**🚀 Training:**
 ```bash
 # CoOp+ATPrompt, dataset=imagenet
 sh scripts/coop/atp_base2new_train.sh imagenet
@@ -176,7 +185,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 
 ### Base-to-Novel Generalization
 
-<details>
+<details open>
 <summary>Click to expand "Result Figures".</Summary>
 <figure>
 <img src="images/exp_results.png" alt="fail" width="100%"">    
@@ -207,13 +216,12 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 ## 📄 Training Logs & Weights
 
 - Attribute Search.  
-We provide the complete attribute searching log on the Caltech101 dataset for your reference.   
-[[Baidu Cloud(TBD)]()] [[TeraBox(TBD)]()] [[Github Releases(TBD)]()]
+We provide the complete attribute searching log on ten datasets for your reference.   
+[[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/training-log)]
 
-- Prompt Learning (CoOp+ATPrompt).  
+- Cross-dataset Prompt Learning (CoOp+ATPrompt).  
 We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset setings.  
-[[Baidu Cloud(TBD)]()] [[TeraBox(TBD)]()] [[Github Releases(TBD)]()]
-
+[[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/weights)]
 
 ## ✉️ Contact
 
@@ -231,9 +239,4 @@ If you find our paper or repo helpful for your research, please consider citing 
   year={2024}
 }
 ```
-
-## 👏 Acknowledgements
-
-Our code is based on [PromptSRC](https://github.com/muzairkhattak/PromptSRC), [MaPLe](https://github.com/muzairkhattak/multimodal-prompt-learning), [KgCoOp](https://github.com/htyao89/KgCoOp), [Co-CoOp and CoOp](https://github.com/KaiyangZhou/CoOp) repository. We thank the authors for releasing their code.
-
 
