@@ -3,13 +3,14 @@
 > **Advancing Textual Prompt Learning with Anchored Attributes** <br>
 > Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang. <br>
 > Nankai University, Alibaba DAMO Academy. <br>
-> arXiv:2412.09442 <br>
+> ICCV 2025 <br>
 > [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)]
 
 <hr/>
 
 ## 🔥 News
 
+- 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769).
 
 <hr />
