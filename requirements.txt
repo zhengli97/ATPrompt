@@ -3,7 +3,7 @@ regex
 scikit-learn
 future
 yapf
-flake8
+flake8==3.7.9
 simple
 setuptools==78.1.0
 numpy==1.26.4
@@ -21,3 +21,4 @@ gdown
 wilds
 tabulate
 tb_nightly
+yapf
