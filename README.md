@@ -34,14 +34,14 @@
 
 In this work, we introduce an attribute-anchored textual prompt learning method for vision-language models, named ATPrompt.
 
-This method extends the learning space of soft prompts from the original one-dimensional category level to the multi-dimensional attribute level by embedding multiple fixed universal attribute tokens into the learnable soft prompts. 
+This method extends the learning space of soft prompts from the original one-dimensional category level to the multi-dimensional attribute level by incorporating multiple universal attribute tokens into the learnable soft prompts. 
 
-Guided by these attributes, soft prompts acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
+Guided by these attributes, soft tokens acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
 
 ## Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
-<figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-embedded prompt learning. </figcaption>
+<figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-anchored prompt learning. </figcaption>
 
 <br>
 
