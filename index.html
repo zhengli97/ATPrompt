@@ -136,7 +136,7 @@
                     </p>
                     <br>
                     <p style="font-size: 14pt;">
-                      Attributes can serve as <strong>bridges</strong> that connect unknown categories to our known knowledge.
+                      <strong>Attributes</strong> can serve as <strong>bridges</strong> that connect unknown categories to our known knowledge.
                     </p>
                     <br>
                     <p style="font-size: 14pt;">
@@ -160,7 +160,7 @@
                 <div class="columns is-centered has-text-centered">
                   <div class="column is-five-fourths width:100%" >
                     <p style="font-size: 14pt;">
-                      We present <strong>ATPrompt</strong>, an attribute-embedded prompt learning method for VLMs.
+                      We present <strong>ATPrompt</strong>, an attribute-anchored prompt learning method for VLMs.
                     </p>
                     <br>
                     <p style="font-size: 14pt;">
@@ -182,7 +182,7 @@
                 <br>
                 <h2 class="title is 2">Principle</h2>
                 <figure>
-                <img src="static/images/space.png" alt="fail" width="55%"">
+                <img src="static/images/space.png" alt="fail" width="90%"">
                   <figcaption class="content has-text-left"  style="font-size:0.9em;">
                     <i>Table 4. Comparison of image and text (category) alignment processes through learnable prompts. (a) Current prompt learning
                       methods align images with predefined categories but fail to establish accurate associations with unknown categories. (b) ATPrompt
@@ -233,7 +233,7 @@
         <h2 class="title is 2">Contributions</h2>
         <div class="content has-text-left" style="word-break:normal" >
           <p style="font-size: 12pt;">
-            <p>(1). We introduce an attribute-templated prompt learning method that expands the learning space of soft prompts from the original one-dimensional category level into the multi-dimensional attribute level by incorporating multiple universal attribute tokens into soft prompts.</p>
+            <p>(1). We introduce an attribute-anchored prompt learning method that expands the learning space of soft prompts from the original one-dimensional category level into the multi-dimensional attribute level by incorporating multiple universal attribute tokens into soft prompts.</p>
             <p>(2). We introduce a differentiable attribute search method that learns to determine the appropriate attribute content and quantity for the dataset.</p>
             <p>(3). Both shallow and deep versions of ATprompt are introduced to achieve compatibility with existing methods.</p>
             <p>(4). ATPrompt can be seamlessly intergrated into existing textual-based methods and brings general improvement at a negligible computational cost.</p>
@@ -253,27 +253,21 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Textual-based prompt learning methods primarily employ multiple learnable soft prompts and hard class tokens in 
-            a cascading manner as text prompt inputs, 
-            aiming to align image and text (category) spaces for downstream tasks. However, current training is restricted to aligning 
-            images with predefined known categories and cannot be associated with unknown categories. 
+          Textual-based prompt learning methods primarily employ multiple learnable soft prompts and hard class tokens in a cascading manner as text inputs, aiming to align image and text (category) spaces for downstream tasks. 
+          However, current training is restricted to aligning images with predefined known categories and cannot be associated with unknown categories.
           </p>
           <p>
-            In this work, we propose utilizing universal attributes as a bridge to enhance the alignment between images and unknown categories. 
-            Specifically, we introduce an Attribute-embedded Textual Prompt learning method for vision-language models, named ATPrompt. 
-            This approach expands the learning space of soft prompts 
-            from the original one-dimensional category level into the multi-dimensional attribute level by incorporating multiple 
-            universal attribute tokens into the learnable soft prompts. Through this modification, we transform the text prompt 
-            from a category-centric form to an attribute-category hybrid form. 
+          In this work, we propose utilizing universal attributes as a bridge to enhance the alignment between images and unknown categories. 
+          Specifically, we introduce an Attribute-anchored Textual Prompt learning method for vision-language models, named ATPrompt. 
+          This approach expands the learning space of soft prompts from the original one-dimensional category level into the multi-dimensional attribute level by incorporating multiple attribute tokens into the learnable soft prompts. 
+          Through this modification, we transform the text prompt from a category-centric form to an attribute-category hybrid form.
           </p>
           <p>
-            To finalize the attributes for downstream tasks, we propose a differentiable attribute search method that learns to identify 
-            representative and suitable attributes from a candidate pool summarized by a large language model. 
+          Additionally, we introduce a straightforward differentiable attribute search method to identify representative and suitable attributes for downstream tasks.
           </p>
           <p>
-            As an easy-to-use plug-in technique, ATPrompt can 
-            seamlessly replace the existing prompt format of textual-based methods, offering general improvements at 
-            a negligible computational cost. Extensive experiments on 11 datasets demonstrate the effectiveness of our method. 
+          As an easy-to-use plug-in technique, ATPrompt can seamlessly replace the existing basic prompt format in textual-based methods, providing general improvements at a negligible computational cost. 
+          Extensive experiments across 11 datasets validate the effectiveness of our method.
           </p>
         </div>
       </div>
@@ -325,7 +319,7 @@
         <strong>Base-to-Novel Generalization</strong>
         </div>
         <figure>
-        <img src="static/experiments/table1.png" alt="fail" width="90%"">
+        <img src="static/experiments/table1.png" alt="fail" width="100%"">
         <figcaption class="content has-text-left" style="word-break:normal">
           <i>Table 1. Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets. HM:
           Harmonic Mean. ∆: HM improvement of ATPrompt over previous results. “ATPrompt” is abbreviated as “ATP”. Our method achieves
@@ -348,7 +342,7 @@
           <strong>Domain Generalization</strong>
         </div>
         <figure>
-          <img src="static/experiments/table3.png" alt="fail" width="70%"">
+          <img src="static/experiments/table3.png" alt="fail" width="60%"">
           <figcaption class="content has-text-left" style="word-break:normal">
             <i>Table 3. Domain generalization experiments of three baselines with and without our ATPrompt on 4 datasets. Our method achieves
             consistent average performance improvement over three baseline methods.</i>
@@ -362,9 +356,9 @@
           Here we explore the effectiveness of attributes derived through alternative methods, specifically by manually selecting class-irrelevant and common attributes.
         </p>
         <figure>
-          <img src="static/experiments/table6.png" alt="fail" width="50%"">
+          <img src="static/experiments/table6.png" alt="fail" width="55%"">
           <figcaption class="content has-text-left" style="word-break:normal">
-            <i>Table 4. Comparison of different attributes on Food101. The attributes obtained by our method achieve the best performance.</i> 
+            <i>Table 4. Comparison of different attributes on 11 datasets. The attributes obtained by our method achieve the best performance.</i> 
           </figcaption>
         </figure>
         <br>
@@ -399,7 +393,7 @@
           In the following table, we compare the performance of partial drop (i.e., removing attribute soft tokens while retaining hard tokens) and full drop (i.e., removing both attribute soft and hard tokens) operations.
         </p>
         <figure>
-          <img src="static/experiments/table4.png" alt="fail" width="50%"">
+          <img src="static/experiments/table4.png" alt="fail" width="60%"">
           <figcaption class="content has-text-left" style="word-break:normal">
             <i>Table 6. Comparison of operations on deep soft and hard attribute
             tokens based on MaPLe+ATPrompt. Preserving hard and soft attribute tokens in deep layers performs better than other operations.</i>
@@ -410,7 +404,7 @@
           <strong>Attribute Bases and Searched Results</strong>
         </div>
         <figure>
-          <img src="static/experiments/table5.png" alt="fail" width="80%"">
+          <img src="static/experiments/table5.png" alt="fail" width="45%"">
           <figcaption class="content has-text-centered" style="word-break:normal">
             <i>Table 7. Attribute bases and searched results for each dataset.</i>
           </figcaption>
@@ -430,10 +424,10 @@
           <p>
             1. If you are interested in prompt learning and want to know more about related work, we also maintain <a href="https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-VLMs" target="_blank" style="color:rgb(31, 147, 255)">[a curated list of awesome prompt/adapter learning methods for VLMs]</a><img src="https://img.shields.io/github/stars/zhengli97/Awesome-Prompt-Learning-for-Vision-Language-Models?style=social"/> for your reference. 
             <br><br>
-            2. In October 2024, I was invited by Jiangmen(将门) to give a talk about prompt learning methods. In this video <a href="https://www.techbeat.net/talk-info?id=915" target="_blank" style="color:rgb(31, 147, 255)">[Link]</a>, I introduce the motivation, principle, and related work of the prompt learning method in detail. 
+            2. I was invited by Jiangmen(将门) to give a talk about prompt learning methods. In this video <a href="https://www.techbeat.net/talk-info?id=915" target="_blank" style="color:rgb(31, 147, 255)">[Link]</a>, I introduce the motivation, principle, and related work of the prompt learning method in detail. 
             If you can speak Chinese, this video might be good material to help you quickly understand the field of prompt learning.
             <br><br>
-            3. Before this work, I published a paper on prompt learning at CVPR-2024 called <a href="https://arxiv.org/abs/2403.02781" target="_blank" style="color:rgb(31, 147, 255)">PromptKD</a>. In this <a href="https://zhengli97.github.io/PromptKD/" target="_blank" style="color:rgb(31, 147, 255)">[project]</a><img src="https://img.shields.io/github/stars/zhengli97/PromptKD?style=social"/>, I open-sourced the complete code and wrote a detailed <a href="https://zhuanlan.zhihu.com/p/684269963" target="_blank" style="color:rgb(31, 147, 255)">Chinese paper interpretation</a>.
+            3. Before this work, I published a paper on prompt learning at CVPR-2024 called <a href="https://arxiv.org/abs/2403.02781" target="_blank" style="color:rgb(31, 147, 255)">PromptKD</a>. In this <a href="https://zhengli97.github.io/PromptKD/" target="_blank" style="color:rgb(31, 147, 255)">project</a><img src="https://img.shields.io/github/stars/zhengli97/PromptKD?style=social"/>, I open-sourced the complete code and wrote a detailed <a href="https://zhuanlan.zhihu.com/p/684269963" target="_blank" style="color:rgb(31, 147, 255)">Chinese paper interpretation</a>.
             This interpretation is also a good learning material for your reference.
             <br><br>
             <strong>4. If you have any questions, please feel free to submit an <a href="https://github.com/zhengli97/ATPrompt/issues" target="_blank" style="color:rgb(31, 147, 255)">issue</a> on GitHub, or contact me by email (zhengli97[at]qq.com).</strong>
