@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# DATA=/mnt/workspace/workgroup/weichen.lz/dataset/prompt_dataset
 DATA=/root/prompt_dataset
 
 CFG=vit_b16  # config file

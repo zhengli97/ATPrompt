@@ -27,12 +27,8 @@ import trainers.coop
 import trainers.coop_atp
 import trainers.cocoop
 import trainers.cocoop_atp
-import trainers.kgcoop
-import trainers.kgcoop_atp
 import trainers.maple
 import trainers.maple_atp
-import trainers.promptsrc
-import trainers.promptsrc_atp
 import trainers.zsclip
 
 def print_args(args, cfg):

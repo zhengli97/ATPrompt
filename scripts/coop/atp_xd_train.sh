@@ -3,10 +3,9 @@
 # custom config
 DATA=/root/prompt_dataset
 TRAINER=CoOp_ATP
-
-CFG=vit_b16
 CTP=end
 NCTX=16
+CFG=vit_b16
 SHOTS=16
 CSC=False
 
