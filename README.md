@@ -1,10 +1,17 @@
-# Official code for "Advancing Textual Prompt Learning with Anchored Attributes"
+<div align="center">
+<h1>Advancing Textual Prompt Learning with Anchored Attributes</h1>
+  
+[**Zheng Li**](https://zhengli97.github.io)<sup>1</sup> · [**Yibing Song**](https://ybsong00.github.io/)<sup>2</sup> · [**Ming-Ming Cheng**](https://mmcheng.net/)<sup>1</sup> · [**Xiang Li**](https://implus.github.io/)<sup>1</sup> · [**Jian Yang**](https://scholar.google.com/citations?user=6CIDtZQAAAAJ&hl=en)<sup>1</sup>
 
-> **Advancing Textual Prompt Learning with Anchored Attributes** <br>
-> Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang. <br>
-> Nankai University, Alibaba DAMO Academy. <br>
-> ICCV 2025 <br>
-> [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)]
+<sup>1</sup>Nankai University,
+<sup>2</sup>Damo Academy, Alibaba Group
+
+**ICCV 2025**
+
+**[[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)]**
+
+</div>
+
 
 <hr/>
 
