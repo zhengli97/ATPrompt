@@ -17,6 +17,7 @@
 
 ## 🔥 News
 
+- 2025.07. The open source process of this paper is not yet complete. Detailed hyperparameters list, pre-trained model weights, and training logs will be provided soon.
 - 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769).
 
