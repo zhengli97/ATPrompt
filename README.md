@@ -15,11 +15,11 @@
 
 <hr/>
 
+<!-- 
 ## 🔥 News
-
 - 2025.07. The open source process of this paper is not yet complete. Detailed hyperparameters list, pre-trained model weights, and training logs will be provided soon.
 - 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
-- 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769).
+- 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769). -->
 
 
 ## 💡 Tips:
@@ -54,7 +54,7 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 <div style="text-align:center"><img src="images/shallow_deep_version.png" width="100%"></div>
 <figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption>
 
-
+<!-- 
 ## Highlights
 
 (1). We introduce an attribute-anchored prompt learning method for VLMs that utilizes universal attributes to regularize the learning of soft prompts.
@@ -64,7 +64,7 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 (3). Both shallow and deep versions of ATPrompt are introduced to achieve compatibility with existing methods.
 
 (4). ATPrompt can be seamlessly intergrated into existing textual-based methods and brings general improvement at a negligible computational cost.
-
+ -->
 
 ## 🚀 Running
 
@@ -163,7 +163,6 @@ Or you can run the following command:
 sh scripts/coop/vanilla_base2new_train.sh imagenet
 ```
 
-For more details, please refer to `docs/`.
 
 (2) Cross-dataset & Domain Generalization Experiments.
 
@@ -202,26 +201,6 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 <figure>
 <img src="images/exp_results.png" alt="fail" width="100%"">    
 <figcaption class="content has-text-left" style="word-break:normal">Table 1: Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets. HM: Harmonic Mean. ∆: HM improvement of ATPrompt over previous results. "ATPrompt" is abbreviated as "ATP". Our method achieves consistent average performance improvement over different baselines.
-</figure>
-</details>
-
-### Cross-dataset Experiments
-
-<details>
-<summary>Click to expand "Result Figures".</Summary>
-<figure>
-<img src="images/exp_results2.png" alt="fail" width="100%"">   
-<figcaption class="content has-text-left" style="word-break:normal">Table 2: Cross-dataset generalization experiments of three baselines with and without our ATPrompt on 11 datasets. Our method achieves consistent average performance improvements over three baseline methods.
-</figure>
-</details>
-
-### Domain Generalization
-
-<details>
-<summary>Click to expand "Result Figures".</Summary>
-<figure>
-<img src="images/exp_results3.png" alt="fail" width="60%"">   
-<figcaption class="content has-text-left" style="word-break:normal">Table 3: Domain generalization experiments of three baselines with and without our ATPrompt on 4 datasets. Our method achieves consistent average performance improvement over three baseline methods.
 </figure>
 </details>
 
