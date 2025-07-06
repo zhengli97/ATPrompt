@@ -21,7 +21,6 @@
 - 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769).
 
-<hr />
 
 ## 💡 Tips:
 
@@ -36,7 +35,6 @@
 > [[Paper](https://arxiv.org/abs/2403.02781)] [[Code](https://github.com/zhengli97/PromptKD)] [[Project Page](https://zhengli97.github.io/PromptKD)] [[Poster](https://github.com/zhengli97/PromptKD/blob/main/images/promptkd_poster.pdf)] [[中文论文解读](https://zhuanlan.zhihu.com/p/684269963)] [[视频解读](https://www.techbeat.net/talk-info?id=915)] [[论文翻译](https://github.com/zhengli97/PromptKD/blob/main/docs/PromptKD_chinese_version.pdf)] <br>
 
 
-<hr/>
 
 ## Abstract
 
@@ -72,9 +70,9 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 
 ### Preliminary
 
-1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [INSTALL.md](docs/INSTALL.md).
+1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [[INSTALL.md](docs/INSTALL.md)].
 
-2. Prepare the dataset. Please follow the instructions detailed in [DATASETS.md](docs/DATASETS.md). If you are unable to access the StanfordCars dataset, we have provided the dataset in [[GitHub Release]((https://github.com/zhengli97/PromptKD/releases/tag/datasets))] for your convenience.
+2. Prepare the dataset. Please follow the instructions detailed in [[DATASETS.md](docs/DATASETS.md)]. If you are unable to access the StanfordCars dataset, we have provided the dataset in [[GitHub releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets)] for your convenience.
 
 3. (Optional) Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder. Comment the `trainers/coop.py line 42` and uncomment the `line 43`.  
 [[ViT-B/16 CLIP](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)] [[ViT-L/14 CLIP](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)]
@@ -108,6 +106,8 @@ Expand the list below👇 to see the results:
 Table 1. Attribute bases and searched results for each dataset.
 </details>
 
+<hr/>
+
 (2) Reproduce the whole process on your own.
 
 - Register a ChatGPT service account (We are using [ZhiZengZeng](https://gpt.zhizengzeng.com/#/)) and enter the API Key in `gpt_query.py line 27`. Then run the following code:   
@@ -123,7 +123,11 @@ sh scripts/attribute_compute/main.sh
 ```
 Select the result with the **highest confidence** in the last epoch as our target attribute.
 
-In the following part, we provide the complete training log on Caltech101 for your reference.
+In the following **<Training Logs & Weights>**, we provide the complete attribute searching log on Caltech101 for your reference.
+
+**For more practical information about this process, please refer to [Attribute_Search.md](docs/Attribute_Search.md).**
+
+<hr/>
 
 ### Step II: Prompt Learning with ATPrompt.
 
