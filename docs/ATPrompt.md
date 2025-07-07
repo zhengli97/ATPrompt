@@ -1,13 +1,13 @@
 
 # Instructions for reproducing our results.
 
-In the \<Running\> section of readme.md, we provide detailed execution instructions for running CoOp+ATPrompt, and in the \<Training Logs & Weights\> section, we provide detailed training logs for your reference.
+In the \<Running\> section of readme.md, we provide detailed instructions for running CoOp+ATPrompt, and in the \<Training Logs & Weights\> section, we provide detailed training logs for your reference.
 
 In the following, we will provide implementation details and hyperparameter settings for reproducing CoOp+ATPrompt, CoCoOp+ATPrompt, MaPLe+ATPrompt and DePT+ATPrompt. 
 
 **💡 Important Note: Reproduction with the following settings may deviate or fluctuate from the reported values. This is due to the randomness of the training data partitioning (`oxford_pets.py line 77`). This is normal. We recommend that researchers run more experiments with different seeds to reproduce the corresponding results stably.**
 
-(The experiments of DePT and PromptKD are not provided for the time being because the code has not been integrated. DePT uses a different implementation method, so it takes some time to migrate.)
+(The experiments of DePT and PromptKD are not available yet. Since DePT and PromptKD are implemented differently from previous work, the migration will take some time.)
 
 Below is the attribute table used for different datasets:
 
@@ -83,9 +83,9 @@ In this experiment, other parameters are kept unchanged. On the ImageNet-1K sour
 
 # 论文结果复现指引 (中文版)
 
-在readme.md \<Running\>部分中，我们提供了详细的，用于运行CoOp+ATPrompt的执行指令，并在\<Training Logs & Weights\>部分，提供了详细的训练log用于参考。接下来，我们会提供用于复现CoOp+ATPrompt，CoCoOp+ATPrompt, MaPLe+ATPrompt的实现细节和超参数设定。(DePT和PromptKD的实验因为代码还没整合进来，暂时没有提供，DePT由于是用的不一样的实现框架，所以需要一定的时间进行迁移)。
+在readme.md \<Running\>部分中，我们提供了详细的，用于运行CoOp+ATPrompt的执行指令，并在\<Training Logs & Weights\>部分，提供了详细的训练log用于参考。接下来，我们会提供用于复现CoOp+ATPrompt，CoCoOp+ATPrompt, MaPLe+ATPrompt的实现细节和超参数设定。(DePT和PromptKD的实验因为代码还没整合进来，暂时没有提供，DePT和PromptKD由于是用的不一样的实现框架，所以需要一定的时间进行迁移)。
 
-**💡 重要提示：按照以下设定进行复现可能会与报告数值存在偏差或者波动，这是由于划分训练数据时的随机性引起的(datasets/oxford_pets.py line 77)，这是正常现象。我们推荐研究者多跑一些不同种子的实验以稳定复现对应的结果。**
+**💡 重要提示：按照以下设定进行复现可能会与报告数值存在偏差或者波动，这是由于划分训练数据时的随机性引起的(`datasets/oxford_pets.py line 77`)，这是正常现象。我们推荐研究者多跑一些不同种子的实验以稳定复现对应的结果。**
 
 以下是对于不同数据集所用的属性表：
 
