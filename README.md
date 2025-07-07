@@ -123,7 +123,7 @@ sh scripts/attribute_compute/main.sh
 ```
 Select the result with the **highest confidence** in the last epoch as our target attribute.
 
-In the following **<Training Logs & Weights>**, we provide the complete attribute searching log on Caltech101 for your reference.
+In the following **<Training Logs & Weights>**, we provide the complete attribute searching log on ten datasets for your reference.
 
 **For more practical information about this process, please refer to [Attribute_Search.md](docs/Attribute_Search.md).**
 
