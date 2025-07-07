@@ -133,7 +133,7 @@ In the following **<Training Logs & Weights>**, we provide the complete attribut
 
 Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
 
-(1) Base-to-Novel Experiments.
+**(1) Base-to-Novel Experiments.**
 
 1. The config files for each baseline method are provided in `configs/trainers/`. You can modify the hyper-parameters in these config files.
 
@@ -163,8 +163,7 @@ Or you can run the following command:
 sh scripts/coop/vanilla_base2new_train.sh imagenet
 ```
 
-
-(2) Cross-dataset & Domain Generalization Experiments.
+**(2) Cross-dataset & Domain Generalization Experiments.**
 
 1. Change the `DATA` in `scripts/coop/xd_train.sh line 4` to your current dataset path.
 
@@ -196,11 +195,11 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 
 ### Base-to-Novel Generalization
 
-<details open>
+<details>
 <summary>Click to expand "Result Figures".</Summary>
 <figure>
 <img src="images/exp_results.png" alt="fail" width="100%"">    
-<figcaption class="content has-text-left" style="word-break:normal">Table 1: Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets. HM: Harmonic Mean. ∆: HM improvement of ATPrompt over previous results. "ATPrompt" is abbreviated as "ATP". Our method achieves consistent average performance improvement over different baselines.
+<figcaption class="content has-text-left" style="word-break:normal">Table 1: Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets.
 </figure>
 </details>
 
