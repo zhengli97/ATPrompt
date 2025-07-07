@@ -81,6 +81,8 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 
 ### Step I: Attribute Search (Optional)
 
+**For more practical information about this process, please refer to [[Attribute_Search.md](docs/Attribute_Search.md)].**
+
 (1) Directly use our results.
 
 Here we provide the five attribute bases obtained by querying the LLM (GPT-4o) and the final result after the differentiable attribute search. You can directly use our results for subsequent training.
@@ -125,13 +127,13 @@ Select the result with the **highest confidence** in the last epoch as our targe
 
 In the following **<Training Logs & Weights>**, we provide the complete attribute searching log on ten datasets for your reference.
 
-**For more practical information about this process, please refer to [Attribute_Search.md](docs/Attribute_Search.md).**
-
 <hr/>
 
 ### Step II: Prompt Learning with ATPrompt.
 
 Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
+
+**In [[ATPrompt.md](docs/ATPrompt.md)], we provide full implementation details for researchers to reproduce our results.**
 
 **(1) Base-to-Novel Experiments.**
 
