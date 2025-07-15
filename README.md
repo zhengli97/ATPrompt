@@ -211,6 +211,10 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 We provide the complete attribute searching log on ten datasets for your reference.   
 [[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/training-log)]
 
+- Base-to-Novel Generalization (CoOp+ATPrompt).   
+We provide the complete training logs and model weights on 11 datasets for your reference.  
+[[Github Release](https://github.com/zhengli97/ATPrompt/releases/tag/traininglog_and_weights)]
+
 - Cross-dataset Prompt Learning (CoOp+ATPrompt).  
 We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset setings.  
 [[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/weights)]
