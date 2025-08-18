@@ -1,4 +1,3 @@
-simple
 regex
 scikit-learn
 future
