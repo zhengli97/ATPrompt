@@ -25,7 +25,7 @@
 ## 💡 Tips:
 
 1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
-2. If you are trying to reproduce the results of this implementation on the Stanfordcars dataset, the link to this dataset may be broken and unavailable. We have provided the dataset in [GitHub releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets) for your convenience.
+2. If you attempt to reproduce the results of this implementation on the existing 15 datasets, the links to those datasets may be broken and unusable. For your convenience, we have provided 14 datasets (excluding ImageNet) in the HuggingFace platform. [[Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
 ### 💻 Some other prompt learning projects from our lab may interest you:
 
@@ -72,7 +72,7 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 
 1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [[INSTALL.md](docs/INSTALL.md)].
 
-2. Prepare the dataset. Please follow the instructions detailed in [[DATASETS.md](docs/DATASETS.md)]. If you are unable to access the StanfordCars dataset, we have provided the dataset in [[GitHub releases](https://github.com/zhengli97/PromptKD/releases/tag/datasets)] for your convenience.
+2. Prepare the dataset. Please follow the instructions detailed in [[DATASETS.md](docs/DATASETS.md)]. For your download convenience, we have provided 14 datasets (excluding ImageNet-1K) in the Huggingface platform. [[HuggingFace_Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
 3. (Optional) Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder. Comment the `trainers/coop.py line 42` and uncomment the `line 43`.  
 [[ViT-B/16 CLIP](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)] [[ViT-L/14 CLIP](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)]
