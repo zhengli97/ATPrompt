@@ -132,6 +132,8 @@ In the following **<Training Logs & Weights>**, we provide the complete attribut
 ### Step II: Prompt Learning with ATPrompt.
 
 Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
+(This implementation currently supports CoOp+ATPrompt, CoCoOp+ATPrompt, MaPLe+ATPrompt and DePT+ATPrompt methods.)
+
 
 **In [[ATPrompt.md](docs/ATPrompt.md)], we provide full implementation details for researchers to reproduce our results.**
 
