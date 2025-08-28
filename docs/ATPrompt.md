@@ -137,9 +137,9 @@ In this experiment, other parameters are kept unchanged. On the ImageNet-1K sour
 
 注：DePT中有一个损失平衡超参数w，一般默认设定为0.7。
 
-在该实验中，保持其他参数不变，对于Caltech, DTD, EuroSAT, FGVC Aircraft, Food101, Flowers, SUN397, UCF101 设定EPO=10, NCTX=4, 其中对于Caltech, DTD, 设定w=0.6， 对于UCF101, 设定w=0.5。
+在该实验中，保持其他参数不变，对于Caltech, DTD, EuroSAT, FGVC Aircraft, Food101, Flowers, SUN397, UCF101 设定EPO=10, NCTX=4, w=0.7 其中对于Caltech, DTD, 设定EPO=10, NCTX=4, w=0.6， 对于UCF101, 设定EPO=10, NCTX=4, w=0.5。
 
-对于StanfordCars, OxfordPets, 设定EPO=10, NCTX=2, 其中对于StanfordCars，设定w=0.6。
+对于OxfordPets, 设定EPO=10, NCTX=2, w=0.7, 对于StanfordCars，设定EPO=10, NCTX=2, w=0.6。
 
 # Cross-dataset & Domain Generalization 实验
 

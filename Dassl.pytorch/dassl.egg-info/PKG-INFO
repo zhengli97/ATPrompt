@@ -6,8 +6,21 @@ Home-page: https://github.com/KaiyangZhou/Dassl.pytorch
 Author: Kaiyang Zhou
 License: MIT
 Keywords: Domain Adaptation,Domain Generalization,Semi-Supervised Learning,Pytorch
-Platform: UNKNOWN
 License-File: LICENSE
+Requires-Dist: flake8==3.7.9
+Requires-Dist: yapf==0.29.0
+Requires-Dist: isort==4.3.21
+Requires-Dist: yacs
+Requires-Dist: gdown
+Requires-Dist: tb-nightly
+Requires-Dist: future
+Requires-Dist: scipy
+Requires-Dist: scikit-learn
+Requires-Dist: tqdm
+Requires-Dist: ftfy
+Requires-Dist: regex
+Requires-Dist: wilds==1.2.2
+Requires-Dist: tabulate
 
 # Dassl
 
@@ -288,5 +301,3 @@ If you find this code useful to your research, please give credit to the followi
   publisher={IEEE}
 }
 ```
-
-

@@ -6,7 +6,9 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 from tqdm import tqdm
-from torch.utils.tensorboard import SummaryWriter
+# from torch.utils.tensorboard import SummaryWriter
+import sys
+import os
 
 from dassl.data import DataManager
 from dassl.optim import build_optimizer, build_lr_scheduler
@@ -222,22 +224,23 @@ class TrainerBase:
         if not torch.isfinite(loss).all():
             raise FloatingPointError("Loss is infinite or NaN!")
 
-    def init_writer(self, log_dir):
-        if self.__dict__.get("_writer") is None or self._writer is None:
-            print(f"Initialize tensorboard (log_dir={log_dir})")
-            self._writer = SummaryWriter(log_dir=log_dir)
+    # def init_writer(self, log_dir):
+    #     if self.__dict__.get("_writer") is None or self._writer is None:
+    #         print(f"Initialize tensorboard (log_dir={log_dir})")
+    #         # self._writer = SummaryWriter(log_dir=log_dir)
+    #         self._writer = None
 
-    def close_writer(self):
-        if self._writer is not None:
-            self._writer.close()
+    # def close_writer(self):
+    #     if self._writer is not None:
+    #         self._writer.close()
 
-    def write_scalar(self, tag, scalar_value, global_step=None):
-        if self._writer is None:
-            # Do nothing if writer is not initialized
-            # Note that writer is only used when training is needed
-            pass
-        else:
-            self._writer.add_scalar(tag, scalar_value, global_step)
+    # def write_scalar(self, tag, scalar_value, global_step=None):
+    #     if self._writer is None:
+    #         # Do nothing if writer is not initialized
+    #         # Note that writer is only used when training is needed
+    #         pass
+    #     else:
+    #         self._writer.add_scalar(tag, scalar_value, global_step)
 
     def train(self, start_epoch, max_epoch):
         """Generic training loops."""
@@ -250,6 +253,10 @@ class TrainerBase:
             self.run_epoch()
             self.after_epoch()
         self.after_train()
+        
+        sys.stdout.flush()
+        sys.stdout.close()
+        os._exit(0)
 
     def before_train(self):
         pass
@@ -392,9 +399,9 @@ class SimpleTrainer(TrainerBase):
         self.start_epoch = self.resume_model_if_exist(directory)
 
         # Initialize summary writer
-        writer_dir = osp.join(self.output_dir, "tensorboard")
-        mkdir_if_missing(writer_dir)
-        self.init_writer(writer_dir)
+        # writer_dir = osp.join(self.output_dir, "tensorboard")
+        # mkdir_if_missing(writer_dir)
+        # self.init_writer(writer_dir)
 
         # Remember the starting time (for computing the elapsed time)
         self.time_start = time.time()
@@ -417,7 +424,7 @@ class SimpleTrainer(TrainerBase):
         print(f"Elapsed: {elapsed}")
 
         # Close writer
-        self.close_writer()
+        # self.close_writer()
 
     def after_epoch(self):
         last_epoch = (self.epoch + 1) == self.max_epoch
@@ -443,7 +450,7 @@ class SimpleTrainer(TrainerBase):
             self.save_model(self.epoch, self.output_dir)
 
     @torch.no_grad()
-    def test(self, split=None):
+    def test(self, split=None, is_final=False):
         """A generic testing pipeline."""
         self.set_model_mode("eval")
         self.evaluator.reset()
@@ -466,9 +473,14 @@ class SimpleTrainer(TrainerBase):
 
         results = self.evaluator.evaluate()
 
-        for k, v in results.items():
-            tag = f"{split}/{k}"
-            self.write_scalar(tag, v, self.epoch)
+        # for k, v in results.items():
+        #     tag = f"{split}/{k}"
+            # self.write_scalar(tag, v, self.epoch)
+
+        if is_final:
+            sys.stdout.flush()
+            sys.stdout.close()
+            os._exit(0)
 
         return list(results.values())[0]
 
@@ -562,9 +574,9 @@ class TrainerXU(SimpleTrainer):
                 print(" ".join(info))
 
             n_iter = self.epoch * self.num_batches + self.batch_idx
-            for name, meter in losses.meters.items():
-                self.write_scalar("train/" + name, meter.avg, n_iter)
-            self.write_scalar("train/lr", self.get_current_lr(), n_iter)
+            # for name, meter in losses.meters.items():
+            #     self.write_scalar("train/" + name, meter.avg, n_iter)
+            # self.write_scalar("train/lr", self.get_current_lr(), n_iter)
 
             end = time.time()
 
@@ -619,9 +631,9 @@ class TrainerX(SimpleTrainer):
                 print(" ".join(info))
 
             n_iter = self.epoch * self.num_batches + self.batch_idx
-            for name, meter in losses.meters.items():
-                self.write_scalar("train/" + name, meter.avg, n_iter)
-            self.write_scalar("train/lr", self.get_current_lr(), n_iter)
+            # for name, meter in losses.meters.items():
+            #     self.write_scalar("train/" + name, meter.avg, n_iter)
+            # self.write_scalar("train/lr", self.get_current_lr(), n_iter)
 
             end = time.time()
 

@@ -27,6 +27,8 @@ import trainers.coop
 import trainers.coop_atp
 import trainers.cocoop
 import trainers.cocoop_atp
+import trainers.dept
+import trainers.dept_atp
 import trainers.maple
 import trainers.maple_atp
 import trainers.zsclip
@@ -127,6 +129,7 @@ def extend_cfg(cfg):
     cfg.TRAINER.PROMPTSRC.GPA_MEAN = 15
     cfg.TRAINER.PROMPTSRC.GPA_STD = 1
     
+    # Config for ATPrompt
     cfg.TRAINER.ATPROMPT = CN()
     cfg.TRAINER.ATPROMPT.USE_ATPROMPT = False
     cfg.TRAINER.ATPROMPT.N_ATT1 = 4
@@ -150,6 +153,16 @@ def extend_cfg(cfg):
     cfg.TRAINER.IVLP.PROMPT_DEPTH_TEXT = 9  # Max 12, minimum 0, for 0 it will act as shallow IVLP prompting(J=1)
     cfg.TRAINER.IVLP.IMG_WEIGHT = 0.5  # Max 12, minimum 0, for 0 it will act as shallow IVLP prompting(J=1)
 
+    # Config for DePT
+    # linear classifier settings
+    cfg.TRAINER.LINEAR_PROBE = CN()
+    cfg.TRAINER.LINEAR_PROBE.TYPE = 'linear'
+    cfg.TRAINER.LINEAR_PROBE.WEIGHT = 0.7
+    cfg.TRAINER.LINEAR_PROBE.TEST_TIME_FUSION = True
+    # cwT module settings
+    cfg.TRAINER.FILM = CN()
+    cfg.TRAINER.FILM.LINEAR_PROBE = True
+    cfg.TRAINER.NAMES_TO_UPDATE = ['prompt_learner', 'linear_probe', 'film']
 
 def choose_attribute_for_atprompt(cfg):
     if cfg.TRAINER.ATPROMPT.USE_ATPROMPT:
@@ -258,7 +271,7 @@ def main(args):
 
     if args.eval_only:
         trainer.load_model(args.model_dir, epoch=args.load_epoch)
-        trainer.test()
+        trainer.test(is_final=True)
         return
 
     if not args.no_train:

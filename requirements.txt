@@ -2,15 +2,12 @@ regex
 scikit-learn
 future
 yapf
-flake8==3.7.9
-simple
-numpy==1.26.4
+flake8
+numpy
 wilds
 regex
 ftfy
 fsspec
-yapf==0.29.0
-flake8
 yacs
 isort
 google 
@@ -19,4 +16,3 @@ gdown
 wilds
 tabulate
 tb_nightly
-yapf
