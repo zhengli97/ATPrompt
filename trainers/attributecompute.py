@@ -499,8 +499,8 @@ class AttributeCompute(TrainerX):
         
         model = self.model
         
-        image_train, label_train = self.parse_batch_train(batch_train)
-        image_val, label_val = self.parse_batch_train(batch_val)
+        image_train, label_train = self.parse_batch(batch_train)
+        image_val, label_val = self.parse_batch(batch_val)
         
         prec = self.cfg.TRAINER.COOP.PREC
         optim_prompt = self.optim
@@ -517,14 +517,7 @@ class AttributeCompute(TrainerX):
 
         return loss_summary
     
-    def parse_batch_train(self, batch):
-        input = batch["img"]
-        label = batch["label"]
-        input = input.to(self.device)
-        label = label.to(self.device)
-        return input, label
-
-    def parse_batch_val(self, batch):
+    def parse_batch(self, batch):
         input = batch["img"]
         label = batch["label"]
         input = input.to(self.device)

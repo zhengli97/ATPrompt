@@ -12,8 +12,7 @@
 
 </div>
 
-
-<hr/>
+<!-- <hr/> -->
 
 <!-- 
 ## 🔥 News
@@ -27,7 +26,7 @@
 1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
 2. If you attempt to reproduce the results of this implementation on the existing 15 datasets, the links to those datasets may be broken and unusable. For your convenience, we have provided 14 datasets (excluding ImageNet) in the HuggingFace platform. [[Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
-### 💻 Some other prompt learning projects from our lab may interest you:
+### 🔥 Some other prompt learning works from our lab may interest you:
 
 > **PromptKD: Unsupervised Prompt Distillation for Vision-Language Models** <br>
 > Zheng Li, Xiang Li, Xinyi Fu, Xin Zhang, Weiqiang Wang, Shuo Chen, Jian Yang. <br>
@@ -223,7 +222,7 @@ We provide model weights and training logs trained on the source dataset (ImageN
 
 ## ✉️ Contact
 
-If you have any questions, you can submit an [issue](https://github.com/zhengli97/ATPrompt/issues) on GitHub, or contact me by email (zhengli97 [at] qq.com).
+If you have any questions, you can submit an [issue](https://github.com/zhengli97/ATPrompt/issues) on GitHub, or contact me by email (zhengli97[at]qq.com).
 
 ## ⭐ Citation
 
