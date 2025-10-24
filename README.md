@@ -229,11 +229,12 @@ If you have any questions, you can submit an [issue](https://github.com/zhengli9
 If you find our paper or repo helpful for your research, please consider citing the following paper and giving this repo a star. Thank you!
 
 ```
-@article{li2024advancing,
-  title={Advancing Textual Prompt Learning with Anchored Attributes},
+@inproceedings{li2025advancing,
+  title={Advancing textual prompt learning with anchored attributes},
   author={Li, Zheng and Song, Yibing and Cheng, Ming-Ming and Li, Xiang and Yang, Jian},
-  journal={arXiv preprint arXiv:2412.09442},
-  year={2024}
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={3618--3627},
+  year={2025}
 }
 
 @inproceedings{li2024promptkd,
