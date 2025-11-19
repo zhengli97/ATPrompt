@@ -222,7 +222,7 @@ We provide model weights and training logs trained on the source dataset (ImageN
 
 ## ✉️ Contact
 
-If you have any questions, you can submit an [issue](https://github.com/zhengli97/ATPrompt/issues) on GitHub, or contact me by email (zhengli97[at]qq.com).
+If you have any questions, you can submit an [issue](https://github.com/zhengli97/ATPrompt/issues) on GitHub, or contact me by email (zhengli97[at]foxmail.com).
 
 ## ⭐ Citation
 
