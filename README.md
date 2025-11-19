@@ -16,7 +16,7 @@
 
 <!-- 
 ## 🔥 News
-- 2025.07. The open source process of this paper is not yet complete. Detailed hyperparameters list, pre-trained model weights, and training logs will be provided soon.
+- 2025.07. The open source process of this paper is not yet complete. Detailed hyperparameter list, pre-trained model weights, and training logs will be provided soon.
 - 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769). -->
 
@@ -62,7 +62,7 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 
 (3). Both shallow and deep versions of ATPrompt are introduced to achieve compatibility with existing methods.
 
-(4). ATPrompt can be seamlessly intergrated into existing textual-based methods and brings general improvement at a negligible computational cost.
+(4). ATPrompt can be seamlessly integrated into existing text-based methods and brings general improvement at a negligible computational cost.
  -->
 
 ## 🚀 Running
@@ -134,11 +134,11 @@ Here we take the **CoOp+ATPrompt** method as an example. You can switch to other
 (This implementation currently supports CoOp+ATPrompt, CoCoOp+ATPrompt, MaPLe+ATPrompt and DePT+ATPrompt methods.)
 
 
-**In [[ATPrompt.md](docs/ATPrompt.md)], we provide full implementation details for researchers to reproduce our results.**
+**🚨🚨🚨 In [[ATPrompt.md](docs/ATPrompt.md)], we provide full implementation details for researchers to reproduce our results.**
 
 **(1) Base-to-Novel Experiments.**
 
-1. The config files for each baseline method are provided in `configs/trainers/`. You can modify the hyper-parameters in these config files.
+1. The config files for each baseline method are provided in `configs/trainers/`. You can modify the hyperparameters in these config files.
 
 2. Change the `DATA` in `scripts/coop/base2new_train.sh line 4` to your current dataset path.
 
@@ -170,7 +170,7 @@ sh scripts/coop/vanilla_base2new_train.sh imagenet
 
 1. Change the `DATA` in `scripts/coop/xd_train.sh line 4` to your current dataset path.
 
-2. Train the model on the source dataset (ImageNet) and select the best performing model.
+2. Train the model on the source dataset (ImageNet) and select the best-performing model.
 
 ```bash
 sh scripts/coop/xd_train.sh
@@ -217,7 +217,7 @@ We provide the complete training logs and model weights on 11 datasets for your 
 [[Github Release](https://github.com/zhengli97/ATPrompt/releases/tag/traininglog_and_weights)]
 
 - Cross-dataset Prompt Learning (CoOp+ATPrompt).  
-We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset setings.  
+We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset settings.  
 [[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/weights)]
 
 ## ✉️ Contact
