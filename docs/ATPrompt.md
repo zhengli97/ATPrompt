@@ -2,18 +2,18 @@
 
 ## Preliminary
 
-1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [[INSTALL.md](docs/INSTALL.md)].
+1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [[INSTALL.md](INSTALL.md)].
 
-2. Prepare the dataset. Please follow the instructions detailed in [[DATASETS.md](docs/DATASETS.md)]. For your download convenience, we have provided 14 datasets (excluding ImageNet-1K) in the Huggingface platform. [[HuggingFace_Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
+2. Prepare the dataset. Please follow the instructions detailed in [[DATASETS.md](DATASETS.md)]. For your download convenience, we have provided 14 datasets (excluding ImageNet-1K) in the Huggingface platform. [[HuggingFace_Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
-3. (Optional) Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder. Comment the `trainers/coop.py line 42` and uncomment the `line 43`.  
+3. Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder. Comment the `trainers/coop.py line 42` and uncomment the `line 43`.  
 [[ViT-B/16 CLIP](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)] [[ViT-L/14 CLIP](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)]
 
 ## 🚀 Running ATPrompt
 
 ### Step I: Attribute Search (Optional)
 
-**For more practical information about this process, please refer to [[Attribute_Search.md](docs/Attribute_Search.md)].**
+**For more practical information about this process, please refer to [[Attribute_Search.md](Attribute_Search.md)].**
 
 (1) Directly use our results.
 
@@ -65,9 +65,6 @@ In the following **<Training Logs & Weights>**, we provide the complete attribut
 
 Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
 (This implementation currently supports CoOp+ATPrompt, CoCoOp+ATPrompt, MaPLe+ATPrompt and DePT+ATPrompt methods.)
-
-
-**🚨🚨🚨 In [[ATPrompt.md](docs/ATPrompt.md)], we provide full implementation details for researchers to reproduce our results.**
 
 **(1) Base-to-Novel Experiments.**
 
@@ -143,7 +140,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 
 - Attribute Search.  
 We provide the complete attribute searching log on ten datasets for your reference.   
-[[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/training-log)]
+[[Github Release](https://github.com/zhengli97/ATPrompt/releases/tag/training-log)]
 
 - Base-to-Novel Generalization (CoOp+ATPrompt).   
 We provide the complete training logs and model weights on 11 datasets for your reference.  
@@ -151,7 +148,7 @@ We provide the complete training logs and model weights on 11 datasets for your 
 
 - Cross-dataset Prompt Learning (CoOp+ATPrompt).  
 We provide model weights and training logs trained on the source dataset (ImageNet) under cross-dataset settings.  
-[[Github Releases](https://github.com/zhengli97/ATPrompt/releases/tag/weights)]
+[[Github Release](https://github.com/zhengli97/ATPrompt/releases/tag/weights)]
 
 ## Detailed Hyperparameters for Reproducing
 
@@ -231,11 +228,9 @@ In this experiment, other parameters are kept unchanged. On the ImageNet-1K sour
 
 In this experiment, other parameters are kept unchanged. On the ImageNet-1K source dataset, we set NCTX=4 and EPO=2.
 
-<hr/>
-
 ## 论文结果复现指引 (中文版)
 
-在readme.md \<Running\>部分中，我们提供了详细的，用于运行CoOp+ATPrompt的执行指令，并在\<Training Logs & Weights\>部分，提供了详细的训练log用于参考。接下来，我们会提供用于复现CoOp+ATPrompt，CoCoOp+ATPrompt, MaPLe+ATPrompt的实现细节和超参数设定。(DePT和PromptKD的实验因为代码还没整合进来，暂时没有提供，DePT和PromptKD由于是用的不一样的实现框架，所以需要一定的时间进行迁移)。
+在这一部分，我们会提供用于复现CoOp+ATPrompt，CoCoOp+ATPrompt, MaPLe+ATPrompt的实现细节和超参数设定。(DePT和PromptKD的实验因为代码还没整合进来，暂时没有提供，DePT和PromptKD由于是用的不一样的实现框架，所以需要一定的时间进行迁移)。
 
 **💡 重要提示：按照以下设定进行复现可能会与报告数值存在偏差或者波动，这是由于划分训练数据时的随机性引起的(`datasets/oxford_pets.py line 77`)，这是正常现象。我们推荐研究者多跑一些不同种子的实验以稳定复现对应的结果。**
 
