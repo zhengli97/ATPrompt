@@ -1,16 +1,18 @@
-<div align="center">
+<!-- <div align="center">
 <h1>Advancing Textual Prompt Learning with Anchored Attributes</h1>
   
 [**Zheng Li**](https://zhengli97.github.io)<sup>1</sup> · [**Yibing Song**](https://ybsong00.github.io/)<sup>2</sup> · [**Ming-Ming Cheng**](https://mmcheng.net/)<sup>1</sup> · [**Xiang Li**](https://implus.github.io/)<sup>1</sup> · [**Jian Yang**](https://scholar.google.com/citations?user=6CIDtZQAAAAJ&hl=en)<sup>1</sup>
 
 <sup>1</sup>Nankai University,
-<sup>2</sup>Damo Academy, Alibaba Group
+<sup>2</sup>Damo Academy, Alibaba Group -->
 
-**ICCV 2025**
+
+
+<!-- **ICCV 2025**
 
 **[[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Poster](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_poster.pdf)] [[PPT](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_ppt.pdf)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] [[中文翻译](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_chinese_version.pdf)]**
 
-</div>
+</div> -->
 
 <!-- <hr/> -->
 
@@ -20,13 +22,22 @@
 - 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769). -->
 
+## Anchor Token Guided Prompt Learning Methods for Vision-Language Models.
 
-## 💡 Tips:
+This repo contains a series of anchor token-guided prompt learning methods for Vision-Language Models:
+
+- **[Arxiv] AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.** Zheng Li, Yibing Song, Xin Zhang, Lei Luo, Xiang Li, Jian Yang. [[Paper]()]
+
+- **[ICCV 25] Advancing Textual Prompt Learning with Anchored Attributes.** Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang. [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Poster](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_poster.pdf)] [[PPT](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_ppt.pdf)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] [[中文翻译](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_chinese_version.pdf)]
+
+
+
+## 💡 Helpful Resources:
 
 1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
 2. If you attempt to reproduce the results of this implementation on the existing 15 datasets, the links to those datasets may be broken and unusable. For your convenience, we have provided 14 datasets (excluding ImageNet) in the HuggingFace platform. [[Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
-## 🔥 Some other prompt learning works from our lab may interest you:
+## 🔥 Some other prompt learning works may interest you:
 
 > **PromptKD: Unsupervised Prompt Distillation for Vision-Language Models** <br>
 > Zheng Li, Xiang Li, Xinyi Fu, Xin Zhang, Weiqiang Wang, Shuo Chen, Jian Yang. <br>
@@ -34,8 +45,9 @@
 > [[Paper](https://arxiv.org/abs/2403.02781)] [[Code](https://github.com/zhengli97/PromptKD)] [[Project Page](https://zhengli97.github.io/PromptKD)] [[Poster](https://github.com/zhengli97/PromptKD/blob/main/images/promptkd_poster.pdf)] [[中文论文解读](https://zhuanlan.zhihu.com/p/684269963)] [[视频解读](https://www.techbeat.net/talk-info?id=915)] [[中文翻译](https://github.com/zhengli97/PromptKD/blob/main/docs/PromptKD_chinese_version.pdf)] <br>
 > PromptKD is a simple and effective prompt-driven unsupervised distillation framework for VLMs (e.g., CLIP), with state-of-the-art performance.
 
+## [ICCV 25] ATPrompt
 
-## Abstract
+### Abstract
 
 In this work, we introduce an attribute-anchored textual prompt learning method for vision-language models, named ATPrompt.
 
@@ -43,7 +55,7 @@ This method extends the learning space of soft prompts from the original one-dim
 
 Guided by these attributes, soft tokens acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
 
-## Framework
+### Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
 <figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-anchored prompt learning. </figcaption>
@@ -65,9 +77,9 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 (4). ATPrompt can be seamlessly integrated into existing text-based methods and brings general improvement at a negligible computational cost.
  -->
 
-## 🚀 Running
+### 🚀 Running
 
-### Preliminary
+#### Preliminary
 
 1. Create the environment and install Dassl.pytorch library. Please follow the instructions detailed in [[INSTALL.md](docs/INSTALL.md)].
 
@@ -76,9 +88,9 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 3. (Optional) Download the original ViT-B/16 and ViT-L/14 CLIP model weights from the official OpenAI website. Then place these models in the `./clip` folder. Comment the `trainers/coop.py line 42` and uncomment the `line 43`.  
 [[ViT-B/16 CLIP](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)] [[ViT-L/14 CLIP](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)]
 
-### 🚀 Running ATPrompt
+#### 🚀 Running ATPrompt
 
-### Step I: Attribute Search (Optional)
+#### Step I: Attribute Search (Optional)
 
 **For more practical information about this process, please refer to [[Attribute_Search.md](docs/Attribute_Search.md)].**
 
@@ -128,7 +140,7 @@ In the following **<Training Logs & Weights>**, we provide the complete attribut
 
 <hr/>
 
-### Step II: Prompt Learning with ATPrompt.
+#### Step II: Prompt Learning with ATPrompt.
 
 Here we take the **CoOp+ATPrompt** method as an example. You can switch to other baseline methods if you want.
 (This implementation currently supports CoOp+ATPrompt, CoCoOp+ATPrompt, MaPLe+ATPrompt and DePT+ATPrompt methods.)
@@ -192,11 +204,11 @@ sh scripts/coop/xd_eval.sh imagenet_a 1
 In the following part, we provide the complete training log and model weights of **CoOp+ATPrompt** for your reference.
 
 
-## 🔬 Experimental Results
+### 🔬 Experimental Results
 
 The results are averaged over 3 seeds. Note that due to the limited number of training samples and network parameters, the performance results may fluctuate. If you cannot achieve the reported results, please run more experiments with different seeds.
 
-### Base-to-Novel Generalization
+#### Base-to-Novel Generalization
 
 <details>
 <summary>Click to expand "Result Figures".</Summary>
@@ -206,7 +218,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 </figure>
 </details>
 
-## 📄 Training Logs & Weights
+### 📄 Training Logs & Weights
 
 - Attribute Search.  
 We provide the complete attribute searching log on ten datasets for your reference.   
