@@ -22,13 +22,17 @@
 - 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
 - 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769). -->
 
-## Anchor Token Guided Prompt Learning Methods for Vision-Language Models.
+## Anchor Token Guided Prompt Learning Methods for VLMs.
 
-This repo contains a series of anchor token-guided prompt learning methods for Vision-Language Models:
+This repo contains a series of anchor token-guided prompt learning methods for Vision-Language Models (CLIP):
 
-- **[Arxiv] AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.** Zheng Li, Yibing Song, Xin Zhang, Lei Luo, Xiang Li, Jian Yang. [[Paper]()]
+- **[Arxiv] AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.**    
+Zheng Li, Yibing Song, Xin Zhang, Lei Luo, Xiang Li, Jian Yang.    
+[[Paper]()]
 
-- **[ICCV 25] Advancing Textual Prompt Learning with Anchored Attributes.** Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang. [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Poster](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_poster.pdf)] [[PPT](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_ppt.pdf)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] [[中文翻译](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_chinese_version.pdf)]
+- **[ICCV 25] Advancing Textual Prompt Learning with Anchored Attributes.**    
+Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang.   
+[[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Poster](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_poster.pdf)] [[PPT](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_ppt.pdf)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] [[中文翻译](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_chinese_version.pdf)]
 
 
 
@@ -55,6 +59,7 @@ This method extends the learning space of soft prompts from the original one-dim
 
 Guided by these attributes, soft tokens acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
 
+<!-- 
 ### Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
@@ -63,7 +68,7 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 <br>
 
 <div style="text-align:center"><img src="images/shallow_deep_version.png" width="100%"></div>
-<figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption>
+<figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption> -->
 
 <!-- 
 ## Highlights
@@ -204,11 +209,11 @@ sh scripts/coop/xd_eval.sh imagenet_a 1
 In the following part, we provide the complete training log and model weights of **CoOp+ATPrompt** for your reference.
 
 
-### 🔬 Experimental Results
+<!-- ### 🔬 Experimental Results
 
-The results are averaged over 3 seeds. Note that due to the limited number of training samples and network parameters, the performance results may fluctuate. If you cannot achieve the reported results, please run more experiments with different seeds.
+The results are averaged over 3 seeds. Note that due to the limited number of training samples and network parameters, the performance results may fluctuate. If you cannot achieve the reported results, please run more experiments with different seeds. -->
 
-#### Base-to-Novel Generalization
+<!-- #### Base-to-Novel Generalization
 
 <details>
 <summary>Click to expand "Result Figures".</Summary>
@@ -216,7 +221,7 @@ The results are averaged over 3 seeds. Note that due to the limited number of tr
 <img src="images/exp_results.png" alt="fail" width="100%"">    
 <figcaption class="content has-text-left" style="word-break:normal">Table 1: Base-to-novel generalization experiments of five baselines with and without our ATPrompt on 11 recognition datasets.
 </figure>
-</details>
+</details> -->
 
 ### 📄 Training Logs & Weights
 
