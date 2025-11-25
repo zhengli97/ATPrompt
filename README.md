@@ -35,7 +35,6 @@ Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang.
 [[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Poster](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_poster.pdf)] [[PPT](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_ppt.pdf)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] [[中文翻译](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_chinese_version.pdf)]
 
 
-
 ## 💡 Helpful Resources:
 
 1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
@@ -48,13 +47,22 @@ Zheng Li, Xiang Li, Xinyi Fu, Xin Zhang, Weiqiang Wang, Shuo Chen, Jian Yang.
 [[Paper](https://arxiv.org/abs/2403.02781)] [[Code](https://github.com/zhengli97/PromptKD)] [[Project Page](https://zhengli97.github.io/PromptKD)] [[Poster](https://github.com/zhengli97/PromptKD/blob/main/images/promptkd_poster.pdf)] [[中文论文解读](https://zhuanlan.zhihu.com/p/684269963)] [[视频解读](https://www.techbeat.net/talk-info?id=915)] [[中文翻译](https://github.com/zhengli97/PromptKD/blob/main/docs/PromptKD_chinese_version.pdf)].  
 PromptKD is a simple and effective prompt-driven unsupervised distillation framework for VLMs (e.g., CLIP), with state-of-the-art performance.
 
-## AnchorOPT
+## AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.
 
 ### Abstract
 
+Existing prompt learning methods, which are built upon CLIP models, leverage textual tokens as anchors to guide the learnable soft tokens. This guidance improves CLIP generalizations. However, these anchors—static in both value and position—lack cross-task and stage-adaptive flexibility. 
+
+To address this limitation, we propose AnchorOPT, a dynamic anchor-based prompt learning framework. Specifically, AnchorOPT introduces dynamism in two key dimensions: (i) anchor values eschew handcrafted explicit textual tokens (e.g., "shape", "color"), instead learning dynamically from task-specific data; and (ii) the positional relationship between anchor and soft tokens is no longer fixed but adaptively optimized via a learnable position matrix conditioned on the training stage and task context. 
+
+Training occurs in two stages: we first learn the anchor tokens, then freeze and transfer them to the second stage for optimization of soft tokens and the position matrix.
+
+### 🚀 Running
+
+Please see the [[AnchorOPT Reproduction Guide](docs/AnchorOPT.md)].
 
 
-## [ICCV 25] ATPrompt
+## [ICCV 25] ATPrompt: Advancing Textual Prompt Learning with Anchored Attributes
 
 ### Abstract
 
@@ -75,23 +83,11 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 <div style="text-align:center"><img src="images/shallow_deep_version.png" width="100%"></div>
 <figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption> -->
 
-<!-- 
-## Highlights
-
-(1). We introduce an attribute-anchored prompt learning method for VLMs that utilizes universal attributes to regularize the learning of soft prompts.
-
-(2). We introduce a differentiable attribute search method that learns to determine the appropriate attribute content and quantity.
-
-(3). Both shallow and deep versions of ATPrompt are introduced to achieve compatibility with existing methods.
-
-(4). ATPrompt can be seamlessly integrated into existing text-based methods and brings general improvement at a negligible computational cost.
- -->
 
 ### 🚀 Running
 
-Please click the link below to see the detailed instructions on how to run the code to reproduce the results.
+Please see the [[ATPrompt Reproduction Guide](docs/ATPrompt.md)].
 
-- [Advancing Textual Prompt Learning with Anchored Attributes](docs/ATPrompt.md)
 
 ## ✉️ Contact
 
