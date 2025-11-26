@@ -70,25 +70,25 @@ Here we take the **CoOp+ATPrompt** method as an example. You can switch to other
 
 1. The config files for each baseline method are provided in `configs/trainers/`. You can modify the hyperparameters in these config files.
 
-2. Change the `DATA` in `scripts/coop/base2new_train.sh line 4` to your current dataset path.
+2. Change the `DATA` in `scripts/coop/atprompt_base2new_train.sh line 4` to your current dataset path.
 
 3. Run the following commands to train the model using the ATPrompt method:   
 
 **🚀 Training:**
 ```bash
 # CoOp+ATPrompt, dataset=imagenet
-sh scripts/coop/atp_base2new_train.sh imagenet
+sh scripts/coop/atprompt_base2new_train.sh imagenet
 
 # CoOp+ATPrompt, dataset=caltech101
-sh scripts/coop/atp_base2new_train.sh caltech101
+sh scripts/coop/atprompt_base2new_train.sh caltech101
 ```
 **⚡ Testing:**
 ```bash
 # CoOp+ATPrompt, dataset=caltech101
-sh scripts/coop/atp_base2new_test.sh caltech101
+sh scripts/coop/atprompt_base2new_test.sh caltech101
 ```
 
-If you don't want to use ATPrompt, you can set `TRAINER.ATPROMPT.USE_ATPROMPT` in `scripts/coop/base2new_train.sh line 31` to **False**.   
+If you don't want to use ATPrompt, you can set `TRAINER.ATPROMPT.USE_ATPROMPT` in `scripts/coop/atprompt_base2new_train.sh line 31` to **False**.   
 Or you can run the following command:
 
 ```bash
@@ -103,7 +103,7 @@ sh scripts/coop/vanilla_base2new_train.sh imagenet
 2. Train the model on the source dataset (ImageNet) and select the best-performing model.
 
 ```bash
-sh scripts/coop/xd_train.sh
+sh scripts/coop/atprompt_xd_train.sh
 ```
 
 3. After training, evaluate the model on other recognition datasets. For example, the model trained with **seed 1** has the best performance.
@@ -112,11 +112,11 @@ So we evaluate its performance like this:
 ```bash
 # Cross-dataset
 # dataset=caltech101, seed=1
-sh scripts/coop/xd_eval.sh caltech101 1
+sh scripts/coop/atprompt_xd_eval.sh caltech101 1
 
 # Domain Generalization
 # dataset=imagenet_a, seed=1
-sh scripts/coop/xd_eval.sh imagenet_a 1
+sh scripts/coop/atprompt_xd_eval.sh imagenet_a 1
 ```
 
 In the following part, we provide the complete training log and model weights of **CoOp+ATPrompt** for your reference.
@@ -156,8 +156,6 @@ In this part, we provide implementation details and hyperparameter settings for 
 
 **💡 Important Note: Reproduction with the following settings may deviate or fluctuate from the reported values. This is due to the randomness of the training data partitioning (`oxford_pets.py line 77`). This is normal. We recommend that researchers run more experiments with different seeds to reproduce the corresponding results stably.**
 
-(The experiments of DePT and PromptKD are not available yet. Since DePT and PromptKD are implemented differently from previous work, the migration will take some time.)
-
 Below is the attribute table used for different datasets:
 
 | Datasets | Attributes |
@@ -174,7 +172,7 @@ Below is the attribute table used for different datasets:
 | EuroSAT | habitat |
 | UCF101 | precision |
 
-The above attributes correspond to the `cfg.TRAINER.ATPROMPT.ATT1_TEXT`, `cfg.TRAINER.ATPROMPT.ATT2_TEXT` and `cfg.TRAINER.ATPROMPT.ATT3_TEXT` variables in the code.
+The above attributes correspond to the `cfg.TRAINER.ATPROMPT.ATT1_TEXT`, `cfg.TRAINER.ATPROMPT.ATT2_TEXT`, and `cfg.TRAINER.ATPROMPT.ATT3_TEXT` variables in the code.
 
 If you want to experiment with other attribute words, you can change the variable values ​​in the function defined in `train.py line 154`.
 
@@ -182,7 +180,7 @@ If you want to experiment with other attribute words, you can change the variabl
 
 ### CoOp+ATPrompt
 
-In this experiment, keep other hyperparameters unchanged. For datasets including Caltech, OxfordPets, StanfordCars, Flowers, Food101, Aircraft, SUN397, EuroSAT and UCF101, we specifically set EPO=100, NCTX=2.
+In this experiment, keep other hyperparameters unchanged. For datasets including Caltech, OxfordPets, StanfordCars, Flowers, Food101, Aircraft, SUN397, EuroSAT, and UCF101, we specifically set EPO=100, NCTX=2.
 
 For the DTD dataset, set EPO=100, NCTX=4.
 
@@ -190,19 +188,19 @@ For the ImageNet dataset, set EPO=10, NCTX=2.
 
 ### CoCoOp+ATPrompt
 
-In this experiment, keep other parameters unchanged. For datasets including ImageNet, Caltech, OxfordPets, Food101, FGVC Aircraft, SUN397 and DTD, we specifically set EPO=10, NCTX=2.
+In this experiment, keep other parameters unchanged. For datasets including ImageNet, Caltech, OxfordPets, Food101, FGVC Aircraft, SUN397, and DTD, we specifically set EPO=10, NCTX=2.
 
 For the UCF-101 dataset, set EPO=10, NCTX=4.
 
-For StanfordCars, Flowers and EuroSAT datasets, set EPO=10, NCTX=6.
+For StanfordCars, Flowers, and EuroSAT datasets, set EPO=10, NCTX=6.
 
 ### MaPLe+ATPrompt
 
-In this experiment, keep other parameters unchanged. For datasets including Caltech101, OxfordPets, Flowers, EuroSAT, we specifically set EPO=10, NCTX=4.
+In this experiment, keep other parameters unchanged. For datasets including Caltech101, OxfordPets, Flowers, and EuroSAT, we specifically set EPO=10, NCTX=4.
 
 For datasets including ImageNet, StanfordCars, Food101, SUN397, DTD, set EPO=5, NCTX=4.
 
-For FGVC Aircraft and UCF101 datasets, set EPO=5, NCTX=2.
+For the FGVC Aircraft and UCF101 datasets, set EPO=5, NCTX=2.
 
 ### DePT+ATPrompt
 
@@ -210,11 +208,11 @@ Note: There is a loss balance hyperparameter w in DePT, which is generally set t
 
 In this experiment, other parameters are kept unchanged. For the datasets including Caltech, DTD, EuroSAT, FGVC Aircraft, Food101, Flowers, SUN397, and UCF101, we set EPO=10, NCTX=4, where w=0.6 is set for Caltech and DTD datasets, and w=0.5 is set for UCF101.
 
-For StanfordCars and OxfordPets datasets, we set EPO=10, NCTX=2, where w=0.6 is set for StanfordCars.
+For the StanfordCars and OxfordPets datasets, we set EPO=10, NCTX=2, where w=0.6 is set for StanfordCars.
 
 ### Cross-dataset & Domain Generalization Experiments
 
-In this experimental setting, since the usual practice is to select a model trained on the source dataset and measure its generalization performance on other datasets. There will be performance fluctuations when reproducing it yourself, so we recommend that researchers run several seeds and select the best performing model for evaluation.
+In this experimental setting, the usual practice is to select a model trained on the source dataset and measure its generalization performance on other datasets. There will be performance fluctuations when reproducing it yourself, so we recommend that researchers run several seeds and select the best-performing model for evaluation.
 
 ### CoOp+ATPrompt
 
