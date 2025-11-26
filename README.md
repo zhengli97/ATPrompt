@@ -1,27 +1,3 @@
-<!-- <div align="center">
-<h1>Advancing Textual Prompt Learning with Anchored Attributes</h1>
-  
-[**Zheng Li**](https://zhengli97.github.io)<sup>1</sup> · [**Yibing Song**](https://ybsong00.github.io/)<sup>2</sup> · [**Ming-Ming Cheng**](https://mmcheng.net/)<sup>1</sup> · [**Xiang Li**](https://implus.github.io/)<sup>1</sup> · [**Jian Yang**](https://scholar.google.com/citations?user=6CIDtZQAAAAJ&hl=en)<sup>1</sup>
-
-<sup>1</sup>Nankai University,
-<sup>2</sup>Damo Academy, Alibaba Group -->
-
-
-
-<!-- **ICCV 2025**
-
-**[[Paper](https://arxiv.org/abs/2412.09442)] [[Project Page](https://zhengli97.github.io/ATPrompt/)] [[Poster](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_poster.pdf)] [[PPT](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_ppt.pdf)] [[中文解读](https://zhuanlan.zhihu.com/p/11787739769)] [[中文翻译](https://github.com/zhengli97/ATPrompt/blob/main/docs/ATPrompt_chinese_version.pdf)]**
-
-</div> -->
-
-<!-- <hr/> -->
-
-<!-- 
-## 🔥 News
-- 2025.07. The open source process of this paper is not yet complete. Detailed hyperparameter list, pre-trained model weights, and training logs will be provided soon.
-- 2025.06. ATPrompt was accepted by ICCV 2025. See you in Hawaii! Video demonstration is coming soon!
-- 2024.12. We release the official code of ATPrompt and create the project page. The Chinese interpretation of the paper is now available on the [Zhihu forum](https://zhuanlan.zhihu.com/p/11787739769). -->
-
 # Anchor Token Guided Prompt Learning Methods for VLMs.
 
 This repo contains a series of anchor token-guided prompt learning methods for Vision-Language Models (CLIP):
@@ -79,7 +55,7 @@ Training occurs in two stages: we first learn the anchor tokens, then freeze and
 
 ### Framework
 
-<div style="text-align:center"><img src="images/anchoropt.png" width="100%"></div>
+<div style="text-align:center"><img src="images/anchoropt.png" width="70%"></div>
 <figcaption class="content has-text-left"  style="word-break:normal">Fig 1. Architectural comparison among classic prompt learning, ATPrompt, and our proposed AnchorOPT. </figcaption>
 
 ### 🚀 Running
