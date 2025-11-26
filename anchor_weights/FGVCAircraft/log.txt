@@ -1,0 +1,314 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/fgvc_aircraft.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '100.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '20']
+output_dir: output/fgvc_aircraft/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_100.0/seed4
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 4
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: FGVCAircraft
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 20
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/fgvc_aircraft/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_100.0/seed4
+RESUME: 
+SEED: 4
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 100.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: FGVCAircraft
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/fgvc_aircraft/split_fewshot/shot_16-seed_4.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ------------
+Dataset    FGVCAircraft
+# classes  50
+# train_x  800
+# val      200
+# test     1,666
+---------  ------------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of 707-320.', 'X of 727-200.', 'X of 737-200.', 'X of 737-300.', 'X of 737-400.', 'X of 737-500.', 'X of 737-600.', 'X of 737-700.', 'X of 737-800.', 'X of 737-900.', 'X of 747-100.', 'X of 747-200.', 'X of 747-300.', 'X of 747-400.', 'X of 757-200.', 'X of 757-300.', 'X of 767-200.', 'X of 767-300.', 'X of 767-400.', 'X of 777-200.', 'X of 777-300.', 'X of A300B4.', 'X of A310.', 'X of A318.', 'X of A319.', 'X of A320.', 'X of A321.', 'X of A330-200.', 'X of A330-300.', 'X of A340-200.', 'X of A340-300.', 'X of A340-500.', 'X of A340-600.', 'X of A380.', 'X of ATR-42.', 'X of ATR-72.', 'X of An-12.', 'X of BAE 146-200.', 'X of BAE 146-300.', 'X of BAE-125.', 'X of Beechcraft 1900.', 'X of Boeing 717.', 'X of C-130.', 'X of C-47.', 'X of CRJ-200.', 'X of CRJ-700.', 'X of CRJ-900.', 'X of Cessna 172.', 'X of Cessna 208.', 'X of Cessna 525.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X 707-320.', 'X X X X 727-200.', 'X X X X 737-200.', 'X X X X 737-300.', 'X X X X 737-400.', 'X X X X 737-500.', 'X X X X 737-600.', 'X X X X 737-700.', 'X X X X 737-800.', 'X X X X 737-900.', 'X X X X 747-100.', 'X X X X 747-200.', 'X X X X 747-300.', 'X X X X 747-400.', 'X X X X 757-200.', 'X X X X 757-300.', 'X X X X 767-200.', 'X X X X 767-300.', 'X X X X 767-400.', 'X X X X 777-200.', 'X X X X 777-300.', 'X X X X A300B4.', 'X X X X A310.', 'X X X X A318.', 'X X X X A319.', 'X X X X A320.', 'X X X X A321.', 'X X X X A330-200.', 'X X X X A330-300.', 'X X X X A340-200.', 'X X X X A340-300.', 'X X X X A340-500.', 'X X X X A340-600.', 'X X X X A380.', 'X X X X ATR-42.', 'X X X X ATR-72.', 'X X X X An-12.', 'X X X X BAE 146-200.', 'X X X X BAE 146-300.', 'X X X X BAE-125.', 'X X X X Beechcraft 1900.', 'X X X X Boeing 717.', 'X X X X C-130.', 'X X X X C-47.', 'X X X X CRJ-200.', 'X X X X CRJ-700.', 'X X X X CRJ-900.', 'X X X X Cessna 172.', 'X X X X Cessna 208.', 'X X X X Cessna 525.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx_pos_params', 'normal_prompt_learner.ctx', 'anchor_prompt_learner.anchor_ctx_1'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/20] batch [20/25] time 0.498 (0.560) data 0.000 (0.039) loss_val 257.5000 (284.9937) lr 1.0000e-05 eta 0:04:28
+epoch [2/20] batch [20/25] time 0.542 (0.576) data 0.000 (0.033) loss_val 247.8750 (256.3875) lr 2.0000e-03 eta 0:04:22
+epoch [3/20] batch [20/25] time 0.539 (0.605) data 0.000 (0.060) loss_val 268.2500 (241.7250) lr 1.9877e-03 eta 0:04:20
+epoch [4/20] batch [20/25] time 0.529 (0.589) data 0.000 (0.035) loss_val 237.1250 (237.7125) lr 1.9511e-03 eta 0:03:58
+epoch [5/20] batch [20/25] time 0.524 (0.556) data 0.000 (0.032) loss_val 247.6250 (231.1250) lr 1.8910e-03 eta 0:03:31
+epoch [6/20] batch [20/25] time 0.530 (0.564) data 0.000 (0.034) loss_val 220.7500 (238.3375) lr 1.8090e-03 eta 0:03:20
+epoch [7/20] batch [20/25] time 0.528 (0.568) data 0.000 (0.036) loss_val 223.2500 (232.1750) lr 1.7071e-03 eta 0:03:07
+epoch [8/20] batch [20/25] time 0.527 (0.562) data 0.000 (0.035) loss_val 254.1250 (225.4250) lr 1.5878e-03 eta 0:02:51
+epoch [9/20] batch [20/25] time 0.535 (0.566) data 0.000 (0.032) loss_val 258.0000 (231.0000) lr 1.4540e-03 eta 0:02:38
+epoch [10/20] batch [20/25] time 0.532 (0.563) data 0.000 (0.032) loss_val 210.1250 (229.7875) lr 1.3090e-03 eta 0:02:23
+epoch [11/20] batch [20/25] time 0.525 (0.567) data 0.000 (0.033) loss_val 241.2500 (230.4125) lr 1.1564e-03 eta 0:02:10
+epoch [12/20] batch [20/25] time 0.528 (0.561) data 0.000 (0.033) loss_val 230.5000 (228.8438) lr 1.0000e-03 eta 0:01:54
+epoch [13/20] batch [20/25] time 0.527 (0.562) data 0.000 (0.031) loss_val 217.0000 (220.7750) lr 8.4357e-04 eta 0:01:41
+epoch [14/20] batch [20/25] time 0.538 (0.562) data 0.000 (0.032) loss_val 242.0000 (224.6687) lr 6.9098e-04 eta 0:01:27
+epoch [15/20] batch [20/25] time 0.522 (0.571) data 0.000 (0.033) loss_val 229.5000 (223.3938) lr 5.4601e-04 eta 0:01:14
+epoch [16/20] batch [20/25] time 0.526 (0.562) data 0.000 (0.033) loss_val 229.8750 (221.0938) lr 4.1221e-04 eta 0:00:59
+epoch [17/20] batch [20/25] time 0.541 (0.563) data 0.000 (0.032) loss_val 234.0000 (221.4688) lr 2.9289e-04 eta 0:00:45
+epoch [18/20] batch [20/25] time 0.538 (0.570) data 0.000 (0.034) loss_val 227.7500 (215.4812) lr 1.9098e-04 eta 0:00:31
+epoch [19/20] batch [20/25] time 0.530 (0.562) data 0.000 (0.032) loss_val 255.2500 (227.4437) lr 1.0899e-04 eta 0:00:16
+epoch [20/20] batch [20/25] time 0.498 (0.561) data 0.000 (0.030) loss_val 177.8750 (220.1000) lr 4.8943e-05 eta 0:00:02
+Checkpoint saved to output/fgvc_aircraft/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_100.0/seed4/anchor_prompt_learner/model.pth.tar-20
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 1,666
+* correct: 481
+* accuracy: 28.872%
+* error: 71.13%
+* macro_f1: 26.25%
+Elapsed: 0:04:50

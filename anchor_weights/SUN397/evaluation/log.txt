@@ -1,0 +1,292 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/sun397.yaml
+eval_only: True
+head: 
+load_epoch: 20
+model_dir: output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1
+no_train: False
+opts: ['DATASET.SUBSAMPLE_CLASSES', 'new', 'TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '0.0', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'TRAINER.COOP.TEMP', '2.0']
+output_dir: output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1/evaluation
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 1
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: SUN397
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: new
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 200
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1/evaluation
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 0.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: SUN397
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/sun397/split_zhou_SUN397.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/sun397/split_fewshot/shot_16-seed_1.pkl
+SUBSAMPLE NEW CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ------
+Dataset    SUN397
+# classes  198
+# train_x  3,168
+# val      792
+# test     9,900
+---------  ------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of outdoor ice skating rink.', 'X of iceberg.', 'X of igloo.', 'X of industrial area.', 'X of outdoor inn.', 'X of islet.', 'X of indoor jacuzzi.', 'X of indoor jail.', 'X of jail cell.', 'X of jewelry shop.', 'X of kasbah.', 'X of indoor kennel.', 'X of outdoor kennel.', 'X of kindergarden classroom.', 'X of kitchen.', 'X of kitchenette.', 'X of outdoor labyrinth.', 'X of natural lake.', 'X of landfill.', 'X of landing deck.', 'X of laundromat.', 'X of lecture room.', 'X of indoor library.', 'X of outdoor library.', 'X of outdoor lido deck.', 'X of lift bridge.', 'X of lighthouse.', 'X of limousine interior.', 'X of living room.', 'X of lobby.', 'X of lock chamber.', 'X of locker room.', 'X of mansion.', 'X of manufactured home.', 'X of indoor market.', 'X of outdoor market.', 'X of marsh.', 'X of martial arts gym.', 'X of mausoleum.', 'X of medina.', 'X of water moat.', 'X of outdoor monastery.', 'X of indoor mosque.', 'X of outdoor mosque.', 'X of motel.', 'X of mountain.', 'X of mountain snowy.', 'X of indoor movie theater.', 'X of indoor museum.', 'X of music store.', 'X of music studio.', 'X of outdoor nuclear power plant.', 'X of nursery.', 'X of oast house.', 'X of outdoor observatory.', 'X of ocean.', 'X of office.', 'X of office building.', 'X of outdoor oil refinery.', 'X of oilrig.', 'X of operating room.', 'X of orchard.', 'X of outdoor outhouse.', 'X of pagoda.', 'X of palace.', 'X of pantry.', 'X of park.', 'X of indoor parking garage.', 'X of outdoor parking garage.', 'X of parking lot.', 'X of parlor.', 'X of pasture.', 'X of patio.', 'X of pavilion.', 'X of pharmacy.', 'X of phone booth.', 'X of physics laboratory.', 'X of picnic area.', 'X of indoor pilothouse.', 'X of outdoor planetarium.', 'X of playground.', 'X of playroom.', 'X of plaza.', 'X of indoor podium.', 'X of outdoor podium.', 'X of pond.', 'X of establishment poolroom.', 'X of home poolroom.', 'X of outdoor power plant.', 'X of promenade deck.', 'X of indoor pub.', 'X of pulpit.', 'X of putting green.', 'X of racecourse.', 'X of raceway.', 'X of raft.', 'X of railroad track.', 'X of rainforest.', 'X of reception.', 'X of recreation room.', 'X of residential neighborhood.', 'X of restaurant.', 'X of restaurant kitchen.', 'X of restaurant patio.', 'X of rice paddy.', 'X of riding arena.', 'X of river.', 'X of rock arch.', 'X of rope bridge.', 'X of ruin.', 'X of runway.', 'X of sandbar.', 'X of sandbox.', 'X of sauna.', 'X of schoolhouse.', 'X of sea cliff.', 'X of server room.', 'X of shed.', 'X of shoe shop.', 'X of shopfront.', 'X of indoor shopping mall.', 'X of shower.', 'X of skatepark.', 'X of ski lodge.', 'X of ski resort.', 'X of ski slope.', 'X of sky.', 'X of skyscraper.', 'X of slum.', 'X of snowfield.', 'X of squash court.', 'X of stable.', 'X of baseball stadium.', 'X of football stadium.', 'X of indoor stage.', 'X of staircase.', 'X of street.', 'X of subway interior.', 'X of platform subway station.', 'X of supermarket.', 'X of sushi bar.', 'X of swamp.', 'X of indoor swimming pool.', 'X of outdoor swimming pool.', 'X of indoor synagogue.', 'X of outdoor synagogue.', 'X of television studio.', 'X of east asia temple.', 'X of south asia temple.', 'X of indoor tennis court.', 'X of outdoor tennis court.', 'X of outdoor tent.', 'X of indoor procenium theater.', 'X of indoor seats theater.', 'X of thriftshop.', 'X of throne room.', 'X of ticket booth.', 'X of toll plaza.', 'X of topiary garden.', 'X of tower.', 'X of toyshop.', 'X of outdoor track.', 'X of train railway.', 'X of platform train station.', 'X of tree farm.', 'X of tree house.', 'X of trench.', 'X of coral reef underwater.', 'X of utility room.', 'X of valley.', 'X of van interior.', 'X of vegetable garden.', 'X of veranda.', 'X of veterinarians office.', 'X of viaduct.', 'X of videostore.', 'X of village.', 'X of vineyard.', 'X of volcano.', 'X of indoor volleyball court.', 'X of outdoor volleyball court.', 'X of waiting room.', 'X of indoor warehouse.', 'X of water tower.', 'X of block waterfall.', 'X of fan waterfall.', 'X of plunge waterfall.', 'X of watering hole.', 'X of wave.', 'X of wet bar.', 'X of wheat field.', 'X of wind farm.', 'X of windmill.', 'X of barrel storage wine cellar.', 'X of bottle storage wine cellar.', 'X of indoor wrestling ring.', 'X of yard.', 'X of youth hostel.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X outdoor ice skating rink.', 'X X X X iceberg.', 'X X X X igloo.', 'X X X X industrial area.', 'X X X X outdoor inn.', 'X X X X islet.', 'X X X X indoor jacuzzi.', 'X X X X indoor jail.', 'X X X X jail cell.', 'X X X X jewelry shop.', 'X X X X kasbah.', 'X X X X indoor kennel.', 'X X X X outdoor kennel.', 'X X X X kindergarden classroom.', 'X X X X kitchen.', 'X X X X kitchenette.', 'X X X X outdoor labyrinth.', 'X X X X natural lake.', 'X X X X landfill.', 'X X X X landing deck.', 'X X X X laundromat.', 'X X X X lecture room.', 'X X X X indoor library.', 'X X X X outdoor library.', 'X X X X outdoor lido deck.', 'X X X X lift bridge.', 'X X X X lighthouse.', 'X X X X limousine interior.', 'X X X X living room.', 'X X X X lobby.', 'X X X X lock chamber.', 'X X X X locker room.', 'X X X X mansion.', 'X X X X manufactured home.', 'X X X X indoor market.', 'X X X X outdoor market.', 'X X X X marsh.', 'X X X X martial arts gym.', 'X X X X mausoleum.', 'X X X X medina.', 'X X X X water moat.', 'X X X X outdoor monastery.', 'X X X X indoor mosque.', 'X X X X outdoor mosque.', 'X X X X motel.', 'X X X X mountain.', 'X X X X mountain snowy.', 'X X X X indoor movie theater.', 'X X X X indoor museum.', 'X X X X music store.', 'X X X X music studio.', 'X X X X outdoor nuclear power plant.', 'X X X X nursery.', 'X X X X oast house.', 'X X X X outdoor observatory.', 'X X X X ocean.', 'X X X X office.', 'X X X X office building.', 'X X X X outdoor oil refinery.', 'X X X X oilrig.', 'X X X X operating room.', 'X X X X orchard.', 'X X X X outdoor outhouse.', 'X X X X pagoda.', 'X X X X palace.', 'X X X X pantry.', 'X X X X park.', 'X X X X indoor parking garage.', 'X X X X outdoor parking garage.', 'X X X X parking lot.', 'X X X X parlor.', 'X X X X pasture.', 'X X X X patio.', 'X X X X pavilion.', 'X X X X pharmacy.', 'X X X X phone booth.', 'X X X X physics laboratory.', 'X X X X picnic area.', 'X X X X indoor pilothouse.', 'X X X X outdoor planetarium.', 'X X X X playground.', 'X X X X playroom.', 'X X X X plaza.', 'X X X X indoor podium.', 'X X X X outdoor podium.', 'X X X X pond.', 'X X X X establishment poolroom.', 'X X X X home poolroom.', 'X X X X outdoor power plant.', 'X X X X promenade deck.', 'X X X X indoor pub.', 'X X X X pulpit.', 'X X X X putting green.', 'X X X X racecourse.', 'X X X X raceway.', 'X X X X raft.', 'X X X X railroad track.', 'X X X X rainforest.', 'X X X X reception.', 'X X X X recreation room.', 'X X X X residential neighborhood.', 'X X X X restaurant.', 'X X X X restaurant kitchen.', 'X X X X restaurant patio.', 'X X X X rice paddy.', 'X X X X riding arena.', 'X X X X river.', 'X X X X rock arch.', 'X X X X rope bridge.', 'X X X X ruin.', 'X X X X runway.', 'X X X X sandbar.', 'X X X X sandbox.', 'X X X X sauna.', 'X X X X schoolhouse.', 'X X X X sea cliff.', 'X X X X server room.', 'X X X X shed.', 'X X X X shoe shop.', 'X X X X shopfront.', 'X X X X indoor shopping mall.', 'X X X X shower.', 'X X X X skatepark.', 'X X X X ski lodge.', 'X X X X ski resort.', 'X X X X ski slope.', 'X X X X sky.', 'X X X X skyscraper.', 'X X X X slum.', 'X X X X snowfield.', 'X X X X squash court.', 'X X X X stable.', 'X X X X baseball stadium.', 'X X X X football stadium.', 'X X X X indoor stage.', 'X X X X staircase.', 'X X X X street.', 'X X X X subway interior.', 'X X X X platform subway station.', 'X X X X supermarket.', 'X X X X sushi bar.', 'X X X X swamp.', 'X X X X indoor swimming pool.', 'X X X X outdoor swimming pool.', 'X X X X indoor synagogue.', 'X X X X outdoor synagogue.', 'X X X X television studio.', 'X X X X east asia temple.', 'X X X X south asia temple.', 'X X X X indoor tennis court.', 'X X X X outdoor tennis court.', 'X X X X outdoor tent.', 'X X X X indoor procenium theater.', 'X X X X indoor seats theater.', 'X X X X thriftshop.', 'X X X X throne room.', 'X X X X ticket booth.', 'X X X X toll plaza.', 'X X X X topiary garden.', 'X X X X tower.', 'X X X X toyshop.', 'X X X X outdoor track.', 'X X X X train railway.', 'X X X X platform train station.', 'X X X X tree farm.', 'X X X X tree house.', 'X X X X trench.', 'X X X X coral reef underwater.', 'X X X X utility room.', 'X X X X valley.', 'X X X X van interior.', 'X X X X vegetable garden.', 'X X X X veranda.', 'X X X X veterinarians office.', 'X X X X viaduct.', 'X X X X videostore.', 'X X X X village.', 'X X X X vineyard.', 'X X X X volcano.', 'X X X X indoor volleyball court.', 'X X X X outdoor volleyball court.', 'X X X X waiting room.', 'X X X X indoor warehouse.', 'X X X X water tower.', 'X X X X block waterfall.', 'X X X X fan waterfall.', 'X X X X plunge waterfall.', 'X X X X watering hole.', 'X X X X wave.', 'X X X X wet bar.', 'X X X X wheat field.', 'X X X X wind farm.', 'X X X X windmill.', 'X X X X barrel storage wine cellar.', 'X X X X bottle storage wine cellar.', 'X X X X indoor wrestling ring.', 'X X X X yard.', 'X X X X youth hostel.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx', 'normal_prompt_learner.ctx_pos_params'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+load model names is ['normal_prompt_learner', 'anchor_prompt_learner']
+Loading weights to anchor_prompt_learner from "output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1/anchor_prompt_learner/model.pth.tar-20" (epoch = 20)
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 9,900
+* correct: 7,759
+* accuracy: 78.374%
+* error: 21.63%
+* macro_f1: 77.45%

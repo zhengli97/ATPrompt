@@ -1,0 +1,395 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/ucf101.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '100']
+output_dir: output/ucf101/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed3
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 3
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: UCF101
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 100
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/ucf101/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed3
+RESUME: 
+SEED: 3
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: UCF101
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/ucf101/split_zhou_UCF101.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/ucf101/split_fewshot/shot_16-seed_3.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ------
+Dataset    UCF101
+# classes  51
+# train_x  816
+# val      204
+# test     1,934
+---------  ------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of Apply Eye Makeup.', 'X of Apply Lipstick.', 'X of Archery.', 'X of Baby Crawling.', 'X of Balance Beam.', 'X of Band Marching.', 'X of Baseball Pitch.', 'X of Basketball.', 'X of Basketball Dunk.', 'X of Bench Press.', 'X of Biking.', 'X of Billiards.', 'X of Blow Dry Hair.', 'X of Blowing Candles.', 'X of Body Weight Squats.', 'X of Bowling.', 'X of Boxing Punching Bag.', 'X of Boxing Speed Bag.', 'X of Breast Stroke.', 'X of Brushing Teeth.', 'X of Clean And Jerk.', 'X of Cliff Diving.', 'X of Cricket Bowling.', 'X of Cricket Shot.', 'X of Cutting In Kitchen.', 'X of Diving.', 'X of Drumming.', 'X of Fencing.', 'X of Field Hockey Penalty.', 'X of Floor Gymnastics.', 'X of Frisbee Catch.', 'X of Front Crawl.', 'X of Golf Swing.', 'X of Haircut.', 'X of Hammering.', 'X of Hammer Throw.', 'X of Handstand Pushups.', 'X of Handstand Walking.', 'X of Head Massage.', 'X of High Jump.', 'X of Horse Race.', 'X of Horse Riding.', 'X of Hula Hoop.', 'X of Ice Dancing.', 'X of Javelin Throw.', 'X of Juggling Balls.', 'X of Jumping Jack.', 'X of Jump Rope.', 'X of Kayaking.', 'X of Knitting.', 'X of Long Jump.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X Apply Eye Makeup.', 'X X X X Apply Lipstick.', 'X X X X Archery.', 'X X X X Baby Crawling.', 'X X X X Balance Beam.', 'X X X X Band Marching.', 'X X X X Baseball Pitch.', 'X X X X Basketball.', 'X X X X Basketball Dunk.', 'X X X X Bench Press.', 'X X X X Biking.', 'X X X X Billiards.', 'X X X X Blow Dry Hair.', 'X X X X Blowing Candles.', 'X X X X Body Weight Squats.', 'X X X X Bowling.', 'X X X X Boxing Punching Bag.', 'X X X X Boxing Speed Bag.', 'X X X X Breast Stroke.', 'X X X X Brushing Teeth.', 'X X X X Clean And Jerk.', 'X X X X Cliff Diving.', 'X X X X Cricket Bowling.', 'X X X X Cricket Shot.', 'X X X X Cutting In Kitchen.', 'X X X X Diving.', 'X X X X Drumming.', 'X X X X Fencing.', 'X X X X Field Hockey Penalty.', 'X X X X Floor Gymnastics.', 'X X X X Frisbee Catch.', 'X X X X Front Crawl.', 'X X X X Golf Swing.', 'X X X X Haircut.', 'X X X X Hammering.', 'X X X X Hammer Throw.', 'X X X X Handstand Pushups.', 'X X X X Handstand Walking.', 'X X X X Head Massage.', 'X X X X High Jump.', 'X X X X Horse Race.', 'X X X X Horse Riding.', 'X X X X Hula Hoop.', 'X X X X Ice Dancing.', 'X X X X Javelin Throw.', 'X X X X Juggling Balls.', 'X X X X Jumping Jack.', 'X X X X Jump Rope.', 'X X X X Kayaking.', 'X X X X Knitting.', 'X X X X Long Jump.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx', 'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx_pos_params'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/100] batch [20/25] time 0.510 (0.588) data 0.000 (0.035) loss_val 755.0000 (1244.5250) lr 1.0000e-05 eta 0:24:17
+epoch [2/100] batch [20/25] time 0.510 (0.539) data 0.000 (0.024) loss_val 1536.0000 (1469.3000) lr 2.0000e-03 eta 0:22:02
+epoch [3/100] batch [20/25] time 0.513 (0.536) data 0.000 (0.021) loss_val 850.0000 (1179.9000) lr 1.9995e-03 eta 0:21:42
+epoch [4/100] batch [20/25] time 0.516 (0.534) data 0.000 (0.021) loss_val 765.5000 (1121.0250) lr 1.9980e-03 eta 0:21:23
+epoch [5/100] batch [20/25] time 0.513 (0.536) data 0.000 (0.019) loss_val 1106.0000 (1146.3750) lr 1.9956e-03 eta 0:21:16
+epoch [6/100] batch [20/25] time 0.495 (0.529) data 0.000 (0.018) loss_val 1238.0000 (1190.7500) lr 1.9921e-03 eta 0:20:44
+epoch [7/100] batch [20/25] time 0.511 (0.529) data 0.000 (0.019) loss_val 1493.0000 (1091.1250) lr 1.9877e-03 eta 0:20:32
+epoch [8/100] batch [20/25] time 0.532 (0.559) data 0.000 (0.024) loss_val 1086.0000 (1123.0750) lr 1.9823e-03 eta 0:21:29
+epoch [9/100] batch [20/25] time 0.524 (0.556) data 0.000 (0.024) loss_val 1068.0000 (1155.2500) lr 1.9759e-03 eta 0:21:08
+epoch [10/100] batch [20/25] time 0.531 (0.561) data 0.000 (0.027) loss_val 1253.0000 (1088.1500) lr 1.9686e-03 eta 0:21:04
+epoch [11/100] batch [20/25] time 0.514 (0.551) data 0.000 (0.023) loss_val 943.5000 (1105.0500) lr 1.9603e-03 eta 0:20:28
+epoch [12/100] batch [20/25] time 0.527 (0.560) data 0.000 (0.026) loss_val 1388.0000 (1139.5250) lr 1.9511e-03 eta 0:20:34
+epoch [13/100] batch [20/25] time 0.537 (0.555) data 0.000 (0.023) loss_val 1330.0000 (1023.4500) lr 1.9409e-03 eta 0:20:08
+epoch [14/100] batch [20/25] time 0.530 (0.555) data 0.000 (0.025) loss_val 1005.0000 (1062.9750) lr 1.9298e-03 eta 0:19:56
+epoch [15/100] batch [20/25] time 0.531 (0.554) data 0.000 (0.023) loss_val 958.5000 (997.2500) lr 1.9178e-03 eta 0:19:40
+epoch [16/100] batch [20/25] time 0.526 (0.556) data 0.000 (0.024) loss_val 1272.0000 (1028.7500) lr 1.9048e-03 eta 0:19:31
+epoch [17/100] batch [20/25] time 0.532 (0.563) data 0.000 (0.029) loss_val 1049.0000 (1021.4750) lr 1.8910e-03 eta 0:19:30
+epoch [18/100] batch [20/25] time 0.532 (0.558) data 0.000 (0.025) loss_val 846.0000 (975.4250) lr 1.8763e-03 eta 0:19:06
+epoch [19/100] batch [20/25] time 0.524 (0.558) data 0.000 (0.024) loss_val 1191.0000 (942.3750) lr 1.8607e-03 eta 0:18:53
+epoch [20/100] batch [20/25] time 0.534 (0.564) data 0.000 (0.023) loss_val 892.0000 (967.5125) lr 1.8443e-03 eta 0:18:50
+epoch [21/100] batch [20/25] time 0.530 (0.579) data 0.000 (0.026) loss_val 636.5000 (867.6750) lr 1.8271e-03 eta 0:19:06
+epoch [22/100] batch [20/25] time 0.531 (0.562) data 0.000 (0.023) loss_val 810.0000 (1015.4000) lr 1.8090e-03 eta 0:18:18
+epoch [23/100] batch [20/25] time 0.537 (0.560) data 0.000 (0.025) loss_val 1450.0000 (995.8000) lr 1.7902e-03 eta 0:18:00
+epoch [24/100] batch [20/25] time 0.533 (0.563) data 0.000 (0.025) loss_val 1176.0000 (974.3750) lr 1.7705e-03 eta 0:17:52
+epoch [25/100] batch [20/25] time 0.533 (0.557) data 0.000 (0.025) loss_val 1047.0000 (947.1750) lr 1.7501e-03 eta 0:17:27
+epoch [26/100] batch [20/25] time 0.532 (0.560) data 0.000 (0.027) loss_val 1111.0000 (1052.1250) lr 1.7290e-03 eta 0:17:18
+epoch [27/100] batch [20/25] time 0.529 (0.557) data 0.000 (0.025) loss_val 778.0000 (1072.4500) lr 1.7071e-03 eta 0:16:59
+epoch [28/100] batch [20/25] time 0.520 (0.549) data 0.000 (0.026) loss_val 1014.5000 (966.0250) lr 1.6845e-03 eta 0:16:30
+epoch [29/100] batch [20/25] time 0.524 (0.558) data 0.000 (0.025) loss_val 1283.0000 (987.7000) lr 1.6613e-03 eta 0:16:32
+epoch [30/100] batch [20/25] time 0.554 (0.562) data 0.000 (0.025) loss_val 1021.5000 (949.8250) lr 1.6374e-03 eta 0:16:25
+epoch [31/100] batch [20/25] time 0.535 (0.563) data 0.000 (0.025) loss_val 825.0000 (927.2125) lr 1.6129e-03 eta 0:16:13
+epoch [32/100] batch [20/25] time 0.541 (0.557) data 0.000 (0.022) loss_val 931.0000 (828.6500) lr 1.5878e-03 eta 0:15:49
+epoch [33/100] batch [20/25] time 0.531 (0.563) data 0.000 (0.025) loss_val 1070.0000 (995.0000) lr 1.5621e-03 eta 0:15:45
+epoch [34/100] batch [20/25] time 0.500 (0.533) data 0.000 (0.022) loss_val 1325.0000 (934.3250) lr 1.5358e-03 eta 0:14:42
+epoch [35/100] batch [20/25] time 0.499 (0.528) data 0.000 (0.021) loss_val 1641.0000 (1002.1875) lr 1.5090e-03 eta 0:14:20
+epoch [36/100] batch [20/25] time 0.510 (0.527) data 0.000 (0.019) loss_val 713.5000 (892.0750) lr 1.4818e-03 eta 0:14:06
+epoch [37/100] batch [20/25] time 0.509 (0.532) data 0.000 (0.021) loss_val 728.5000 (877.6500) lr 1.4540e-03 eta 0:13:59
+epoch [38/100] batch [20/25] time 0.534 (0.559) data 0.000 (0.023) loss_val 1554.0000 (1007.9250) lr 1.4258e-03 eta 0:14:29
+epoch [39/100] batch [20/25] time 0.532 (0.563) data 0.000 (0.025) loss_val 1339.0000 (904.9250) lr 1.3971e-03 eta 0:14:21
+epoch [40/100] batch [20/25] time 0.534 (0.557) data 0.000 (0.024) loss_val 936.5000 (921.3250) lr 1.3681e-03 eta 0:13:58
+epoch [41/100] batch [20/25] time 0.529 (0.548) data 0.000 (0.024) loss_val 1359.0000 (870.5250) lr 1.3387e-03 eta 0:13:30
+epoch [42/100] batch [20/25] time 0.531 (0.562) data 0.000 (0.029) loss_val 1207.0000 (950.1500) lr 1.3090e-03 eta 0:13:38
+epoch [43/100] batch [20/25] time 0.528 (0.562) data 0.000 (0.027) loss_val 755.5000 (919.4250) lr 1.2790e-03 eta 0:13:23
+epoch [44/100] batch [20/25] time 0.530 (0.567) data 0.000 (0.028) loss_val 772.5000 (934.9750) lr 1.2487e-03 eta 0:13:17
+epoch [45/100] batch [20/25] time 0.534 (0.565) data 0.000 (0.027) loss_val 832.5000 (924.8500) lr 1.2181e-03 eta 0:13:00
+epoch [46/100] batch [20/25] time 0.539 (0.569) data 0.000 (0.029) loss_val 1136.0000 (933.4750) lr 1.1874e-03 eta 0:12:51
+epoch [47/100] batch [20/25] time 0.523 (0.546) data 0.000 (0.024) loss_val 1090.0000 (933.2000) lr 1.1564e-03 eta 0:12:06
+epoch [48/100] batch [20/25] time 0.515 (0.538) data 0.000 (0.021) loss_val 821.0000 (852.9500) lr 1.1253e-03 eta 0:11:41
+epoch [49/100] batch [20/25] time 0.507 (0.537) data 0.000 (0.023) loss_val 948.0000 (886.5000) lr 1.0941e-03 eta 0:11:27
+epoch [50/100] batch [20/25] time 0.515 (0.530) data 0.000 (0.020) loss_val 488.2500 (951.4875) lr 1.0628e-03 eta 0:11:05
+epoch [51/100] batch [20/25] time 0.514 (0.537) data 0.000 (0.019) loss_val 1328.0000 (937.3000) lr 1.0314e-03 eta 0:10:59
+epoch [52/100] batch [20/25] time 0.507 (0.533) data 0.000 (0.020) loss_val 688.5000 (872.1625) lr 1.0000e-03 eta 0:10:42
+epoch [53/100] batch [20/25] time 0.515 (0.542) data 0.000 (0.021) loss_val 860.5000 (899.4500) lr 9.6859e-04 eta 0:10:39
+epoch [54/100] batch [20/25] time 0.507 (0.537) data 0.000 (0.020) loss_val 1341.0000 (932.3875) lr 9.3721e-04 eta 0:10:19
+epoch [55/100] batch [20/25] time 0.527 (0.547) data 0.000 (0.019) loss_val 727.0000 (891.6375) lr 9.0589e-04 eta 0:10:18
+epoch [56/100] batch [20/25] time 0.509 (0.535) data 0.000 (0.020) loss_val 1535.0000 (873.5250) lr 8.7467e-04 eta 0:09:51
+epoch [57/100] batch [20/25] time 0.526 (0.549) data 0.000 (0.024) loss_val 656.0000 (879.4625) lr 8.4357e-04 eta 0:09:53
+epoch [58/100] batch [20/25] time 0.513 (0.558) data 0.000 (0.033) loss_val 978.5000 (918.6750) lr 8.1262e-04 eta 0:09:48
+epoch [59/100] batch [20/25] time 0.507 (0.536) data 0.000 (0.022) loss_val 756.5000 (853.7750) lr 7.8186e-04 eta 0:09:11
+epoch [60/100] batch [20/25] time 0.518 (0.536) data 0.000 (0.020) loss_val 909.0000 (882.9500) lr 7.5131e-04 eta 0:08:58
+epoch [61/100] batch [20/25] time 0.525 (0.565) data 0.000 (0.020) loss_val 1416.0000 (858.8250) lr 7.2101e-04 eta 0:09:13
+epoch [62/100] batch [20/25] time 0.499 (0.529) data 0.000 (0.019) loss_val 1167.0000 (1034.2000) lr 6.9098e-04 eta 0:08:25
+epoch [63/100] batch [20/25] time 0.512 (0.531) data 0.000 (0.018) loss_val 913.0000 (891.7250) lr 6.6126e-04 eta 0:08:14
+epoch [64/100] batch [20/25] time 0.507 (0.540) data 0.000 (0.032) loss_val 793.0000 (884.1250) lr 6.3188e-04 eta 0:08:09
+epoch [65/100] batch [20/25] time 0.532 (0.564) data 0.000 (0.027) loss_val 1104.0000 (952.8750) lr 6.0285e-04 eta 0:08:16
+epoch [66/100] batch [20/25] time 0.535 (0.550) data 0.000 (0.025) loss_val 973.5000 (1003.6500) lr 5.7422e-04 eta 0:07:50
+epoch [67/100] batch [20/25] time 0.510 (0.540) data 0.000 (0.024) loss_val 872.5000 (919.9750) lr 5.4601e-04 eta 0:07:28
+epoch [68/100] batch [20/25] time 0.508 (0.536) data 0.000 (0.024) loss_val 642.5000 (833.9500) lr 5.1825e-04 eta 0:07:11
+epoch [69/100] batch [20/25] time 0.534 (0.555) data 0.000 (0.026) loss_val 1014.5000 (934.1000) lr 4.9096e-04 eta 0:07:13
+epoch [70/100] batch [20/25] time 0.525 (0.558) data 0.000 (0.025) loss_val 939.5000 (918.0750) lr 4.6417e-04 eta 0:07:01
+epoch [71/100] batch [20/25] time 0.531 (0.554) data 0.000 (0.025) loss_val 1244.0000 (865.1500) lr 4.3792e-04 eta 0:06:44
+epoch [72/100] batch [20/25] time 0.509 (0.537) data 0.000 (0.024) loss_val 1127.0000 (914.3250) lr 4.1221e-04 eta 0:06:18
+epoch [73/100] batch [20/25] time 0.519 (0.531) data 0.000 (0.020) loss_val 662.0000 (823.0375) lr 3.8709e-04 eta 0:06:01
+epoch [74/100] batch [20/25] time 0.512 (0.537) data 0.000 (0.020) loss_val 703.0000 (882.7500) lr 3.6258e-04 eta 0:05:52
+epoch [75/100] batch [20/25] time 0.523 (0.537) data 0.000 (0.020) loss_val 578.5000 (915.6250) lr 3.3869e-04 eta 0:05:38
+epoch [76/100] batch [20/25] time 0.502 (0.542) data 0.000 (0.024) loss_val 1104.0000 (886.1750) lr 3.1545e-04 eta 0:05:27
+epoch [77/100] batch [20/25] time 0.510 (0.543) data 0.000 (0.025) loss_val 975.0000 (875.5750) lr 2.9289e-04 eta 0:05:14
+epoch [78/100] batch [20/25] time 0.516 (0.535) data 0.000 (0.019) loss_val 1561.0000 (892.9750) lr 2.7103e-04 eta 0:04:57
+epoch [79/100] batch [20/25] time 0.516 (0.540) data 0.000 (0.023) loss_val 685.5000 (961.5500) lr 2.4989e-04 eta 0:04:46
+epoch [80/100] batch [20/25] time 0.535 (0.570) data 0.000 (0.027) loss_val 543.0000 (885.3500) lr 2.2949e-04 eta 0:04:47
+epoch [81/100] batch [20/25] time 0.536 (0.567) data 0.000 (0.027) loss_val 726.0000 (887.3625) lr 2.0984e-04 eta 0:04:32
+epoch [82/100] batch [20/25] time 0.531 (0.573) data 0.000 (0.033) loss_val 716.5000 (845.3000) lr 1.9098e-04 eta 0:04:20
+epoch [83/100] batch [20/25] time 0.529 (0.546) data 0.000 (0.023) loss_val 839.5000 (819.1000) lr 1.7292e-04 eta 0:03:54
+epoch [84/100] batch [20/25] time 0.527 (0.551) data 0.000 (0.025) loss_val 860.0000 (898.4500) lr 1.5567e-04 eta 0:03:43
+epoch [85/100] batch [20/25] time 0.512 (0.551) data 0.000 (0.021) loss_val 1131.0000 (850.2875) lr 1.3926e-04 eta 0:03:29
+epoch [86/100] batch [20/25] time 0.543 (0.580) data 0.000 (0.031) loss_val 1052.0000 (939.9250) lr 1.2369e-04 eta 0:03:25
+epoch [87/100] batch [20/25] time 0.520 (0.563) data 0.000 (0.030) loss_val 858.0000 (875.7125) lr 1.0899e-04 eta 0:03:05
+epoch [88/100] batch [20/25] time 0.544 (0.561) data 0.000 (0.026) loss_val 498.7500 (955.9375) lr 9.5173e-05 eta 0:02:51
+epoch [89/100] batch [20/25] time 0.529 (0.562) data 0.000 (0.032) loss_val 919.0000 (868.1250) lr 8.2245e-05 eta 0:02:37
+epoch [90/100] batch [20/25] time 0.513 (0.542) data 0.000 (0.027) loss_val 960.5000 (897.1750) lr 7.0224e-05 eta 0:02:18
+epoch [91/100] batch [20/25] time 0.509 (0.527) data 0.000 (0.019) loss_val 526.0000 (843.9250) lr 5.9119e-05 eta 0:02:01
+epoch [92/100] batch [20/25] time 0.507 (0.526) data 0.000 (0.020) loss_val 1122.0000 (876.1875) lr 4.8943e-05 eta 0:01:47
+epoch [93/100] batch [20/25] time 0.509 (0.533) data 0.000 (0.019) loss_val 1192.0000 (920.9250) lr 3.9706e-05 eta 0:01:35
+epoch [94/100] batch [20/25] time 0.533 (0.556) data 0.000 (0.026) loss_val 837.0000 (868.0250) lr 3.1417e-05 eta 0:01:26
+epoch [95/100] batch [20/25] time 0.505 (0.537) data 0.000 (0.021) loss_val 593.0000 (839.7500) lr 2.4083e-05 eta 0:01:09
+epoch [96/100] batch [20/25] time 0.520 (0.533) data 0.000 (0.021) loss_val 1093.0000 (829.0375) lr 1.7713e-05 eta 0:00:55
+epoch [97/100] batch [20/25] time 0.563 (0.567) data 0.000 (0.022) loss_val 756.5000 (854.5000) lr 1.2312e-05 eta 0:00:45
+epoch [98/100] batch [20/25] time 0.557 (0.579) data 0.000 (0.025) loss_val 914.5000 (801.9625) lr 7.8853e-06 eta 0:00:31
+epoch [99/100] batch [20/25] time 0.530 (0.572) data 0.000 (0.025) loss_val 1172.0000 (855.5375) lr 4.4380e-06 eta 0:00:17
+epoch [100/100] batch [20/25] time 0.542 (0.561) data 0.000 (0.024) loss_val 568.5000 (941.9750) lr 1.9733e-06 eta 0:00:02
+Checkpoint saved to output/ucf101/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed3/anchor_prompt_learner/model.pth.tar-100
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 1,934
+* correct: 1,457
+* accuracy: 75.336%
+* error: 24.66%
+* macro_f1: 73.86%
+Elapsed: 0:23:01

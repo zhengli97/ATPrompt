@@ -1,0 +1,315 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/food101.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '20']
+output_dir: output/food101/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed2
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 2
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: Food101
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 20
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/food101/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed2
+RESUME: 
+SEED: 2
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: Food101
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/food-101/split_zhou_Food101.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/food-101/split_fewshot/shot_16-seed_2.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  -------
+Dataset    Food101
+# classes  51
+# train_x  816
+# val      204
+# test     15,300
+---------  -------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of apple pie.', 'X of baby back ribs.', 'X of baklava.', 'X of beef carpaccio.', 'X of beef tartare.', 'X of beet salad.', 'X of beignets.', 'X of bibimbap.', 'X of bread pudding.', 'X of breakfast burrito.', 'X of bruschetta.', 'X of caesar salad.', 'X of cannoli.', 'X of caprese salad.', 'X of carrot cake.', 'X of ceviche.', 'X of cheese plate.', 'X of cheesecake.', 'X of chicken curry.', 'X of chicken quesadilla.', 'X of chicken wings.', 'X of chocolate cake.', 'X of chocolate mousse.', 'X of churros.', 'X of clam chowder.', 'X of club sandwich.', 'X of crab cakes.', 'X of creme brulee.', 'X of croque madame.', 'X of cup cakes.', 'X of deviled eggs.', 'X of donuts.', 'X of dumplings.', 'X of edamame.', 'X of eggs benedict.', 'X of escargots.', 'X of falafel.', 'X of filet mignon.', 'X of fish and chips.', 'X of foie gras.', 'X of french fries.', 'X of french onion soup.', 'X of french toast.', 'X of fried calamari.', 'X of fried rice.', 'X of frozen yogurt.', 'X of garlic bread.', 'X of gnocchi.', 'X of greek salad.', 'X of grilled cheese sandwich.', 'X of grilled salmon.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X apple pie.', 'X X X X baby back ribs.', 'X X X X baklava.', 'X X X X beef carpaccio.', 'X X X X beef tartare.', 'X X X X beet salad.', 'X X X X beignets.', 'X X X X bibimbap.', 'X X X X bread pudding.', 'X X X X breakfast burrito.', 'X X X X bruschetta.', 'X X X X caesar salad.', 'X X X X cannoli.', 'X X X X caprese salad.', 'X X X X carrot cake.', 'X X X X ceviche.', 'X X X X cheese plate.', 'X X X X cheesecake.', 'X X X X chicken curry.', 'X X X X chicken quesadilla.', 'X X X X chicken wings.', 'X X X X chocolate cake.', 'X X X X chocolate mousse.', 'X X X X churros.', 'X X X X clam chowder.', 'X X X X club sandwich.', 'X X X X crab cakes.', 'X X X X creme brulee.', 'X X X X croque madame.', 'X X X X cup cakes.', 'X X X X deviled eggs.', 'X X X X donuts.', 'X X X X dumplings.', 'X X X X edamame.', 'X X X X eggs benedict.', 'X X X X escargots.', 'X X X X falafel.', 'X X X X filet mignon.', 'X X X X fish and chips.', 'X X X X foie gras.', 'X X X X french fries.', 'X X X X french onion soup.', 'X X X X french toast.', 'X X X X fried calamari.', 'X X X X fried rice.', 'X X X X frozen yogurt.', 'X X X X garlic bread.', 'X X X X gnocchi.', 'X X X X greek salad.', 'X X X X grilled cheese sandwich.', 'X X X X grilled salmon.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx', 'normal_prompt_learner.ctx_pos_params', 'anchor_prompt_learner.anchor_ctx_1'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/20] batch [20/25] time 0.517 (0.679) data 0.000 (0.036) loss_val 1403.0000 (989.4250) lr 1.0000e-05 eta 0:05:25
+epoch [2/20] batch [20/25] time 0.520 (0.551) data 0.000 (0.023) loss_val 780.5000 (892.6250) lr 2.0000e-03 eta 0:04:10
+epoch [3/20] batch [20/25] time 0.530 (0.544) data 0.000 (0.023) loss_val 647.0000 (825.4250) lr 1.9877e-03 eta 0:03:54
+epoch [4/20] batch [20/25] time 0.524 (0.548) data 0.000 (0.022) loss_val 580.5000 (692.3250) lr 1.9511e-03 eta 0:03:42
+epoch [5/20] batch [20/25] time 0.521 (0.545) data 0.000 (0.023) loss_val 840.0000 (737.5125) lr 1.8910e-03 eta 0:03:27
+epoch [6/20] batch [20/25] time 0.524 (0.544) data 0.000 (0.024) loss_val 872.5000 (711.8750) lr 1.8090e-03 eta 0:03:13
+epoch [7/20] batch [20/25] time 0.520 (0.544) data 0.000 (0.022) loss_val 381.5000 (633.2375) lr 1.7071e-03 eta 0:02:59
+epoch [8/20] batch [20/25] time 0.513 (0.545) data 0.000 (0.024) loss_val 508.7500 (609.5125) lr 1.5878e-03 eta 0:02:46
+epoch [9/20] batch [20/25] time 0.508 (0.543) data 0.000 (0.023) loss_val 760.5000 (665.7125) lr 1.4540e-03 eta 0:02:32
+epoch [10/20] batch [20/25] time 0.512 (0.544) data 0.000 (0.023) loss_val 532.5000 (591.2125) lr 1.3090e-03 eta 0:02:18
+epoch [11/20] batch [20/25] time 0.517 (0.542) data 0.000 (0.024) loss_val 473.0000 (706.0000) lr 1.1564e-03 eta 0:02:04
+epoch [12/20] batch [20/25] time 0.525 (0.554) data 0.000 (0.022) loss_val 976.5000 (647.8312) lr 1.0000e-03 eta 0:01:53
+epoch [13/20] batch [20/25] time 0.532 (0.559) data 0.000 (0.026) loss_val 890.5000 (535.3188) lr 8.4357e-04 eta 0:01:40
+epoch [14/20] batch [20/25] time 0.535 (0.560) data 0.000 (0.025) loss_val 1024.0000 (657.2938) lr 6.9098e-04 eta 0:01:26
+epoch [15/20] batch [20/25] time 0.531 (0.556) data 0.000 (0.025) loss_val 509.2500 (667.7000) lr 5.4601e-04 eta 0:01:12
+epoch [16/20] batch [20/25] time 0.528 (0.560) data 0.000 (0.026) loss_val 611.5000 (668.4500) lr 4.1221e-04 eta 0:00:58
+epoch [17/20] batch [20/25] time 0.526 (0.555) data 0.000 (0.025) loss_val 396.5000 (573.2062) lr 2.9289e-04 eta 0:00:44
+epoch [18/20] batch [20/25] time 0.525 (0.551) data 0.000 (0.024) loss_val 623.0000 (616.0000) lr 1.9098e-04 eta 0:00:30
+epoch [19/20] batch [20/25] time 0.533 (0.556) data 0.000 (0.024) loss_val 502.0000 (652.4875) lr 1.0899e-04 eta 0:00:16
+epoch [20/20] batch [20/25] time 0.529 (0.558) data 0.000 (0.027) loss_val 444.0000 (655.9250) lr 4.8943e-05 eta 0:00:02
+Checkpoint saved to output/food101/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed2/anchor_prompt_learner/model.pth.tar-20
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 15,300
+* correct: 13,776
+* accuracy: 90.039%
+* error: 9.96%
+* macro_f1: 90.04%
+Elapsed: 0:05:15

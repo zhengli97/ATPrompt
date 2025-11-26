@@ -1,0 +1,375 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/stanford_cars.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '100.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '40']
+output_dir: output/stanford_cars/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_40_MSE_100.0_CE_1000.0/seed2
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 2
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: StanfordCars
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 40
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/stanford_cars/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_40_MSE_100.0_CE_1000.0/seed2
+RESUME: 
+SEED: 2
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 100.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: StanfordCars
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/stanford_cars/split_zhou_StanfordCars.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/stanford_cars/split_fewshot/shot_16-seed_2.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ------------
+Dataset    StanfordCars
+# classes  98
+# train_x  1,568
+# val      392
+# test     4,002
+---------  ------------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of 2000 AM General Hummer SUV.', 'X of 2012 Acura RL Sedan.', 'X of 2012 Acura TL Sedan.', 'X of 2008 Acura TL Type-S.', 'X of 2012 Acura TSX Sedan.', 'X of 2001 Acura Integra Type R.', 'X of 2012 Acura ZDX Hatchback.', 'X of 2012 Aston Martin V8 Vantage Convertible.', 'X of 2012 Aston Martin V8 Vantage Coupe.', 'X of 2012 Aston Martin Virage Convertible.', 'X of 2012 Aston Martin Virage Coupe.', 'X of 2008 Audi RS 4 Convertible.', 'X of 2012 Audi A5 Coupe.', 'X of 2012 Audi TTS Coupe.', 'X of 2012 Audi R8 Coupe.', 'X of 1994 Audi V8 Sedan.', 'X of 1994 Audi 100 Sedan.', 'X of 1994 Audi 100 Wagon.', 'X of 2011 Audi TT Hatchback.', 'X of 2011 Audi S6 Sedan.', 'X of 2012 Audi S5 Convertible.', 'X of 2012 Audi S5 Coupe.', 'X of 2012 Audi S4 Sedan.', 'X of 2007 Audi S4 Sedan.', 'X of 2012 Audi TT RS Coupe.', 'X of 2012 BMW ActiveHybrid 5 Sedan.', 'X of 2012 BMW 1 Series Convertible.', 'X of 2012 BMW 1 Series Coupe.', 'X of 2012 BMW 3 Series Sedan.', 'X of 2012 BMW 3 Series Wagon.', 'X of 2007 BMW 6 Series Convertible.', 'X of 2007 BMW X5 SUV.', 'X of 2012 BMW X6 SUV.', 'X of 2012 BMW M3 Coupe.', 'X of 2010 BMW M5 Sedan.', 'X of 2010 BMW M6 Convertible.', 'X of 2012 BMW X3 SUV.', 'X of 2012 BMW Z4 Convertible.', 'X of 2012 Bentley Continental Supersports Conv. Convertible.', 'X of 2009 Bentley Arnage Sedan.', 'X of 2011 Bentley Mulsanne Sedan.', 'X of 2012 Bentley Continental GT Coupe.', 'X of 2007 Bentley Continental GT Coupe.', 'X of 2007 Bentley Continental Flying Spur Sedan.', 'X of 2009 Bugatti Veyron 16.4 Convertible.', 'X of 2009 Bugatti Veyron 16.4 Coupe.', 'X of 2012 Buick Regal GS.', 'X of 2007 Buick Rainier SUV.', 'X of 2012 Buick Verano Sedan.', 'X of 2012 Buick Enclave SUV.', 'X of 2012 Cadillac CTS-V Sedan.', 'X of 2012 Cadillac SRX SUV.', 'X of 2007 Cadillac Escalade EXT Crew Cab.', 'X of 2012 Chevrolet Silverado 1500 Hybrid Crew Cab.', 'X of 2012 Chevrolet Corvette Convertible.', 'X of 2012 Chevrolet Corvette ZR1.', 'X of 2007 Chevrolet Corvette Ron Fellows Edition Z06.', 'X of 2012 Chevrolet Traverse SUV.', 'X of 2012 Chevrolet Camaro Convertible.', 'X of 2010 Chevrolet HHR SS.', 'X of 2007 Chevrolet Impala Sedan.', 'X of 2012 Chevrolet Tahoe Hybrid SUV.', 'X of 2012 Chevrolet Sonic Sedan.', 'X of 2007 Chevrolet Express Cargo Van.', 'X of 2012 Chevrolet Avalanche Crew Cab.', 'X of 2010 Chevrolet Cobalt SS.', 'X of 2010 Chevrolet Malibu Hybrid Sedan.', 'X of 2009 Chevrolet TrailBlazer SS.', 'X of 2012 Chevrolet Silverado 2500HD Regular Cab.', 'X of 2007 Chevrolet Silverado 1500 Classic Extended Cab.', 'X of 2007 Chevrolet Express Van.', 'X of 2007 Chevrolet Monte Carlo Coupe.', 'X of 2007 Chevrolet Malibu Sedan.', 'X of 2012 Chevrolet Silverado 1500 Extended Cab.', 'X of 2012 Chevrolet Silverado 1500 Regular Cab.', 'X of 2009 Chrysler Aspen SUV.', 'X of 2010 Chrysler Sebring Convertible.', 'X of 2012 Chrysler Town and Country Minivan.', 'X of 2010 Chrysler 300 SRT-8.', 'X of 2008 Chrysler Crossfire Convertible.', 'X of 2008 Chrysler PT Cruiser Convertible.', 'X of 2002 Daewoo Nubira Wagon.', 'X of 2012 Dodge Caliber Wagon.', 'X of 2007 Dodge Caliber Wagon.', 'X of 1997 Dodge Caravan Minivan.', 'X of 2010 Dodge Ram Pickup 3500 Crew Cab.', 'X of 2009 Dodge Ram Pickup 3500 Quad Cab.', 'X of 2009 Dodge Sprinter Cargo Van.', 'X of 2012 Dodge Journey SUV.', 'X of 2010 Dodge Dakota Crew Cab.', 'X of 2007 Dodge Dakota Club Cab.', 'X of 2008 Dodge Magnum Wagon.', 'X of 2011 Dodge Challenger SRT8.', 'X of 2012 Dodge Durango SUV.', 'X of 2007 Dodge Durango SUV.', 'X of 2012 Dodge Charger Sedan.', 'X of 2009 Dodge Charger SRT-8.', 'X of 1998 Eagle Talon Hatchback.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X 2000 AM General Hummer SUV.', 'X X X X 2012 Acura RL Sedan.', 'X X X X 2012 Acura TL Sedan.', 'X X X X 2008 Acura TL Type-S.', 'X X X X 2012 Acura TSX Sedan.', 'X X X X 2001 Acura Integra Type R.', 'X X X X 2012 Acura ZDX Hatchback.', 'X X X X 2012 Aston Martin V8 Vantage Convertible.', 'X X X X 2012 Aston Martin V8 Vantage Coupe.', 'X X X X 2012 Aston Martin Virage Convertible.', 'X X X X 2012 Aston Martin Virage Coupe.', 'X X X X 2008 Audi RS 4 Convertible.', 'X X X X 2012 Audi A5 Coupe.', 'X X X X 2012 Audi TTS Coupe.', 'X X X X 2012 Audi R8 Coupe.', 'X X X X 1994 Audi V8 Sedan.', 'X X X X 1994 Audi 100 Sedan.', 'X X X X 1994 Audi 100 Wagon.', 'X X X X 2011 Audi TT Hatchback.', 'X X X X 2011 Audi S6 Sedan.', 'X X X X 2012 Audi S5 Convertible.', 'X X X X 2012 Audi S5 Coupe.', 'X X X X 2012 Audi S4 Sedan.', 'X X X X 2007 Audi S4 Sedan.', 'X X X X 2012 Audi TT RS Coupe.', 'X X X X 2012 BMW ActiveHybrid 5 Sedan.', 'X X X X 2012 BMW 1 Series Convertible.', 'X X X X 2012 BMW 1 Series Coupe.', 'X X X X 2012 BMW 3 Series Sedan.', 'X X X X 2012 BMW 3 Series Wagon.', 'X X X X 2007 BMW 6 Series Convertible.', 'X X X X 2007 BMW X5 SUV.', 'X X X X 2012 BMW X6 SUV.', 'X X X X 2012 BMW M3 Coupe.', 'X X X X 2010 BMW M5 Sedan.', 'X X X X 2010 BMW M6 Convertible.', 'X X X X 2012 BMW X3 SUV.', 'X X X X 2012 BMW Z4 Convertible.', 'X X X X 2012 Bentley Continental Supersports Conv. Convertible.', 'X X X X 2009 Bentley Arnage Sedan.', 'X X X X 2011 Bentley Mulsanne Sedan.', 'X X X X 2012 Bentley Continental GT Coupe.', 'X X X X 2007 Bentley Continental GT Coupe.', 'X X X X 2007 Bentley Continental Flying Spur Sedan.', 'X X X X 2009 Bugatti Veyron 16.4 Convertible.', 'X X X X 2009 Bugatti Veyron 16.4 Coupe.', 'X X X X 2012 Buick Regal GS.', 'X X X X 2007 Buick Rainier SUV.', 'X X X X 2012 Buick Verano Sedan.', 'X X X X 2012 Buick Enclave SUV.', 'X X X X 2012 Cadillac CTS-V Sedan.', 'X X X X 2012 Cadillac SRX SUV.', 'X X X X 2007 Cadillac Escalade EXT Crew Cab.', 'X X X X 2012 Chevrolet Silverado 1500 Hybrid Crew Cab.', 'X X X X 2012 Chevrolet Corvette Convertible.', 'X X X X 2012 Chevrolet Corvette ZR1.', 'X X X X 2007 Chevrolet Corvette Ron Fellows Edition Z06.', 'X X X X 2012 Chevrolet Traverse SUV.', 'X X X X 2012 Chevrolet Camaro Convertible.', 'X X X X 2010 Chevrolet HHR SS.', 'X X X X 2007 Chevrolet Impala Sedan.', 'X X X X 2012 Chevrolet Tahoe Hybrid SUV.', 'X X X X 2012 Chevrolet Sonic Sedan.', 'X X X X 2007 Chevrolet Express Cargo Van.', 'X X X X 2012 Chevrolet Avalanche Crew Cab.', 'X X X X 2010 Chevrolet Cobalt SS.', 'X X X X 2010 Chevrolet Malibu Hybrid Sedan.', 'X X X X 2009 Chevrolet TrailBlazer SS.', 'X X X X 2012 Chevrolet Silverado 2500HD Regular Cab.', 'X X X X 2007 Chevrolet Silverado 1500 Classic Extended Cab.', 'X X X X 2007 Chevrolet Express Van.', 'X X X X 2007 Chevrolet Monte Carlo Coupe.', 'X X X X 2007 Chevrolet Malibu Sedan.', 'X X X X 2012 Chevrolet Silverado 1500 Extended Cab.', 'X X X X 2012 Chevrolet Silverado 1500 Regular Cab.', 'X X X X 2009 Chrysler Aspen SUV.', 'X X X X 2010 Chrysler Sebring Convertible.', 'X X X X 2012 Chrysler Town and Country Minivan.', 'X X X X 2010 Chrysler 300 SRT-8.', 'X X X X 2008 Chrysler Crossfire Convertible.', 'X X X X 2008 Chrysler PT Cruiser Convertible.', 'X X X X 2002 Daewoo Nubira Wagon.', 'X X X X 2012 Dodge Caliber Wagon.', 'X X X X 2007 Dodge Caliber Wagon.', 'X X X X 1997 Dodge Caravan Minivan.', 'X X X X 2010 Dodge Ram Pickup 3500 Crew Cab.', 'X X X X 2009 Dodge Ram Pickup 3500 Quad Cab.', 'X X X X 2009 Dodge Sprinter Cargo Van.', 'X X X X 2012 Dodge Journey SUV.', 'X X X X 2010 Dodge Dakota Crew Cab.', 'X X X X 2007 Dodge Dakota Club Cab.', 'X X X X 2008 Dodge Magnum Wagon.', 'X X X X 2011 Dodge Challenger SRT8.', 'X X X X 2012 Dodge Durango SUV.', 'X X X X 2007 Dodge Durango SUV.', 'X X X X 2012 Dodge Charger Sedan.', 'X X X X 2009 Dodge Charger SRT-8.', 'X X X X 1998 Eagle Talon Hatchback.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx', 'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx_pos_params'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/40] batch [20/49] time 0.958 (0.972) data 0.000 (0.026) loss_val 2094.0000 (1709.1000) lr 1.0000e-05 eta 0:31:26
+epoch [1/40] batch [40/49] time 0.916 (0.948) data 0.000 (0.013) loss_val 1344.0000 (1608.3750) lr 1.0000e-05 eta 0:30:20
+epoch [2/40] batch [20/49] time 0.918 (0.939) data 0.000 (0.023) loss_val 1593.0000 (1804.0500) lr 2.0000e-03 eta 0:29:36
+epoch [2/40] batch [40/49] time 0.928 (0.927) data 0.000 (0.012) loss_val 1728.0000 (1683.5500) lr 2.0000e-03 eta 0:28:54
+epoch [3/40] batch [20/49] time 0.924 (0.939) data 0.000 (0.026) loss_val 1595.0000 (1477.7000) lr 1.9969e-03 eta 0:28:48
+epoch [3/40] batch [40/49] time 0.927 (0.925) data 0.000 (0.013) loss_val 1406.0000 (1482.4000) lr 1.9969e-03 eta 0:28:04
+epoch [4/40] batch [20/49] time 0.936 (0.952) data 0.000 (0.026) loss_val 1364.0000 (1417.5000) lr 1.9877e-03 eta 0:28:27
+epoch [4/40] batch [40/49] time 0.918 (0.941) data 0.000 (0.013) loss_val 1202.0000 (1416.6250) lr 1.9877e-03 eta 0:27:47
+epoch [5/40] batch [20/49] time 0.956 (0.985) data 0.000 (0.028) loss_val 1431.0000 (1384.6750) lr 1.9724e-03 eta 0:28:37
+epoch [5/40] batch [40/49] time 0.961 (0.973) data 0.000 (0.014) loss_val 1466.0000 (1373.5500) lr 1.9724e-03 eta 0:27:57
+epoch [6/40] batch [20/49] time 0.921 (0.960) data 0.000 (0.026) loss_val 1383.0000 (1336.9000) lr 1.9511e-03 eta 0:27:07
+epoch [6/40] batch [40/49] time 0.904 (0.938) data 0.000 (0.013) loss_val 1436.0000 (1349.3375) lr 1.9511e-03 eta 0:26:10
+epoch [7/40] batch [20/49] time 0.925 (0.933) data 0.000 (0.021) loss_val 1188.0000 (1331.2000) lr 1.9239e-03 eta 0:25:36
+epoch [7/40] batch [40/49] time 0.907 (0.925) data 0.000 (0.011) loss_val 1092.0000 (1339.2250) lr 1.9239e-03 eta 0:25:03
+epoch [8/40] batch [20/49] time 0.930 (0.984) data 0.000 (0.024) loss_val 1333.0000 (1393.9750) lr 1.8910e-03 eta 0:26:11
+epoch [8/40] batch [40/49] time 0.947 (0.965) data 0.000 (0.012) loss_val 1441.0000 (1359.0875) lr 1.8910e-03 eta 0:25:21
+epoch [9/40] batch [20/49] time 0.955 (0.970) data 0.000 (0.025) loss_val 980.0000 (1375.5000) lr 1.8526e-03 eta 0:25:01
+epoch [9/40] batch [40/49] time 0.950 (0.960) data 0.000 (0.013) loss_val 1302.0000 (1330.0000) lr 1.8526e-03 eta 0:24:26
+epoch [10/40] batch [20/49] time 0.959 (0.993) data 0.000 (0.026) loss_val 1123.0000 (1291.1750) lr 1.8090e-03 eta 0:24:48
+epoch [10/40] batch [40/49] time 0.956 (0.969) data 0.000 (0.013) loss_val 1428.0000 (1320.1250) lr 1.8090e-03 eta 0:23:53
+epoch [11/40] batch [20/49] time 0.944 (0.973) data 0.000 (0.025) loss_val 1260.0000 (1437.0000) lr 1.7604e-03 eta 0:23:30
+epoch [11/40] batch [40/49] time 0.954 (0.954) data 0.000 (0.012) loss_val 1159.0000 (1378.4875) lr 1.7604e-03 eta 0:22:43
+epoch [12/40] batch [20/49] time 0.958 (0.978) data 0.000 (0.026) loss_val 1274.0000 (1319.0250) lr 1.7071e-03 eta 0:22:50
+epoch [12/40] batch [40/49] time 0.955 (0.966) data 0.000 (0.013) loss_val 1616.0000 (1324.4625) lr 1.7071e-03 eta 0:22:14
+epoch [13/40] batch [20/49] time 0.934 (0.977) data 0.000 (0.027) loss_val 1371.0000 (1293.9500) lr 1.6494e-03 eta 0:22:00
+epoch [13/40] batch [40/49] time 0.935 (0.961) data 0.000 (0.014) loss_val 1308.0000 (1361.7500) lr 1.6494e-03 eta 0:21:19
+epoch [14/40] batch [20/49] time 0.955 (0.975) data 0.000 (0.024) loss_val 1598.0000 (1384.4000) lr 1.5878e-03 eta 0:21:10
+epoch [14/40] batch [40/49] time 0.944 (0.963) data 0.000 (0.012) loss_val 1540.0000 (1361.0750) lr 1.5878e-03 eta 0:20:35
+epoch [15/40] batch [20/49] time 0.943 (0.982) data 0.000 (0.026) loss_val 1343.0000 (1360.7250) lr 1.5225e-03 eta 0:20:30
+epoch [15/40] batch [40/49] time 0.953 (0.961) data 0.000 (0.013) loss_val 1182.0000 (1331.6250) lr 1.5225e-03 eta 0:19:45
+epoch [16/40] batch [20/49] time 0.947 (0.975) data 0.000 (0.024) loss_val 1606.0000 (1381.9000) lr 1.4540e-03 eta 0:19:35
+epoch [16/40] batch [40/49] time 0.958 (0.963) data 0.000 (0.012) loss_val 1497.0000 (1392.6875) lr 1.4540e-03 eta 0:19:00
+epoch [17/40] batch [20/49] time 0.923 (0.949) data 0.000 (0.027) loss_val 1318.0000 (1330.9750) lr 1.3827e-03 eta 0:18:16
+epoch [17/40] batch [40/49] time 0.929 (0.941) data 0.000 (0.013) loss_val 803.5000 (1317.2125) lr 1.3827e-03 eta 0:17:49
+epoch [18/40] batch [20/49] time 0.941 (0.962) data 0.000 (0.023) loss_val 1095.0000 (1250.7000) lr 1.3090e-03 eta 0:17:44
+epoch [18/40] batch [40/49] time 0.911 (0.939) data 0.000 (0.012) loss_val 1179.0000 (1274.9250) lr 1.3090e-03 eta 0:17:00
+epoch [19/40] batch [20/49] time 0.910 (0.942) data 0.000 (0.023) loss_val 901.5000 (1288.1250) lr 1.2334e-03 eta 0:16:36
+epoch [19/40] batch [40/49] time 0.916 (0.928) data 0.000 (0.012) loss_val 1305.0000 (1295.9125) lr 1.2334e-03 eta 0:16:03
+epoch [20/40] batch [20/49] time 0.904 (0.943) data 0.000 (0.022) loss_val 1522.0000 (1325.7500) lr 1.1564e-03 eta 0:15:51
+epoch [20/40] batch [40/49] time 0.927 (0.930) data 0.000 (0.011) loss_val 1423.0000 (1335.8625) lr 1.1564e-03 eta 0:15:19
+epoch [21/40] batch [20/49] time 0.902 (0.931) data 0.000 (0.020) loss_val 1452.0000 (1290.1250) lr 1.0785e-03 eta 0:14:54
+epoch [21/40] batch [40/49] time 0.911 (0.918) data 0.000 (0.010) loss_val 1395.0000 (1310.7375) lr 1.0785e-03 eta 0:14:22
+epoch [22/40] batch [20/49] time 0.940 (0.973) data 0.000 (0.037) loss_val 1513.0000 (1340.7000) lr 1.0000e-03 eta 0:14:46
+epoch [22/40] batch [40/49] time 0.926 (0.955) data 0.000 (0.018) loss_val 1012.5000 (1320.5625) lr 1.0000e-03 eta 0:14:10
+epoch [23/40] batch [20/49] time 0.961 (0.968) data 0.000 (0.026) loss_val 888.5000 (1406.2250) lr 9.2154e-04 eta 0:13:54
+epoch [23/40] batch [40/49] time 0.953 (0.958) data 0.000 (0.013) loss_val 1538.0000 (1385.3000) lr 9.2154e-04 eta 0:13:26
+epoch [24/40] batch [20/49] time 0.916 (0.966) data 0.000 (0.026) loss_val 1532.0000 (1391.3500) lr 8.4357e-04 eta 0:13:04
+epoch [24/40] batch [40/49] time 0.946 (0.947) data 0.000 (0.013) loss_val 1104.0000 (1336.7750) lr 8.4357e-04 eta 0:12:30
+epoch [25/40] batch [20/49] time 0.962 (0.999) data 0.000 (0.037) loss_val 1465.0000 (1272.8500) lr 7.6655e-04 eta 0:12:43
+epoch [25/40] batch [40/49] time 0.955 (0.979) data 0.000 (0.018) loss_val 1560.0000 (1324.8250) lr 7.6655e-04 eta 0:12:08
+epoch [26/40] batch [20/49] time 0.949 (0.982) data 0.000 (0.025) loss_val 1332.0000 (1328.5250) lr 6.9098e-04 eta 0:11:42
+epoch [26/40] batch [40/49] time 0.970 (0.969) data 0.000 (0.013) loss_val 1077.0000 (1285.0125) lr 6.9098e-04 eta 0:11:13
+epoch [27/40] batch [20/49] time 0.943 (0.969) data 0.000 (0.024) loss_val 1134.0000 (1344.8000) lr 6.1732e-04 eta 0:10:45
+epoch [27/40] batch [40/49] time 0.952 (0.960) data 0.000 (0.012) loss_val 1293.0000 (1331.5625) lr 6.1732e-04 eta 0:10:20
+epoch [28/40] batch [20/49] time 0.950 (0.987) data 0.000 (0.025) loss_val 1223.0000 (1268.6000) lr 5.4601e-04 eta 0:10:08
+epoch [28/40] batch [40/49] time 0.948 (0.979) data 0.000 (0.013) loss_val 928.5000 (1321.2625) lr 5.4601e-04 eta 0:09:44
+epoch [29/40] batch [20/49] time 0.973 (1.002) data 0.000 (0.028) loss_val 1416.0000 (1272.2750) lr 4.7750e-04 eta 0:09:28
+epoch [29/40] batch [40/49] time 0.977 (0.985) data 0.000 (0.014) loss_val 1611.0000 (1304.5875) lr 4.7750e-04 eta 0:08:59
+epoch [30/40] batch [20/49] time 0.993 (1.032) data 0.000 (0.025) loss_val 904.5000 (1288.3250) lr 4.1221e-04 eta 0:08:55
+epoch [30/40] batch [40/49] time 0.987 (1.012) data 0.000 (0.013) loss_val 1618.0000 (1280.0250) lr 4.1221e-04 eta 0:08:25
+epoch [31/40] batch [20/49] time 0.984 (0.997) data 0.000 (0.024) loss_val 1234.0000 (1345.6250) lr 3.5055e-04 eta 0:07:48
+epoch [31/40] batch [40/49] time 0.989 (0.985) data 0.000 (0.012) loss_val 1331.0000 (1318.8250) lr 3.5055e-04 eta 0:07:23
+epoch [32/40] batch [20/49] time 0.972 (1.000) data 0.000 (0.026) loss_val 1251.0000 (1306.4750) lr 2.9289e-04 eta 0:07:01
+epoch [32/40] batch [40/49] time 0.977 (0.982) data 0.000 (0.013) loss_val 1116.0000 (1274.8750) lr 2.9289e-04 eta 0:06:33
+epoch [33/40] batch [20/49] time 0.981 (0.986) data 0.000 (0.024) loss_val 1340.0000 (1376.1250) lr 2.3959e-04 eta 0:06:06
+epoch [33/40] batch [40/49] time 0.977 (0.978) data 0.000 (0.012) loss_val 1082.0000 (1326.2500) lr 2.3959e-04 eta 0:05:44
+epoch [34/40] batch [20/49] time 0.955 (0.991) data 0.000 (0.025) loss_val 1575.0000 (1306.9750) lr 1.9098e-04 eta 0:05:20
+epoch [34/40] batch [40/49] time 0.927 (0.969) data 0.000 (0.013) loss_val 1354.0000 (1302.6250) lr 1.9098e-04 eta 0:04:53
+epoch [35/40] batch [20/49] time 0.972 (0.983) data 0.000 (0.024) loss_val 1172.0000 (1308.1750) lr 1.4736e-04 eta 0:04:29
+epoch [35/40] batch [40/49] time 0.954 (0.971) data 0.000 (0.012) loss_val 1321.0000 (1321.2125) lr 1.4736e-04 eta 0:04:06
+epoch [36/40] batch [20/49] time 0.937 (0.973) data 0.000 (0.024) loss_val 1275.0000 (1301.9000) lr 1.0899e-04 eta 0:03:38
+epoch [36/40] batch [40/49] time 0.950 (0.960) data 0.000 (0.012) loss_val 1463.0000 (1301.6000) lr 1.0899e-04 eta 0:03:16
+epoch [37/40] batch [20/49] time 0.940 (0.974) data 0.000 (0.026) loss_val 1074.0000 (1328.1250) lr 7.6120e-05 eta 0:02:51
+epoch [37/40] batch [40/49] time 0.928 (0.957) data 0.000 (0.013) loss_val 1033.0000 (1303.8750) lr 7.6120e-05 eta 0:02:29
+epoch [38/40] batch [20/49] time 0.954 (0.979) data 0.000 (0.027) loss_val 1268.0000 (1292.7500) lr 4.8943e-05 eta 0:02:04
+epoch [38/40] batch [40/49] time 0.948 (0.967) data 0.000 (0.014) loss_val 874.5000 (1213.1500) lr 4.8943e-05 eta 0:01:43
+epoch [39/40] batch [20/49] time 0.944 (0.990) data 0.000 (0.041) loss_val 936.5000 (1279.4750) lr 2.7630e-05 eta 0:01:17
+epoch [39/40] batch [40/49] time 0.948 (0.968) data 0.000 (0.021) loss_val 1377.0000 (1297.7375) lr 2.7630e-05 eta 0:00:56
+epoch [40/40] batch [20/49] time 0.926 (0.962) data 0.000 (0.024) loss_val 1256.0000 (1204.4000) lr 1.2312e-05 eta 0:00:27
+epoch [40/40] batch [40/49] time 0.963 (0.953) data 0.000 (0.012) loss_val 981.0000 (1239.0875) lr 1.2312e-05 eta 0:00:08
+Checkpoint saved to output/stanford_cars/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_40_MSE_100.0_CE_1000.0/seed2/anchor_prompt_learner/model.pth.tar-40
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 4,002
+* correct: 2,584
+* accuracy: 64.568%
+* error: 35.43%
+* macro_f1: 62.93%
+Elapsed: 0:31:28

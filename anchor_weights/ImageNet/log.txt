@@ -1,0 +1,293 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/imagenet.yaml
+eval_only: True
+head: 
+load_epoch: 10
+model_dir: output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4
+no_train: False
+opts: ['DATASET.SUBSAMPLE_CLASSES', 'base', 'TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '0.0', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '100.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '5', 'TRAINER.COOP.TEMP', '2.0']
+output_dir: output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 4
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: ImageNet
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 200
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4
+RESUME: 
+SEED: 4
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 0.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    KD_TEMPERATURE: 1.0
+    KD_WEIGHT: 1.0
+    MAX_TEMPLATE_LENGTH: 5
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 100.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: ImageNet
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/imagenet/split_fewshot/shot_16-seed_4.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  --------
+Dataset    ImageNet
+# classes  500
+# train_x  8,000
+# val      25,000
+# test     25,000
+---------  --------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of tench.', 'X of goldfish.', 'X of great white shark.', 'X of tiger shark.', 'X of hammerhead shark.', 'X of electric ray.', 'X of stingray.', 'X of rooster.', 'X of hen.', 'X of ostrich.', 'X of brambling.', 'X of goldfinch.', 'X of house finch.', 'X of junco.', 'X of indigo bunting.', 'X of American robin.', 'X of bulbul.', 'X of jay.', 'X of magpie.', 'X of chickadee.', 'X of American dipper.', 'X of kite (bird of prey).', 'X of bald eagle.', 'X of vulture.', 'X of great grey owl.', 'X of fire salamander.', 'X of smooth newt.', 'X of newt.', 'X of spotted salamander.', 'X of axolotl.', 'X of American bullfrog.', 'X of tree frog.', 'X of tailed frog.', 'X of loggerhead sea turtle.', 'X of leatherback sea turtle.', 'X of mud turtle.', 'X of terrapin.', 'X of box turtle.', 'X of banded gecko.', 'X of green iguana.', 'X of Carolina anole.', 'X of desert grassland whiptail lizard.', 'X of agama.', 'X of frilled-necked lizard.', 'X of alligator lizard.', 'X of Gila monster.', 'X of European green lizard.', 'X of chameleon.', 'X of Komodo dragon.', 'X of Nile crocodile.', 'X of American alligator.', 'X of triceratops.', 'X of worm snake.', 'X of ring-necked snake.', 'X of eastern hog-nosed snake.', 'X of smooth green snake.', 'X of kingsnake.', 'X of garter snake.', 'X of water snake.', 'X of vine snake.', 'X of night snake.', 'X of boa constrictor.', 'X of African rock python.', 'X of Indian cobra.', 'X of green mamba.', 'X of sea snake.', 'X of Saharan horned viper.', 'X of eastern diamondback rattlesnake.', 'X of sidewinder rattlesnake.', 'X of trilobite.', 'X of harvestman.', 'X of scorpion.', 'X of yellow garden spider.', 'X of barn spider.', 'X of European garden spider.', 'X of southern black widow.', 'X of tarantula.', 'X of wolf spider.', 'X of tick.', 'X of centipede.', 'X of black grouse.', 'X of ptarmigan.', 'X of ruffed grouse.', 'X of prairie grouse.', 'X of peafowl.', 'X of quail.', 'X of partridge.', 'X of african grey parrot.', 'X of macaw.', 'X of sulphur-crested cockatoo.', 'X of lorikeet.', 'X of coucal.', 'X of bee eater.', 'X of hornbill.', 'X of hummingbird.', 'X of jacamar.', 'X of toucan.', 'X of duck.', 'X of red-breasted merganser.', 'X of goose.', 'X of black swan.', 'X of tusker.', 'X of echidna.', 'X of platypus.', 'X of wallaby.', 'X of koala.', 'X of wombat.', 'X of jellyfish.', 'X of sea anemone.', 'X of brain coral.', 'X of flatworm.', 'X of nematode.', 'X of conch.', 'X of snail.', 'X of slug.', 'X of sea slug.', 'X of chiton.', 'X of chambered nautilus.', 'X of Dungeness crab.', 'X of rock crab.', 'X of fiddler crab.', 'X of red king crab.', 'X of American lobster.', 'X of spiny lobster.', 'X of crayfish.', 'X of hermit crab.', 'X of isopod.', 'X of white stork.', 'X of black stork.', 'X of spoonbill.', 'X of flamingo.', 'X of little blue heron.', 'X of great egret.', 'X of bittern bird.', 'X of crane bird.', 'X of limpkin.', 'X of common gallinule.', 'X of American coot.', 'X of bustard.', 'X of ruddy turnstone.', 'X of dunlin.', 'X of common redshank.', 'X of dowitcher.', 'X of oystercatcher.', 'X of pelican.', 'X of king penguin.', 'X of albatross.', 'X of grey whale.', 'X of killer whale.', 'X of dugong.', 'X of sea lion.', 'X of Chihuahua.', 'X of Japanese Chin.', 'X of Maltese.', 'X of Pekingese.', 'X of Shih Tzu.', 'X of King Charles Spaniel.', 'X of Papillon.', 'X of toy terrier.', 'X of Rhodesian Ridgeback.', 'X of Afghan Hound.', 'X of Basset Hound.', 'X of Beagle.', 'X of Bloodhound.', 'X of Bluetick Coonhound.', 'X of Black and Tan Coonhound.', 'X of Treeing Walker Coonhound.', 'X of English foxhound.', 'X of Redbone Coonhound.', 'X of borzoi.', 'X of Irish Wolfhound.', 'X of Italian Greyhound.', 'X of Whippet.', 'X of Ibizan Hound.', 'X of Norwegian Elkhound.', 'X of Otterhound.', 'X of Saluki.', 'X of Scottish Deerhound.', 'X of Weimaraner.', 'X of Staffordshire Bull Terrier.', 'X of American Staffordshire Terrier.', 'X of Bedlington Terrier.', 'X of Border Terrier.', 'X of Kerry Blue Terrier.', 'X of Irish Terrier.', 'X of Norfolk Terrier.', 'X of Norwich Terrier.', 'X of Yorkshire Terrier.', 'X of Wire Fox Terrier.', 'X of Lakeland Terrier.', 'X of Sealyham Terrier.', 'X of Airedale Terrier.', 'X of Cairn Terrier.', 'X of Australian Terrier.', 'X of Dandie Dinmont Terrier.', 'X of Boston Terrier.', 'X of Miniature Schnauzer.', 'X of Giant Schnauzer.', 'X of Standard Schnauzer.', 'X of Scottish Terrier.', 'X of Tibetan Terrier.', 'X of Australian Silky Terrier.', 'X of Soft-coated Wheaten Terrier.', 'X of West Highland White Terrier.', 'X of Lhasa Apso.', 'X of Flat-Coated Retriever.', 'X of Curly-coated Retriever.', 'X of Golden Retriever.', 'X of Labrador Retriever.', 'X of Chesapeake Bay Retriever.', 'X of German Shorthaired Pointer.', 'X of Vizsla.', 'X of English Setter.', 'X of Irish Setter.', 'X of Gordon Setter.', 'X of Brittany dog.', 'X of Clumber Spaniel.', 'X of English Springer Spaniel.', 'X of Welsh Springer Spaniel.', 'X of Cocker Spaniel.', 'X of Sussex Spaniel.', 'X of Irish Water Spaniel.', 'X of Kuvasz.', 'X of Schipperke.', 'X of Groenendael dog.', 'X of Malinois.', 'X of Briard.', 'X of Australian Kelpie.', 'X of Komondor.', 'X of Old English Sheepdog.', 'X of Shetland Sheepdog.', 'X of collie.', 'X of Border Collie.', 'X of Bouvier des Flandres dog.', 'X of Rottweiler.', 'X of German Shepherd Dog.', 'X of Dobermann.', 'X of Miniature Pinscher.', 'X of Greater Swiss Mountain Dog.', 'X of Bernese Mountain Dog.', 'X of Appenzeller Sennenhund.', 'X of Entlebucher Sennenhund.', 'X of Boxer.', 'X of Bullmastiff.', 'X of Tibetan Mastiff.', 'X of French Bulldog.', 'X of Great Dane.', 'X of St. Bernard.', 'X of husky.', 'X of Alaskan Malamute.', 'X of Siberian Husky.', 'X of Dalmatian.', 'X of Affenpinscher.', 'X of Basenji.', 'X of pug.', 'X of Leonberger.', 'X of Newfoundland dog.', 'X of Great Pyrenees dog.', 'X of Samoyed.', 'X of Pomeranian.', 'X of Chow Chow.', 'X of Keeshond.', 'X of brussels griffon.', 'X of Pembroke Welsh Corgi.', 'X of Cardigan Welsh Corgi.', 'X of Toy Poodle.', 'X of Miniature Poodle.', 'X of Standard Poodle.', 'X of Mexican hairless dog (xoloitzcuintli).', 'X of grey wolf.', 'X of Alaskan tundra wolf.', 'X of red wolf or maned wolf.', 'X of coyote.', 'X of dingo.', 'X of dhole.', 'X of African wild dog.', 'X of hyena.', 'X of red fox.', 'X of kit fox.', 'X of Arctic fox.', 'X of grey fox.', 'X of tabby cat.', 'X of tiger cat.', 'X of Persian cat.', 'X of Siamese cat.', 'X of Egyptian Mau.', 'X of cougar.', 'X of lynx.', 'X of leopard.', 'X of snow leopard.', 'X of jaguar.', 'X of lion.', 'X of tiger.', 'X of cheetah.', 'X of brown bear.', 'X of American black bear.', 'X of polar bear.', 'X of sloth bear.', 'X of mongoose.', 'X of meerkat.', 'X of tiger beetle.', 'X of ladybug.', 'X of ground beetle.', 'X of longhorn beetle.', 'X of leaf beetle.', 'X of dung beetle.', 'X of rhinoceros beetle.', 'X of weevil.', 'X of fly.', 'X of bee.', 'X of ant.', 'X of grasshopper.', 'X of cricket insect.', 'X of stick insect.', 'X of cockroach.', 'X of praying mantis.', 'X of cicada.', 'X of leafhopper.', 'X of lacewing.', 'X of dragonfly.', 'X of damselfly.', 'X of red admiral butterfly.', 'X of ringlet butterfly.', 'X of monarch butterfly.', 'X of small white butterfly.', 'X of sulphur butterfly.', 'X of gossamer-winged butterfly.', 'X of starfish.', 'X of sea urchin.', 'X of sea cucumber.', 'X of cottontail rabbit.', 'X of hare.', 'X of Angora rabbit.', 'X of hamster.', 'X of porcupine.', 'X of fox squirrel.', 'X of marmot.', 'X of beaver.', 'X of guinea pig.', 'X of common sorrel horse.', 'X of zebra.', 'X of pig.', 'X of wild boar.', 'X of warthog.', 'X of hippopotamus.', 'X of ox.', 'X of water buffalo.', 'X of bison.', 'X of ram (adult male sheep).', 'X of bighorn sheep.', 'X of Alpine ibex.', 'X of hartebeest.', 'X of impala (antelope).', 'X of gazelle.', 'X of arabian camel.', 'X of llama.', 'X of weasel.', 'X of mink.', 'X of European polecat.', 'X of black-footed ferret.', 'X of otter.', 'X of skunk.', 'X of badger.', 'X of armadillo.', 'X of three-toed sloth.', 'X of orangutan.', 'X of gorilla.', 'X of chimpanzee.', 'X of gibbon.', 'X of siamang.', 'X of guenon.', 'X of patas monkey.', 'X of baboon.', 'X of macaque.', 'X of langur.', 'X of black-and-white colobus.', 'X of proboscis monkey.', 'X of marmoset.', 'X of white-headed capuchin.', 'X of howler monkey.', 'X of titi monkey.', "X of Geoffroy's spider monkey.", 'X of common squirrel monkey.', 'X of ring-tailed lemur.', 'X of indri.', 'X of Asian elephant.', 'X of African bush elephant.', 'X of red panda.', 'X of giant panda.', 'X of snoek fish.', 'X of eel.', 'X of silver salmon.', 'X of rock beauty fish.', 'X of clownfish.', 'X of sturgeon.', 'X of gar fish.', 'X of lionfish.', 'X of pufferfish.', 'X of abacus.', 'X of abaya.', 'X of academic gown.', 'X of accordion.', 'X of acoustic guitar.', 'X of aircraft carrier.', 'X of airliner.', 'X of airship.', 'X of altar.', 'X of ambulance.', 'X of amphibious vehicle.', 'X of analog clock.', 'X of apiary.', 'X of apron.', 'X of trash can.', 'X of assault rifle.', 'X of backpack.', 'X of bakery.', 'X of balance beam.', 'X of balloon.', 'X of ballpoint pen.', 'X of Band-Aid.', 'X of banjo.', 'X of baluster / handrail.', 'X of barbell.', 'X of barber chair.', 'X of barbershop.', 'X of barn.', 'X of barometer.', 'X of barrel.', 'X of wheelbarrow.', 'X of baseball.', 'X of basketball.', 'X of bassinet.', 'X of bassoon.', 'X of swimming cap.', 'X of bath towel.', 'X of bathtub.', 'X of station wagon.', 'X of lighthouse.', 'X of beaker.', 'X of military hat (bearskin or shako).', 'X of beer bottle.', 'X of beer glass.', 'X of bell tower.', 'X of baby bib.', 'X of tandem bicycle.', 'X of bikini.', 'X of ring binder.', 'X of binoculars.', 'X of birdhouse.', 'X of boathouse.', 'X of bobsleigh.', 'X of bolo tie.', 'X of poke bonnet.', 'X of bookcase.', 'X of bookstore.', 'X of bottle cap.', 'X of hunting bow.', 'X of bow tie.', 'X of brass memorial plaque.', 'X of bra.', 'X of breakwater.', 'X of breastplate.', 'X of broom.', 'X of bucket.', 'X of buckle.', 'X of bulletproof vest.', 'X of high-speed train.', 'X of butcher shop.', 'X of taxicab.', 'X of cauldron.', 'X of candle.', 'X of cannon.', 'X of canoe.', 'X of can opener.', 'X of cardigan.', 'X of car mirror.', 'X of carousel.', 'X of tool kit.', 'X of cardboard box / carton.', 'X of car wheel.', 'X of automated teller machine.', 'X of cassette.', 'X of cassette player.', 'X of castle.', 'X of catamaran.', 'X of CD player.', 'X of cello.', 'X of mobile phone.', 'X of chain.', 'X of chain-link fence.', 'X of chain mail.', 'X of chainsaw.', 'X of storage chest.', 'X of chiffonier.', 'X of bell or wind chime.', 'X of china cabinet.', 'X of Christmas stocking.', 'X of church.', 'X of movie theater.', 'X of cleaver.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X tench.', 'X X X X goldfish.', 'X X X X great white shark.', 'X X X X tiger shark.', 'X X X X hammerhead shark.', 'X X X X electric ray.', 'X X X X stingray.', 'X X X X rooster.', 'X X X X hen.', 'X X X X ostrich.', 'X X X X brambling.', 'X X X X goldfinch.', 'X X X X house finch.', 'X X X X junco.', 'X X X X indigo bunting.', 'X X X X American robin.', 'X X X X bulbul.', 'X X X X jay.', 'X X X X magpie.', 'X X X X chickadee.', 'X X X X American dipper.', 'X X X X kite (bird of prey).', 'X X X X bald eagle.', 'X X X X vulture.', 'X X X X great grey owl.', 'X X X X fire salamander.', 'X X X X smooth newt.', 'X X X X newt.', 'X X X X spotted salamander.', 'X X X X axolotl.', 'X X X X American bullfrog.', 'X X X X tree frog.', 'X X X X tailed frog.', 'X X X X loggerhead sea turtle.', 'X X X X leatherback sea turtle.', 'X X X X mud turtle.', 'X X X X terrapin.', 'X X X X box turtle.', 'X X X X banded gecko.', 'X X X X green iguana.', 'X X X X Carolina anole.', 'X X X X desert grassland whiptail lizard.', 'X X X X agama.', 'X X X X frilled-necked lizard.', 'X X X X alligator lizard.', 'X X X X Gila monster.', 'X X X X European green lizard.', 'X X X X chameleon.', 'X X X X Komodo dragon.', 'X X X X Nile crocodile.', 'X X X X American alligator.', 'X X X X triceratops.', 'X X X X worm snake.', 'X X X X ring-necked snake.', 'X X X X eastern hog-nosed snake.', 'X X X X smooth green snake.', 'X X X X kingsnake.', 'X X X X garter snake.', 'X X X X water snake.', 'X X X X vine snake.', 'X X X X night snake.', 'X X X X boa constrictor.', 'X X X X African rock python.', 'X X X X Indian cobra.', 'X X X X green mamba.', 'X X X X sea snake.', 'X X X X Saharan horned viper.', 'X X X X eastern diamondback rattlesnake.', 'X X X X sidewinder rattlesnake.', 'X X X X trilobite.', 'X X X X harvestman.', 'X X X X scorpion.', 'X X X X yellow garden spider.', 'X X X X barn spider.', 'X X X X European garden spider.', 'X X X X southern black widow.', 'X X X X tarantula.', 'X X X X wolf spider.', 'X X X X tick.', 'X X X X centipede.', 'X X X X black grouse.', 'X X X X ptarmigan.', 'X X X X ruffed grouse.', 'X X X X prairie grouse.', 'X X X X peafowl.', 'X X X X quail.', 'X X X X partridge.', 'X X X X african grey parrot.', 'X X X X macaw.', 'X X X X sulphur-crested cockatoo.', 'X X X X lorikeet.', 'X X X X coucal.', 'X X X X bee eater.', 'X X X X hornbill.', 'X X X X hummingbird.', 'X X X X jacamar.', 'X X X X toucan.', 'X X X X duck.', 'X X X X red-breasted merganser.', 'X X X X goose.', 'X X X X black swan.', 'X X X X tusker.', 'X X X X echidna.', 'X X X X platypus.', 'X X X X wallaby.', 'X X X X koala.', 'X X X X wombat.', 'X X X X jellyfish.', 'X X X X sea anemone.', 'X X X X brain coral.', 'X X X X flatworm.', 'X X X X nematode.', 'X X X X conch.', 'X X X X snail.', 'X X X X slug.', 'X X X X sea slug.', 'X X X X chiton.', 'X X X X chambered nautilus.', 'X X X X Dungeness crab.', 'X X X X rock crab.', 'X X X X fiddler crab.', 'X X X X red king crab.', 'X X X X American lobster.', 'X X X X spiny lobster.', 'X X X X crayfish.', 'X X X X hermit crab.', 'X X X X isopod.', 'X X X X white stork.', 'X X X X black stork.', 'X X X X spoonbill.', 'X X X X flamingo.', 'X X X X little blue heron.', 'X X X X great egret.', 'X X X X bittern bird.', 'X X X X crane bird.', 'X X X X limpkin.', 'X X X X common gallinule.', 'X X X X American coot.', 'X X X X bustard.', 'X X X X ruddy turnstone.', 'X X X X dunlin.', 'X X X X common redshank.', 'X X X X dowitcher.', 'X X X X oystercatcher.', 'X X X X pelican.', 'X X X X king penguin.', 'X X X X albatross.', 'X X X X grey whale.', 'X X X X killer whale.', 'X X X X dugong.', 'X X X X sea lion.', 'X X X X Chihuahua.', 'X X X X Japanese Chin.', 'X X X X Maltese.', 'X X X X Pekingese.', 'X X X X Shih Tzu.', 'X X X X King Charles Spaniel.', 'X X X X Papillon.', 'X X X X toy terrier.', 'X X X X Rhodesian Ridgeback.', 'X X X X Afghan Hound.', 'X X X X Basset Hound.', 'X X X X Beagle.', 'X X X X Bloodhound.', 'X X X X Bluetick Coonhound.', 'X X X X Black and Tan Coonhound.', 'X X X X Treeing Walker Coonhound.', 'X X X X English foxhound.', 'X X X X Redbone Coonhound.', 'X X X X borzoi.', 'X X X X Irish Wolfhound.', 'X X X X Italian Greyhound.', 'X X X X Whippet.', 'X X X X Ibizan Hound.', 'X X X X Norwegian Elkhound.', 'X X X X Otterhound.', 'X X X X Saluki.', 'X X X X Scottish Deerhound.', 'X X X X Weimaraner.', 'X X X X Staffordshire Bull Terrier.', 'X X X X American Staffordshire Terrier.', 'X X X X Bedlington Terrier.', 'X X X X Border Terrier.', 'X X X X Kerry Blue Terrier.', 'X X X X Irish Terrier.', 'X X X X Norfolk Terrier.', 'X X X X Norwich Terrier.', 'X X X X Yorkshire Terrier.', 'X X X X Wire Fox Terrier.', 'X X X X Lakeland Terrier.', 'X X X X Sealyham Terrier.', 'X X X X Airedale Terrier.', 'X X X X Cairn Terrier.', 'X X X X Australian Terrier.', 'X X X X Dandie Dinmont Terrier.', 'X X X X Boston Terrier.', 'X X X X Miniature Schnauzer.', 'X X X X Giant Schnauzer.', 'X X X X Standard Schnauzer.', 'X X X X Scottish Terrier.', 'X X X X Tibetan Terrier.', 'X X X X Australian Silky Terrier.', 'X X X X Soft-coated Wheaten Terrier.', 'X X X X West Highland White Terrier.', 'X X X X Lhasa Apso.', 'X X X X Flat-Coated Retriever.', 'X X X X Curly-coated Retriever.', 'X X X X Golden Retriever.', 'X X X X Labrador Retriever.', 'X X X X Chesapeake Bay Retriever.', 'X X X X German Shorthaired Pointer.', 'X X X X Vizsla.', 'X X X X English Setter.', 'X X X X Irish Setter.', 'X X X X Gordon Setter.', 'X X X X Brittany dog.', 'X X X X Clumber Spaniel.', 'X X X X English Springer Spaniel.', 'X X X X Welsh Springer Spaniel.', 'X X X X Cocker Spaniel.', 'X X X X Sussex Spaniel.', 'X X X X Irish Water Spaniel.', 'X X X X Kuvasz.', 'X X X X Schipperke.', 'X X X X Groenendael dog.', 'X X X X Malinois.', 'X X X X Briard.', 'X X X X Australian Kelpie.', 'X X X X Komondor.', 'X X X X Old English Sheepdog.', 'X X X X Shetland Sheepdog.', 'X X X X collie.', 'X X X X Border Collie.', 'X X X X Bouvier des Flandres dog.', 'X X X X Rottweiler.', 'X X X X German Shepherd Dog.', 'X X X X Dobermann.', 'X X X X Miniature Pinscher.', 'X X X X Greater Swiss Mountain Dog.', 'X X X X Bernese Mountain Dog.', 'X X X X Appenzeller Sennenhund.', 'X X X X Entlebucher Sennenhund.', 'X X X X Boxer.', 'X X X X Bullmastiff.', 'X X X X Tibetan Mastiff.', 'X X X X French Bulldog.', 'X X X X Great Dane.', 'X X X X St. Bernard.', 'X X X X husky.', 'X X X X Alaskan Malamute.', 'X X X X Siberian Husky.', 'X X X X Dalmatian.', 'X X X X Affenpinscher.', 'X X X X Basenji.', 'X X X X pug.', 'X X X X Leonberger.', 'X X X X Newfoundland dog.', 'X X X X Great Pyrenees dog.', 'X X X X Samoyed.', 'X X X X Pomeranian.', 'X X X X Chow Chow.', 'X X X X Keeshond.', 'X X X X brussels griffon.', 'X X X X Pembroke Welsh Corgi.', 'X X X X Cardigan Welsh Corgi.', 'X X X X Toy Poodle.', 'X X X X Miniature Poodle.', 'X X X X Standard Poodle.', 'X X X X Mexican hairless dog (xoloitzcuintli).', 'X X X X grey wolf.', 'X X X X Alaskan tundra wolf.', 'X X X X red wolf or maned wolf.', 'X X X X coyote.', 'X X X X dingo.', 'X X X X dhole.', 'X X X X African wild dog.', 'X X X X hyena.', 'X X X X red fox.', 'X X X X kit fox.', 'X X X X Arctic fox.', 'X X X X grey fox.', 'X X X X tabby cat.', 'X X X X tiger cat.', 'X X X X Persian cat.', 'X X X X Siamese cat.', 'X X X X Egyptian Mau.', 'X X X X cougar.', 'X X X X lynx.', 'X X X X leopard.', 'X X X X snow leopard.', 'X X X X jaguar.', 'X X X X lion.', 'X X X X tiger.', 'X X X X cheetah.', 'X X X X brown bear.', 'X X X X American black bear.', 'X X X X polar bear.', 'X X X X sloth bear.', 'X X X X mongoose.', 'X X X X meerkat.', 'X X X X tiger beetle.', 'X X X X ladybug.', 'X X X X ground beetle.', 'X X X X longhorn beetle.', 'X X X X leaf beetle.', 'X X X X dung beetle.', 'X X X X rhinoceros beetle.', 'X X X X weevil.', 'X X X X fly.', 'X X X X bee.', 'X X X X ant.', 'X X X X grasshopper.', 'X X X X cricket insect.', 'X X X X stick insect.', 'X X X X cockroach.', 'X X X X praying mantis.', 'X X X X cicada.', 'X X X X leafhopper.', 'X X X X lacewing.', 'X X X X dragonfly.', 'X X X X damselfly.', 'X X X X red admiral butterfly.', 'X X X X ringlet butterfly.', 'X X X X monarch butterfly.', 'X X X X small white butterfly.', 'X X X X sulphur butterfly.', 'X X X X gossamer-winged butterfly.', 'X X X X starfish.', 'X X X X sea urchin.', 'X X X X sea cucumber.', 'X X X X cottontail rabbit.', 'X X X X hare.', 'X X X X Angora rabbit.', 'X X X X hamster.', 'X X X X porcupine.', 'X X X X fox squirrel.', 'X X X X marmot.', 'X X X X beaver.', 'X X X X guinea pig.', 'X X X X common sorrel horse.', 'X X X X zebra.', 'X X X X pig.', 'X X X X wild boar.', 'X X X X warthog.', 'X X X X hippopotamus.', 'X X X X ox.', 'X X X X water buffalo.', 'X X X X bison.', 'X X X X ram (adult male sheep).', 'X X X X bighorn sheep.', 'X X X X Alpine ibex.', 'X X X X hartebeest.', 'X X X X impala (antelope).', 'X X X X gazelle.', 'X X X X arabian camel.', 'X X X X llama.', 'X X X X weasel.', 'X X X X mink.', 'X X X X European polecat.', 'X X X X black-footed ferret.', 'X X X X otter.', 'X X X X skunk.', 'X X X X badger.', 'X X X X armadillo.', 'X X X X three-toed sloth.', 'X X X X orangutan.', 'X X X X gorilla.', 'X X X X chimpanzee.', 'X X X X gibbon.', 'X X X X siamang.', 'X X X X guenon.', 'X X X X patas monkey.', 'X X X X baboon.', 'X X X X macaque.', 'X X X X langur.', 'X X X X black-and-white colobus.', 'X X X X proboscis monkey.', 'X X X X marmoset.', 'X X X X white-headed capuchin.', 'X X X X howler monkey.', 'X X X X titi monkey.', "X X X X Geoffroy's spider monkey.", 'X X X X common squirrel monkey.', 'X X X X ring-tailed lemur.', 'X X X X indri.', 'X X X X Asian elephant.', 'X X X X African bush elephant.', 'X X X X red panda.', 'X X X X giant panda.', 'X X X X snoek fish.', 'X X X X eel.', 'X X X X silver salmon.', 'X X X X rock beauty fish.', 'X X X X clownfish.', 'X X X X sturgeon.', 'X X X X gar fish.', 'X X X X lionfish.', 'X X X X pufferfish.', 'X X X X abacus.', 'X X X X abaya.', 'X X X X academic gown.', 'X X X X accordion.', 'X X X X acoustic guitar.', 'X X X X aircraft carrier.', 'X X X X airliner.', 'X X X X airship.', 'X X X X altar.', 'X X X X ambulance.', 'X X X X amphibious vehicle.', 'X X X X analog clock.', 'X X X X apiary.', 'X X X X apron.', 'X X X X trash can.', 'X X X X assault rifle.', 'X X X X backpack.', 'X X X X bakery.', 'X X X X balance beam.', 'X X X X balloon.', 'X X X X ballpoint pen.', 'X X X X Band-Aid.', 'X X X X banjo.', 'X X X X baluster / handrail.', 'X X X X barbell.', 'X X X X barber chair.', 'X X X X barbershop.', 'X X X X barn.', 'X X X X barometer.', 'X X X X barrel.', 'X X X X wheelbarrow.', 'X X X X baseball.', 'X X X X basketball.', 'X X X X bassinet.', 'X X X X bassoon.', 'X X X X swimming cap.', 'X X X X bath towel.', 'X X X X bathtub.', 'X X X X station wagon.', 'X X X X lighthouse.', 'X X X X beaker.', 'X X X X military hat (bearskin or shako).', 'X X X X beer bottle.', 'X X X X beer glass.', 'X X X X bell tower.', 'X X X X baby bib.', 'X X X X tandem bicycle.', 'X X X X bikini.', 'X X X X ring binder.', 'X X X X binoculars.', 'X X X X birdhouse.', 'X X X X boathouse.', 'X X X X bobsleigh.', 'X X X X bolo tie.', 'X X X X poke bonnet.', 'X X X X bookcase.', 'X X X X bookstore.', 'X X X X bottle cap.', 'X X X X hunting bow.', 'X X X X bow tie.', 'X X X X brass memorial plaque.', 'X X X X bra.', 'X X X X breakwater.', 'X X X X breastplate.', 'X X X X broom.', 'X X X X bucket.', 'X X X X buckle.', 'X X X X bulletproof vest.', 'X X X X high-speed train.', 'X X X X butcher shop.', 'X X X X taxicab.', 'X X X X cauldron.', 'X X X X candle.', 'X X X X cannon.', 'X X X X canoe.', 'X X X X can opener.', 'X X X X cardigan.', 'X X X X car mirror.', 'X X X X carousel.', 'X X X X tool kit.', 'X X X X cardboard box / carton.', 'X X X X car wheel.', 'X X X X automated teller machine.', 'X X X X cassette.', 'X X X X cassette player.', 'X X X X castle.', 'X X X X catamaran.', 'X X X X CD player.', 'X X X X cello.', 'X X X X mobile phone.', 'X X X X chain.', 'X X X X chain-link fence.', 'X X X X chain mail.', 'X X X X chainsaw.', 'X X X X storage chest.', 'X X X X chiffonier.', 'X X X X bell or wind chime.', 'X X X X china cabinet.', 'X X X X Christmas stocking.', 'X X X X church.', 'X X X X movie theater.', 'X X X X cleaver.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx_pos_params', 'normal_prompt_learner.ctx'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+load model names is ['normal_prompt_learner', 'anchor_prompt_learner']
+Loading weights to anchor_prompt_learner from "output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4/anchor_prompt_learner/model.pth.tar-10" (epoch = 10)
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 25,000
+* correct: 18,658
+* accuracy: 74.632%
+* error: 25.37%
+* macro_f1: 74.19%

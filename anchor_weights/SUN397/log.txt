@@ -1,0 +1,375 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/sun397.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '20']
+output_dir: output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 1
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: SUN397
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 20
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: SUN397
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/sun397/split_zhou_SUN397.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/sun397/split_fewshot/shot_16-seed_1.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ------
+Dataset    SUN397
+# classes  199
+# train_x  3,184
+# val      796
+# test     9,950
+---------  ------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of abbey.', 'X of airplane cabin.', 'X of airport terminal.', 'X of alley.', 'X of amphitheater.', 'X of amusement arcade.', 'X of amusement park.', 'X of anechoic chamber.', 'X of outdoor apartment building.', 'X of indoor apse.', 'X of aquarium.', 'X of aqueduct.', 'X of arch.', 'X of archive.', 'X of outdoor arrival gate.', 'X of art gallery.', 'X of art school.', 'X of art studio.', 'X of assembly line.', 'X of outdoor athletic field.', 'X of public atrium.', 'X of attic.', 'X of auditorium.', 'X of auto factory.', 'X of badlands.', 'X of indoor badminton court.', 'X of baggage claim.', 'X of shop bakery.', 'X of exterior balcony.', 'X of interior balcony.', 'X of ball pit.', 'X of ballroom.', 'X of bamboo forest.', 'X of banquet hall.', 'X of bar.', 'X of barn.', 'X of barndoor.', 'X of baseball field.', 'X of basement.', 'X of basilica.', 'X of outdoor basketball court.', 'X of bathroom.', 'X of batters box.', 'X of bayou.', 'X of indoor bazaar.', 'X of outdoor bazaar.', 'X of beach.', 'X of beauty salon.', 'X of bedroom.', 'X of berth.', 'X of biology laboratory.', 'X of indoor bistro.', 'X of boardwalk.', 'X of boat deck.', 'X of boathouse.', 'X of bookstore.', 'X of indoor booth.', 'X of botanical garden.', 'X of indoor bow window.', 'X of outdoor bow window.', 'X of bowling alley.', 'X of boxing ring.', 'X of indoor brewery.', 'X of bridge.', 'X of building facade.', 'X of bullring.', 'X of burial chamber.', 'X of bus interior.', 'X of butchers shop.', 'X of butte.', 'X of outdoor cabin.', 'X of cafeteria.', 'X of campsite.', 'X of campus.', 'X of natural canal.', 'X of urban canal.', 'X of candy store.', 'X of canyon.', 'X of backseat car interior.', 'X of frontseat car interior.', 'X of carrousel.', 'X of indoor casino.', 'X of castle.', 'X of catacomb.', 'X of indoor cathedral.', 'X of outdoor cathedral.', 'X of indoor cavern.', 'X of cemetery.', 'X of chalet.', 'X of cheese factory.', 'X of chemistry lab.', 'X of indoor chicken coop.', 'X of outdoor chicken coop.', 'X of childs room.', 'X of indoor church.', 'X of outdoor church.', 'X of classroom.', 'X of clean room.', 'X of cliff.', 'X of indoor cloister.', 'X of closet.', 'X of clothing store.', 'X of coast.', 'X of cockpit.', 'X of coffee shop.', 'X of computer room.', 'X of conference center.', 'X of conference room.', 'X of construction site.', 'X of control room.', 'X of outdoor control tower.', 'X of corn field.', 'X of corral.', 'X of corridor.', 'X of cottage garden.', 'X of courthouse.', 'X of courtroom.', 'X of courtyard.', 'X of exterior covered bridge.', 'X of creek.', 'X of crevasse.', 'X of crosswalk.', 'X of office cubicle.', 'X of dam.', 'X of delicatessen.', 'X of dentists office.', 'X of sand desert.', 'X of vegetation desert.', 'X of indoor diner.', 'X of outdoor diner.', 'X of home dinette.', 'X of vehicle dinette.', 'X of dining car.', 'X of dining room.', 'X of discotheque.', 'X of dock.', 'X of outdoor doorway.', 'X of dorm room.', 'X of driveway.', 'X of outdoor driving range.', 'X of drugstore.', 'X of electrical substation.', 'X of door elevator.', 'X of interior elevator.', 'X of elevator shaft.', 'X of engine room.', 'X of indoor escalator.', 'X of excavation.', 'X of indoor factory.', 'X of fairway.', 'X of fastfood restaurant.', 'X of cultivated field.', 'X of wild field.', 'X of fire escape.', 'X of fire station.', 'X of indoor firing range.', 'X of fishpond.', 'X of indoor florist shop.', 'X of food court.', 'X of broadleaf forest.', 'X of needleleaf forest.', 'X of forest path.', 'X of forest road.', 'X of formal garden.', 'X of fountain.', 'X of galley.', 'X of game room.', 'X of indoor garage.', 'X of garbage dump.', 'X of gas station.', 'X of exterior gazebo.', 'X of indoor general store.', 'X of outdoor general store.', 'X of gift shop.', 'X of golf course.', 'X of indoor greenhouse.', 'X of outdoor greenhouse.', 'X of indoor gymnasium.', 'X of indoor hangar.', 'X of outdoor hangar.', 'X of harbor.', 'X of hayfield.', 'X of heliport.', 'X of herb garden.', 'X of highway.', 'X of hill.', 'X of home office.', 'X of hospital.', 'X of hospital room.', 'X of hot spring.', 'X of outdoor hot tub.', 'X of outdoor hotel.', 'X of hotel room.', 'X of house.', 'X of outdoor hunting lodge.', 'X of ice cream parlor.', 'X of ice floe.', 'X of ice shelf.', 'X of indoor ice skating rink.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X abbey.', 'X X X X airplane cabin.', 'X X X X airport terminal.', 'X X X X alley.', 'X X X X amphitheater.', 'X X X X amusement arcade.', 'X X X X amusement park.', 'X X X X anechoic chamber.', 'X X X X outdoor apartment building.', 'X X X X indoor apse.', 'X X X X aquarium.', 'X X X X aqueduct.', 'X X X X arch.', 'X X X X archive.', 'X X X X outdoor arrival gate.', 'X X X X art gallery.', 'X X X X art school.', 'X X X X art studio.', 'X X X X assembly line.', 'X X X X outdoor athletic field.', 'X X X X public atrium.', 'X X X X attic.', 'X X X X auditorium.', 'X X X X auto factory.', 'X X X X badlands.', 'X X X X indoor badminton court.', 'X X X X baggage claim.', 'X X X X shop bakery.', 'X X X X exterior balcony.', 'X X X X interior balcony.', 'X X X X ball pit.', 'X X X X ballroom.', 'X X X X bamboo forest.', 'X X X X banquet hall.', 'X X X X bar.', 'X X X X barn.', 'X X X X barndoor.', 'X X X X baseball field.', 'X X X X basement.', 'X X X X basilica.', 'X X X X outdoor basketball court.', 'X X X X bathroom.', 'X X X X batters box.', 'X X X X bayou.', 'X X X X indoor bazaar.', 'X X X X outdoor bazaar.', 'X X X X beach.', 'X X X X beauty salon.', 'X X X X bedroom.', 'X X X X berth.', 'X X X X biology laboratory.', 'X X X X indoor bistro.', 'X X X X boardwalk.', 'X X X X boat deck.', 'X X X X boathouse.', 'X X X X bookstore.', 'X X X X indoor booth.', 'X X X X botanical garden.', 'X X X X indoor bow window.', 'X X X X outdoor bow window.', 'X X X X bowling alley.', 'X X X X boxing ring.', 'X X X X indoor brewery.', 'X X X X bridge.', 'X X X X building facade.', 'X X X X bullring.', 'X X X X burial chamber.', 'X X X X bus interior.', 'X X X X butchers shop.', 'X X X X butte.', 'X X X X outdoor cabin.', 'X X X X cafeteria.', 'X X X X campsite.', 'X X X X campus.', 'X X X X natural canal.', 'X X X X urban canal.', 'X X X X candy store.', 'X X X X canyon.', 'X X X X backseat car interior.', 'X X X X frontseat car interior.', 'X X X X carrousel.', 'X X X X indoor casino.', 'X X X X castle.', 'X X X X catacomb.', 'X X X X indoor cathedral.', 'X X X X outdoor cathedral.', 'X X X X indoor cavern.', 'X X X X cemetery.', 'X X X X chalet.', 'X X X X cheese factory.', 'X X X X chemistry lab.', 'X X X X indoor chicken coop.', 'X X X X outdoor chicken coop.', 'X X X X childs room.', 'X X X X indoor church.', 'X X X X outdoor church.', 'X X X X classroom.', 'X X X X clean room.', 'X X X X cliff.', 'X X X X indoor cloister.', 'X X X X closet.', 'X X X X clothing store.', 'X X X X coast.', 'X X X X cockpit.', 'X X X X coffee shop.', 'X X X X computer room.', 'X X X X conference center.', 'X X X X conference room.', 'X X X X construction site.', 'X X X X control room.', 'X X X X outdoor control tower.', 'X X X X corn field.', 'X X X X corral.', 'X X X X corridor.', 'X X X X cottage garden.', 'X X X X courthouse.', 'X X X X courtroom.', 'X X X X courtyard.', 'X X X X exterior covered bridge.', 'X X X X creek.', 'X X X X crevasse.', 'X X X X crosswalk.', 'X X X X office cubicle.', 'X X X X dam.', 'X X X X delicatessen.', 'X X X X dentists office.', 'X X X X sand desert.', 'X X X X vegetation desert.', 'X X X X indoor diner.', 'X X X X outdoor diner.', 'X X X X home dinette.', 'X X X X vehicle dinette.', 'X X X X dining car.', 'X X X X dining room.', 'X X X X discotheque.', 'X X X X dock.', 'X X X X outdoor doorway.', 'X X X X dorm room.', 'X X X X driveway.', 'X X X X outdoor driving range.', 'X X X X drugstore.', 'X X X X electrical substation.', 'X X X X door elevator.', 'X X X X interior elevator.', 'X X X X elevator shaft.', 'X X X X engine room.', 'X X X X indoor escalator.', 'X X X X excavation.', 'X X X X indoor factory.', 'X X X X fairway.', 'X X X X fastfood restaurant.', 'X X X X cultivated field.', 'X X X X wild field.', 'X X X X fire escape.', 'X X X X fire station.', 'X X X X indoor firing range.', 'X X X X fishpond.', 'X X X X indoor florist shop.', 'X X X X food court.', 'X X X X broadleaf forest.', 'X X X X needleleaf forest.', 'X X X X forest path.', 'X X X X forest road.', 'X X X X formal garden.', 'X X X X fountain.', 'X X X X galley.', 'X X X X game room.', 'X X X X indoor garage.', 'X X X X garbage dump.', 'X X X X gas station.', 'X X X X exterior gazebo.', 'X X X X indoor general store.', 'X X X X outdoor general store.', 'X X X X gift shop.', 'X X X X golf course.', 'X X X X indoor greenhouse.', 'X X X X outdoor greenhouse.', 'X X X X indoor gymnasium.', 'X X X X indoor hangar.', 'X X X X outdoor hangar.', 'X X X X harbor.', 'X X X X hayfield.', 'X X X X heliport.', 'X X X X herb garden.', 'X X X X highway.', 'X X X X hill.', 'X X X X home office.', 'X X X X hospital.', 'X X X X hospital room.', 'X X X X hot spring.', 'X X X X outdoor hot tub.', 'X X X X outdoor hotel.', 'X X X X hotel room.', 'X X X X house.', 'X X X X outdoor hunting lodge.', 'X X X X ice cream parlor.', 'X X X X ice floe.', 'X X X X ice shelf.', 'X X X X indoor ice skating rink.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx_pos_params', 'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/20] batch [20/99] time 1.897 (1.971) data 0.000 (0.056) loss_val 1214.0000 (1637.9000) lr 1.0000e-05 eta 1:04:23
+epoch [1/20] batch [40/99] time 1.915 (1.935) data 0.000 (0.028) loss_val 1474.0000 (1504.6250) lr 1.0000e-05 eta 1:02:34
+epoch [1/20] batch [60/99] time 1.897 (1.923) data 0.000 (0.019) loss_val 1242.0000 (1468.6667) lr 1.0000e-05 eta 1:01:32
+epoch [1/20] batch [80/99] time 1.915 (1.915) data 0.000 (0.014) loss_val 1146.0000 (1387.2125) lr 1.0000e-05 eta 1:00:38
+epoch [2/20] batch [20/99] time 1.913 (1.933) data 0.000 (0.034) loss_val 1311.0000 (1604.8500) lr 2.0000e-03 eta 0:59:56
+epoch [2/20] batch [40/99] time 1.927 (1.912) data 0.000 (0.017) loss_val 1198.0000 (1440.9250) lr 2.0000e-03 eta 0:58:40
+epoch [2/20] batch [60/99] time 1.884 (1.912) data 0.000 (0.011) loss_val 1153.0000 (1371.0417) lr 2.0000e-03 eta 0:58:01
+epoch [2/20] batch [80/99] time 1.908 (1.908) data 0.000 (0.009) loss_val 1321.0000 (1323.7625) lr 2.0000e-03 eta 0:57:15
+epoch [3/20] batch [20/99] time 1.855 (1.928) data 0.000 (0.033) loss_val 1001.0000 (1136.0500) lr 1.9877e-03 eta 0:56:37
+epoch [3/20] batch [40/99] time 1.894 (1.914) data 0.000 (0.017) loss_val 785.5000 (1108.9125) lr 1.9877e-03 eta 0:55:34
+epoch [3/20] batch [60/99] time 1.902 (1.904) data 0.000 (0.011) loss_val 1135.0000 (1104.9500) lr 1.9877e-03 eta 0:54:38
+epoch [3/20] batch [80/99] time 1.911 (1.904) data 0.000 (0.008) loss_val 687.0000 (1070.6000) lr 1.9877e-03 eta 0:54:00
+epoch [4/20] batch [20/99] time 1.881 (1.946) data 0.000 (0.038) loss_val 1449.0000 (1037.7875) lr 1.9511e-03 eta 0:53:56
+epoch [4/20] batch [40/99] time 1.902 (1.929) data 0.000 (0.019) loss_val 1357.0000 (1005.4688) lr 1.9511e-03 eta 0:52:48
+epoch [4/20] batch [60/99] time 1.915 (1.919) data 0.000 (0.013) loss_val 911.0000 (1015.1292) lr 1.9511e-03 eta 0:51:54
+epoch [4/20] batch [80/99] time 1.853 (1.918) data 0.000 (0.010) loss_val 1290.0000 (1005.3594) lr 1.9511e-03 eta 0:51:15
+epoch [5/20] batch [20/99] time 1.960 (1.969) data 0.000 (0.044) loss_val 721.5000 (904.1375) lr 1.8910e-03 eta 0:51:19
+epoch [5/20] batch [40/99] time 1.886 (1.942) data 0.000 (0.022) loss_val 1124.0000 (938.6437) lr 1.8910e-03 eta 0:49:59
+epoch [5/20] batch [60/99] time 1.902 (1.931) data 0.000 (0.015) loss_val 900.0000 (925.3083) lr 1.8910e-03 eta 0:49:03
+epoch [5/20] batch [80/99] time 1.900 (1.919) data 0.000 (0.011) loss_val 1072.0000 (948.0875) lr 1.8910e-03 eta 0:48:06
+epoch [6/20] batch [20/99] time 1.906 (1.953) data 0.000 (0.043) loss_val 1117.0000 (1056.6750) lr 1.8090e-03 eta 0:47:41
+epoch [6/20] batch [40/99] time 1.903 (1.927) data 0.000 (0.022) loss_val 1543.0000 (988.8500) lr 1.8090e-03 eta 0:46:24
+epoch [6/20] batch [60/99] time 1.869 (1.920) data 0.001 (0.015) loss_val 1035.0000 (968.5333) lr 1.8090e-03 eta 0:45:36
+epoch [6/20] batch [80/99] time 1.863 (1.916) data 0.000 (0.011) loss_val 1112.0000 (949.2687) lr 1.8090e-03 eta 0:44:51
+epoch [7/20] batch [20/99] time 1.907 (1.927) data 0.000 (0.043) loss_val 700.5000 (885.0500) lr 1.7071e-03 eta 0:43:52
+epoch [7/20] batch [40/99] time 1.898 (1.915) data 0.000 (0.022) loss_val 1164.0000 (908.8625) lr 1.7071e-03 eta 0:42:56
+epoch [7/20] batch [60/99] time 1.905 (1.904) data 0.000 (0.015) loss_val 1372.0000 (927.2625) lr 1.7071e-03 eta 0:42:04
+epoch [7/20] batch [80/99] time 1.841 (1.900) data 0.000 (0.011) loss_val 1145.0000 (900.7156) lr 1.7071e-03 eta 0:41:21
+epoch [8/20] batch [20/99] time 1.928 (1.945) data 0.000 (0.037) loss_val 1026.0000 (904.6250) lr 1.5878e-03 eta 0:41:03
+epoch [8/20] batch [40/99] time 1.908 (1.923) data 0.000 (0.019) loss_val 1210.0000 (920.0938) lr 1.5878e-03 eta 0:39:58
+epoch [8/20] batch [60/99] time 1.862 (1.916) data 0.000 (0.012) loss_val 1146.0000 (941.5458) lr 1.5878e-03 eta 0:39:10
+epoch [8/20] batch [80/99] time 1.920 (1.911) data 0.000 (0.009) loss_val 672.0000 (937.3906) lr 1.5878e-03 eta 0:38:26
+epoch [9/20] batch [20/99] time 1.851 (1.964) data 0.000 (0.033) loss_val 872.0000 (899.9250) lr 1.4540e-03 eta 0:38:13
+epoch [9/20] batch [40/99] time 1.858 (1.935) data 0.000 (0.017) loss_val 1090.0000 (919.0938) lr 1.4540e-03 eta 0:37:01
+epoch [9/20] batch [60/99] time 1.900 (1.921) data 0.000 (0.011) loss_val 584.5000 (928.8625) lr 1.4540e-03 eta 0:36:07
+epoch [9/20] batch [80/99] time 1.870 (1.919) data 0.000 (0.008) loss_val 994.0000 (931.9531) lr 1.4540e-03 eta 0:35:26
+epoch [10/20] batch [20/99] time 1.903 (1.952) data 0.000 (0.044) loss_val 630.0000 (923.0750) lr 1.3090e-03 eta 0:34:46
+epoch [10/20] batch [40/99] time 1.913 (1.946) data 0.000 (0.022) loss_val 1088.0000 (896.4438) lr 1.3090e-03 eta 0:34:01
+epoch [10/20] batch [60/99] time 2.004 (1.943) data 0.000 (0.015) loss_val 845.5000 (883.2125) lr 1.3090e-03 eta 0:33:19
+epoch [10/20] batch [80/99] time 1.979 (1.946) data 0.000 (0.011) loss_val 659.0000 (900.3219) lr 1.3090e-03 eta 0:32:43
+epoch [11/20] batch [20/99] time 1.875 (1.958) data 0.000 (0.041) loss_val 1153.0000 (1047.8250) lr 1.1564e-03 eta 0:31:39
+epoch [11/20] batch [40/99] time 1.889 (1.930) data 0.000 (0.021) loss_val 663.5000 (949.8625) lr 1.1564e-03 eta 0:30:33
+epoch [11/20] batch [60/99] time 1.886 (1.919) data 0.000 (0.014) loss_val 997.5000 (914.0208) lr 1.1564e-03 eta 0:29:44
+epoch [11/20] batch [80/99] time 1.945 (1.914) data 0.000 (0.011) loss_val 856.0000 (934.0031) lr 1.1564e-03 eta 0:29:01
+epoch [12/20] batch [20/99] time 2.090 (1.968) data 0.000 (0.036) loss_val 711.5000 (997.9500) lr 1.0000e-03 eta 0:28:34
+epoch [12/20] batch [40/99] time 1.915 (1.947) data 0.000 (0.018) loss_val 1021.5000 (911.3937) lr 1.0000e-03 eta 0:27:36
+epoch [12/20] batch [60/99] time 1.923 (1.933) data 0.000 (0.012) loss_val 837.0000 (888.3917) lr 1.0000e-03 eta 0:26:45
+epoch [12/20] batch [80/99] time 1.885 (1.933) data 0.000 (0.009) loss_val 954.0000 (905.8844) lr 1.0000e-03 eta 0:26:07
+epoch [13/20] batch [20/99] time 1.890 (1.938) data 0.000 (0.031) loss_val 780.0000 (838.3500) lr 8.4357e-04 eta 0:24:56
+epoch [13/20] batch [40/99] time 1.911 (1.918) data 0.000 (0.016) loss_val 1199.0000 (867.2875) lr 8.4357e-04 eta 0:24:02
+epoch [13/20] batch [60/99] time 1.937 (1.915) data 0.000 (0.010) loss_val 693.5000 (857.4167) lr 8.4357e-04 eta 0:23:21
+epoch [13/20] batch [80/99] time 1.908 (1.914) data 0.000 (0.008) loss_val 1104.0000 (891.2375) lr 8.4357e-04 eta 0:22:42
+epoch [14/20] batch [20/99] time 1.910 (1.941) data 0.000 (0.031) loss_val 802.5000 (898.1875) lr 6.9098e-04 eta 0:21:46
+epoch [14/20] batch [40/99] time 1.892 (1.915) data 0.000 (0.016) loss_val 1230.0000 (901.6812) lr 6.9098e-04 eta 0:20:50
+epoch [14/20] batch [60/99] time 1.883 (1.908) data 0.001 (0.011) loss_val 1184.0000 (883.2833) lr 6.9098e-04 eta 0:20:08
+epoch [14/20] batch [80/99] time 1.921 (1.908) data 0.000 (0.008) loss_val 787.0000 (903.0750) lr 6.9098e-04 eta 0:19:29
+epoch [15/20] batch [20/99] time 1.933 (1.995) data 0.001 (0.040) loss_val 608.5000 (839.7125) lr 5.4601e-04 eta 0:19:05
+epoch [15/20] batch [40/99] time 1.924 (1.970) data 0.000 (0.020) loss_val 596.0000 (849.2188) lr 5.4601e-04 eta 0:18:11
+epoch [15/20] batch [60/99] time 2.065 (1.965) data 0.000 (0.014) loss_val 699.5000 (853.0958) lr 5.4601e-04 eta 0:17:29
+epoch [15/20] batch [80/99] time 2.021 (1.982) data 0.000 (0.010) loss_val 1104.0000 (862.5281) lr 5.4601e-04 eta 0:16:58
+epoch [16/20] batch [20/99] time 1.915 (1.946) data 0.000 (0.033) loss_val 708.0000 (872.9875) lr 4.1221e-04 eta 0:15:24
+epoch [16/20] batch [40/99] time 1.862 (1.921) data 0.000 (0.016) loss_val 792.0000 (893.8937) lr 4.1221e-04 eta 0:14:34
+epoch [16/20] batch [60/99] time 1.919 (1.911) data 0.000 (0.011) loss_val 642.0000 (868.2583) lr 4.1221e-04 eta 0:13:51
+epoch [16/20] batch [80/99] time 1.886 (1.905) data 0.000 (0.008) loss_val 527.0000 (869.4094) lr 4.1221e-04 eta 0:13:10
+epoch [17/20] batch [20/99] time 1.953 (2.004) data 0.000 (0.039) loss_val 879.5000 (778.7625) lr 2.9289e-04 eta 0:12:33
+epoch [17/20] batch [40/99] time 1.934 (1.982) data 0.000 (0.020) loss_val 668.5000 (805.4562) lr 2.9289e-04 eta 0:11:45
+epoch [17/20] batch [60/99] time 1.942 (1.975) data 0.000 (0.013) loss_val 1283.0000 (800.9000) lr 2.9289e-04 eta 0:11:03
+epoch [17/20] batch [80/99] time 1.962 (1.973) data 0.000 (0.010) loss_val 739.0000 (799.4156) lr 2.9289e-04 eta 0:10:23
+epoch [18/20] batch [20/99] time 1.934 (1.978) data 0.000 (0.028) loss_val 844.0000 (788.1750) lr 1.9098e-04 eta 0:09:07
+epoch [18/20] batch [40/99] time 1.951 (1.960) data 0.001 (0.014) loss_val 911.0000 (816.7687) lr 1.9098e-04 eta 0:08:23
+epoch [18/20] batch [60/99] time 1.944 (1.962) data 0.000 (0.010) loss_val 927.5000 (817.7667) lr 1.9098e-04 eta 0:07:44
+epoch [18/20] batch [80/99] time 2.013 (1.959) data 0.000 (0.007) loss_val 1229.0000 (819.8875) lr 1.9098e-04 eta 0:07:05
+epoch [19/20] batch [20/99] time 1.936 (1.988) data 0.000 (0.033) loss_val 583.0000 (727.6000) lr 1.0899e-04 eta 0:05:53
+epoch [19/20] batch [40/99] time 1.971 (1.968) data 0.000 (0.017) loss_val 661.5000 (771.1250) lr 1.0899e-04 eta 0:05:10
+epoch [19/20] batch [60/99] time 1.976 (1.968) data 0.000 (0.011) loss_val 889.0000 (804.6208) lr 1.0899e-04 eta 0:04:31
+epoch [19/20] batch [80/99] time 1.962 (1.967) data 0.000 (0.008) loss_val 856.5000 (830.5531) lr 1.0899e-04 eta 0:03:52
+epoch [20/20] batch [20/99] time 1.960 (2.010) data 0.000 (0.036) loss_val 824.5000 (828.3875) lr 4.8943e-05 eta 0:02:38
+epoch [20/20] batch [40/99] time 1.988 (1.979) data 0.000 (0.018) loss_val 1026.0000 (850.6688) lr 4.8943e-05 eta 0:01:56
+epoch [20/20] batch [60/99] time 1.932 (1.974) data 0.000 (0.012) loss_val 883.5000 (858.0250) lr 4.8943e-05 eta 0:01:16
+epoch [20/20] batch [80/99] time 1.994 (1.974) data 0.000 (0.009) loss_val 684.5000 (845.7031) lr 4.8943e-05 eta 0:00:37
+Checkpoint saved to output/sun397/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_20_MSE_1000.0_CE_1000.0/seed1/anchor_prompt_learner/model.pth.tar-20
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 9,950
+* correct: 7,399
+* accuracy: 74.362%
+* error: 25.64%
+* macro_f1: 73.46%
+Elapsed: 1:04:27

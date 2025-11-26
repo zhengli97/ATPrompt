@@ -1,0 +1,293 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/imagenet.yaml
+eval_only: True
+head: 
+load_epoch: 10
+model_dir: output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4
+no_train: False
+opts: ['DATASET.SUBSAMPLE_CLASSES', 'new', 'TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '0.0', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '100.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '5', 'TRAINER.COOP.TEMP', '2.0']
+output_dir: output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4/evaluation
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 4
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: ImageNet
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: new
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 200
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4/evaluation
+RESUME: 
+SEED: 4
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 0.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    KD_TEMPERATURE: 1.0
+    KD_WEIGHT: 1.0
+    MAX_TEMPLATE_LENGTH: 5
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 100.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: ImageNet
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/imagenet/split_fewshot/shot_16-seed_4.pkl
+SUBSAMPLE NEW CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  --------
+Dataset    ImageNet
+# classes  500
+# train_x  8,000
+# val      25,000
+# test     25,000
+---------  --------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of cliff dwelling.', 'X of cloak.', 'X of clogs.', 'X of cocktail shaker.', 'X of coffee mug.', 'X of coffeemaker.', 'X of spiral or coil.', 'X of combination lock.', 'X of computer keyboard.', 'X of candy store.', 'X of container ship.', 'X of convertible.', 'X of corkscrew.', 'X of cornet.', 'X of cowboy boot.', 'X of cowboy hat.', 'X of cradle.', 'X of construction crane.', 'X of crash helmet.', 'X of crate.', 'X of infant bed.', 'X of Crock Pot.', 'X of croquet ball.', 'X of crutch.', 'X of cuirass.', 'X of dam.', 'X of desk.', 'X of desktop computer.', 'X of rotary dial telephone.', 'X of diaper.', 'X of digital clock.', 'X of digital watch.', 'X of dining table.', 'X of dishcloth.', 'X of dishwasher.', 'X of disc brake.', 'X of dock.', 'X of dog sled.', 'X of dome.', 'X of doormat.', 'X of drilling rig.', 'X of drum.', 'X of drumstick.', 'X of dumbbell.', 'X of Dutch oven.', 'X of electric fan.', 'X of electric guitar.', 'X of electric locomotive.', 'X of entertainment center.', 'X of envelope.', 'X of espresso machine.', 'X of face powder.', 'X of feather boa.', 'X of filing cabinet.', 'X of fireboat.', 'X of fire truck.', 'X of fire screen.', 'X of flagpole.', 'X of flute.', 'X of folding chair.', 'X of football helmet.', 'X of forklift.', 'X of fountain.', 'X of fountain pen.', 'X of four-poster bed.', 'X of freight car.', 'X of French horn.', 'X of frying pan.', 'X of fur coat.', 'X of garbage truck.', 'X of gas mask or respirator.', 'X of gas pump.', 'X of goblet.', 'X of go-kart.', 'X of golf ball.', 'X of golf cart.', 'X of gondola.', 'X of gong.', 'X of gown.', 'X of grand piano.', 'X of greenhouse.', 'X of radiator grille.', 'X of grocery store.', 'X of guillotine.', 'X of hair clip.', 'X of hair spray.', 'X of half-track.', 'X of hammer.', 'X of hamper.', 'X of hair dryer.', 'X of hand-held computer.', 'X of handkerchief.', 'X of hard disk drive.', 'X of harmonica.', 'X of harp.', 'X of combine harvester.', 'X of hatchet.', 'X of holster.', 'X of home theater.', 'X of honeycomb.', 'X of hook.', 'X of hoop skirt.', 'X of gymnastic horizontal bar.', 'X of horse-drawn vehicle.', 'X of hourglass.', 'X of iPod.', 'X of clothes iron.', 'X of carved pumpkin.', 'X of jeans.', 'X of jeep.', 'X of T-shirt.', 'X of jigsaw puzzle.', 'X of rickshaw.', 'X of joystick.', 'X of kimono.', 'X of knee pad.', 'X of knot.', 'X of lab coat.', 'X of ladle.', 'X of lampshade.', 'X of laptop computer.', 'X of lawn mower.', 'X of lens cap.', 'X of letter opener.', 'X of library.', 'X of lifeboat.', 'X of lighter.', 'X of limousine.', 'X of ocean liner.', 'X of lipstick.', 'X of slip-on shoe.', 'X of lotion.', 'X of music speaker.', 'X of loupe magnifying glass.', 'X of sawmill.', 'X of magnetic compass.', 'X of messenger bag.', 'X of mailbox.', 'X of tights.', 'X of one-piece bathing suit.', 'X of manhole cover.', 'X of maraca.', 'X of marimba.', 'X of mask.', 'X of matchstick.', 'X of maypole.', 'X of maze.', 'X of measuring cup.', 'X of medicine cabinet.', 'X of megalith.', 'X of microphone.', 'X of microwave oven.', 'X of military uniform.', 'X of milk can.', 'X of minibus.', 'X of miniskirt.', 'X of minivan.', 'X of missile.', 'X of mitten.', 'X of mixing bowl.', 'X of mobile home.', 'X of ford model t.', 'X of modem.', 'X of monastery.', 'X of monitor.', 'X of moped.', 'X of mortar and pestle.', 'X of graduation cap.', 'X of mosque.', 'X of mosquito net.', 'X of vespa.', 'X of mountain bike.', 'X of tent.', 'X of computer mouse.', 'X of mousetrap.', 'X of moving van.', 'X of muzzle.', 'X of metal nail.', 'X of neck brace.', 'X of necklace.', 'X of baby pacifier.', 'X of notebook computer.', 'X of obelisk.', 'X of oboe.', 'X of ocarina.', 'X of odometer.', 'X of oil filter.', 'X of pipe organ.', 'X of oscilloscope.', 'X of overskirt.', 'X of bullock cart.', 'X of oxygen mask.', 'X of product packet / packaging.', 'X of paddle.', 'X of paddle wheel.', 'X of padlock.', 'X of paintbrush.', 'X of pajamas.', 'X of palace.', 'X of pan flute.', 'X of paper towel.', 'X of parachute.', 'X of parallel bars.', 'X of park bench.', 'X of parking meter.', 'X of railroad car.', 'X of patio.', 'X of payphone.', 'X of pedestal.', 'X of pencil case.', 'X of pencil sharpener.', 'X of perfume.', 'X of Petri dish.', 'X of photocopier.', 'X of plectrum.', 'X of Pickelhaube.', 'X of picket fence.', 'X of pickup truck.', 'X of pier.', 'X of piggy bank.', 'X of pill bottle.', 'X of pillow.', 'X of ping-pong ball.', 'X of pinwheel.', 'X of pirate ship.', 'X of drink pitcher.', 'X of block plane.', 'X of planetarium.', 'X of plastic bag.', 'X of plate rack.', 'X of farm plow.', 'X of plunger.', 'X of Polaroid camera.', 'X of pole.', 'X of police van.', 'X of poncho.', 'X of pool table.', 'X of soda bottle.', 'X of plant pot.', "X of potter's wheel.", 'X of power drill.', 'X of prayer rug.', 'X of printer.', 'X of prison.', 'X of missile.', 'X of projector.', 'X of hockey puck.', 'X of punching bag.', 'X of purse.', 'X of quill.', 'X of quilt.', 'X of race car.', 'X of racket.', 'X of radiator.', 'X of radio.', 'X of radio telescope.', 'X of rain barrel.', 'X of recreational vehicle.', 'X of fishing casting reel.', 'X of reflex camera.', 'X of refrigerator.', 'X of remote control.', 'X of restaurant.', 'X of revolver.', 'X of rifle.', 'X of rocking chair.', 'X of rotisserie.', 'X of eraser.', 'X of rugby ball.', 'X of ruler measuring stick.', 'X of sneaker.', 'X of safe.', 'X of safety pin.', 'X of salt shaker.', 'X of sandal.', 'X of sarong.', 'X of saxophone.', 'X of scabbard.', 'X of weighing scale.', 'X of school bus.', 'X of schooner.', 'X of scoreboard.', 'X of CRT monitor.', 'X of screw.', 'X of screwdriver.', 'X of seat belt.', 'X of sewing machine.', 'X of shield.', 'X of shoe store.', 'X of shoji screen / room divider.', 'X of shopping basket.', 'X of shopping cart.', 'X of shovel.', 'X of shower cap.', 'X of shower curtain.', 'X of ski.', 'X of balaclava ski mask.', 'X of sleeping bag.', 'X of slide rule.', 'X of sliding door.', 'X of slot machine.', 'X of snorkel.', 'X of snowmobile.', 'X of snowplow.', 'X of soap dispenser.', 'X of soccer ball.', 'X of sock.', 'X of solar thermal collector.', 'X of sombrero.', 'X of soup bowl.', 'X of keyboard space bar.', 'X of space heater.', 'X of space shuttle.', 'X of spatula.', 'X of motorboat.', 'X of spider web.', 'X of spindle.', 'X of sports car.', 'X of spotlight.', 'X of stage.', 'X of steam locomotive.', 'X of through arch bridge.', 'X of steel drum.', 'X of stethoscope.', 'X of scarf.', 'X of stone wall.', 'X of stopwatch.', 'X of stove.', 'X of strainer.', 'X of tram.', 'X of stretcher.', 'X of couch.', 'X of stupa.', 'X of submarine.', 'X of suit.', 'X of sundial.', 'X of sunglasses.', 'X of sunglasses.', 'X of sunscreen.', 'X of suspension bridge.', 'X of mop.', 'X of sweatshirt.', 'X of swim trunks / shorts.', 'X of swing.', 'X of electrical switch.', 'X of syringe.', 'X of table lamp.', 'X of tank.', 'X of tape player.', 'X of teapot.', 'X of teddy bear.', 'X of television.', 'X of tennis ball.', 'X of thatched roof.', 'X of front curtain.', 'X of thimble.', 'X of threshing machine.', 'X of throne.', 'X of tile roof.', 'X of toaster.', 'X of tobacco shop.', 'X of toilet seat.', 'X of torch.', 'X of totem pole.', 'X of tow truck.', 'X of toy store.', 'X of tractor.', 'X of semi-trailer truck.', 'X of tray.', 'X of trench coat.', 'X of tricycle.', 'X of trimaran.', 'X of tripod.', 'X of triumphal arch.', 'X of trolleybus.', 'X of trombone.', 'X of hot tub.', 'X of turnstile.', 'X of typewriter keyboard.', 'X of umbrella.', 'X of unicycle.', 'X of upright piano.', 'X of vacuum cleaner.', 'X of vase.', 'X of vaulted or arched ceiling.', 'X of velvet fabric.', 'X of vending machine.', 'X of vestment.', 'X of viaduct.', 'X of violin.', 'X of volleyball.', 'X of waffle iron.', 'X of wall clock.', 'X of wallet.', 'X of wardrobe.', 'X of military aircraft.', 'X of sink.', 'X of washing machine.', 'X of water bottle.', 'X of water jug.', 'X of water tower.', 'X of whiskey jug.', 'X of whistle.', 'X of hair wig.', 'X of window screen.', 'X of window shade.', 'X of Windsor tie.', 'X of wine bottle.', 'X of airplane wing.', 'X of wok.', 'X of wooden spoon.', 'X of wool.', 'X of split-rail fence.', 'X of shipwreck.', 'X of sailboat.', 'X of yurt.', 'X of website.', 'X of comic book.', 'X of crossword.', 'X of traffic or street sign.', 'X of traffic light.', 'X of dust jacket.', 'X of menu.', 'X of plate.', 'X of guacamole.', 'X of consomme.', 'X of hot pot.', 'X of trifle.', 'X of ice cream.', 'X of popsicle.', 'X of baguette.', 'X of bagel.', 'X of pretzel.', 'X of cheeseburger.', 'X of hot dog.', 'X of mashed potatoes.', 'X of cabbage.', 'X of broccoli.', 'X of cauliflower.', 'X of zucchini.', 'X of spaghetti squash.', 'X of acorn squash.', 'X of butternut squash.', 'X of cucumber.', 'X of artichoke.', 'X of bell pepper.', 'X of cardoon.', 'X of mushroom.', 'X of Granny Smith apple.', 'X of strawberry.', 'X of orange.', 'X of lemon.', 'X of fig.', 'X of pineapple.', 'X of banana.', 'X of jackfruit.', 'X of cherimoya (custard apple).', 'X of pomegranate.', 'X of hay.', 'X of carbonara.', 'X of chocolate syrup.', 'X of dough.', 'X of meatloaf.', 'X of pizza.', 'X of pot pie.', 'X of burrito.', 'X of red wine.', 'X of espresso.', 'X of tea cup.', 'X of eggnog.', 'X of mountain.', 'X of bubble.', 'X of cliff.', 'X of coral reef.', 'X of geyser.', 'X of lakeshore.', 'X of promontory.', 'X of sandbar.', 'X of beach.', 'X of valley.', 'X of volcano.', 'X of baseball player.', 'X of bridegroom.', 'X of scuba diver.', 'X of rapeseed.', 'X of daisy.', "X of yellow lady's slipper.", 'X of corn.', 'X of acorn.', 'X of rose hip.', 'X of horse chestnut seed.', 'X of coral fungus.', 'X of agaric.', 'X of gyromitra.', 'X of stinkhorn mushroom.', 'X of earth star fungus.', 'X of hen of the woods mushroom.', 'X of bolete.', 'X of corn cob.', 'X of toilet paper.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X cliff dwelling.', 'X X X X cloak.', 'X X X X clogs.', 'X X X X cocktail shaker.', 'X X X X coffee mug.', 'X X X X coffeemaker.', 'X X X X spiral or coil.', 'X X X X combination lock.', 'X X X X computer keyboard.', 'X X X X candy store.', 'X X X X container ship.', 'X X X X convertible.', 'X X X X corkscrew.', 'X X X X cornet.', 'X X X X cowboy boot.', 'X X X X cowboy hat.', 'X X X X cradle.', 'X X X X construction crane.', 'X X X X crash helmet.', 'X X X X crate.', 'X X X X infant bed.', 'X X X X Crock Pot.', 'X X X X croquet ball.', 'X X X X crutch.', 'X X X X cuirass.', 'X X X X dam.', 'X X X X desk.', 'X X X X desktop computer.', 'X X X X rotary dial telephone.', 'X X X X diaper.', 'X X X X digital clock.', 'X X X X digital watch.', 'X X X X dining table.', 'X X X X dishcloth.', 'X X X X dishwasher.', 'X X X X disc brake.', 'X X X X dock.', 'X X X X dog sled.', 'X X X X dome.', 'X X X X doormat.', 'X X X X drilling rig.', 'X X X X drum.', 'X X X X drumstick.', 'X X X X dumbbell.', 'X X X X Dutch oven.', 'X X X X electric fan.', 'X X X X electric guitar.', 'X X X X electric locomotive.', 'X X X X entertainment center.', 'X X X X envelope.', 'X X X X espresso machine.', 'X X X X face powder.', 'X X X X feather boa.', 'X X X X filing cabinet.', 'X X X X fireboat.', 'X X X X fire truck.', 'X X X X fire screen.', 'X X X X flagpole.', 'X X X X flute.', 'X X X X folding chair.', 'X X X X football helmet.', 'X X X X forklift.', 'X X X X fountain.', 'X X X X fountain pen.', 'X X X X four-poster bed.', 'X X X X freight car.', 'X X X X French horn.', 'X X X X frying pan.', 'X X X X fur coat.', 'X X X X garbage truck.', 'X X X X gas mask or respirator.', 'X X X X gas pump.', 'X X X X goblet.', 'X X X X go-kart.', 'X X X X golf ball.', 'X X X X golf cart.', 'X X X X gondola.', 'X X X X gong.', 'X X X X gown.', 'X X X X grand piano.', 'X X X X greenhouse.', 'X X X X radiator grille.', 'X X X X grocery store.', 'X X X X guillotine.', 'X X X X hair clip.', 'X X X X hair spray.', 'X X X X half-track.', 'X X X X hammer.', 'X X X X hamper.', 'X X X X hair dryer.', 'X X X X hand-held computer.', 'X X X X handkerchief.', 'X X X X hard disk drive.', 'X X X X harmonica.', 'X X X X harp.', 'X X X X combine harvester.', 'X X X X hatchet.', 'X X X X holster.', 'X X X X home theater.', 'X X X X honeycomb.', 'X X X X hook.', 'X X X X hoop skirt.', 'X X X X gymnastic horizontal bar.', 'X X X X horse-drawn vehicle.', 'X X X X hourglass.', 'X X X X iPod.', 'X X X X clothes iron.', 'X X X X carved pumpkin.', 'X X X X jeans.', 'X X X X jeep.', 'X X X X T-shirt.', 'X X X X jigsaw puzzle.', 'X X X X rickshaw.', 'X X X X joystick.', 'X X X X kimono.', 'X X X X knee pad.', 'X X X X knot.', 'X X X X lab coat.', 'X X X X ladle.', 'X X X X lampshade.', 'X X X X laptop computer.', 'X X X X lawn mower.', 'X X X X lens cap.', 'X X X X letter opener.', 'X X X X library.', 'X X X X lifeboat.', 'X X X X lighter.', 'X X X X limousine.', 'X X X X ocean liner.', 'X X X X lipstick.', 'X X X X slip-on shoe.', 'X X X X lotion.', 'X X X X music speaker.', 'X X X X loupe magnifying glass.', 'X X X X sawmill.', 'X X X X magnetic compass.', 'X X X X messenger bag.', 'X X X X mailbox.', 'X X X X tights.', 'X X X X one-piece bathing suit.', 'X X X X manhole cover.', 'X X X X maraca.', 'X X X X marimba.', 'X X X X mask.', 'X X X X matchstick.', 'X X X X maypole.', 'X X X X maze.', 'X X X X measuring cup.', 'X X X X medicine cabinet.', 'X X X X megalith.', 'X X X X microphone.', 'X X X X microwave oven.', 'X X X X military uniform.', 'X X X X milk can.', 'X X X X minibus.', 'X X X X miniskirt.', 'X X X X minivan.', 'X X X X missile.', 'X X X X mitten.', 'X X X X mixing bowl.', 'X X X X mobile home.', 'X X X X ford model t.', 'X X X X modem.', 'X X X X monastery.', 'X X X X monitor.', 'X X X X moped.', 'X X X X mortar and pestle.', 'X X X X graduation cap.', 'X X X X mosque.', 'X X X X mosquito net.', 'X X X X vespa.', 'X X X X mountain bike.', 'X X X X tent.', 'X X X X computer mouse.', 'X X X X mousetrap.', 'X X X X moving van.', 'X X X X muzzle.', 'X X X X metal nail.', 'X X X X neck brace.', 'X X X X necklace.', 'X X X X baby pacifier.', 'X X X X notebook computer.', 'X X X X obelisk.', 'X X X X oboe.', 'X X X X ocarina.', 'X X X X odometer.', 'X X X X oil filter.', 'X X X X pipe organ.', 'X X X X oscilloscope.', 'X X X X overskirt.', 'X X X X bullock cart.', 'X X X X oxygen mask.', 'X X X X product packet / packaging.', 'X X X X paddle.', 'X X X X paddle wheel.', 'X X X X padlock.', 'X X X X paintbrush.', 'X X X X pajamas.', 'X X X X palace.', 'X X X X pan flute.', 'X X X X paper towel.', 'X X X X parachute.', 'X X X X parallel bars.', 'X X X X park bench.', 'X X X X parking meter.', 'X X X X railroad car.', 'X X X X patio.', 'X X X X payphone.', 'X X X X pedestal.', 'X X X X pencil case.', 'X X X X pencil sharpener.', 'X X X X perfume.', 'X X X X Petri dish.', 'X X X X photocopier.', 'X X X X plectrum.', 'X X X X Pickelhaube.', 'X X X X picket fence.', 'X X X X pickup truck.', 'X X X X pier.', 'X X X X piggy bank.', 'X X X X pill bottle.', 'X X X X pillow.', 'X X X X ping-pong ball.', 'X X X X pinwheel.', 'X X X X pirate ship.', 'X X X X drink pitcher.', 'X X X X block plane.', 'X X X X planetarium.', 'X X X X plastic bag.', 'X X X X plate rack.', 'X X X X farm plow.', 'X X X X plunger.', 'X X X X Polaroid camera.', 'X X X X pole.', 'X X X X police van.', 'X X X X poncho.', 'X X X X pool table.', 'X X X X soda bottle.', 'X X X X plant pot.', "X X X X potter's wheel.", 'X X X X power drill.', 'X X X X prayer rug.', 'X X X X printer.', 'X X X X prison.', 'X X X X missile.', 'X X X X projector.', 'X X X X hockey puck.', 'X X X X punching bag.', 'X X X X purse.', 'X X X X quill.', 'X X X X quilt.', 'X X X X race car.', 'X X X X racket.', 'X X X X radiator.', 'X X X X radio.', 'X X X X radio telescope.', 'X X X X rain barrel.', 'X X X X recreational vehicle.', 'X X X X fishing casting reel.', 'X X X X reflex camera.', 'X X X X refrigerator.', 'X X X X remote control.', 'X X X X restaurant.', 'X X X X revolver.', 'X X X X rifle.', 'X X X X rocking chair.', 'X X X X rotisserie.', 'X X X X eraser.', 'X X X X rugby ball.', 'X X X X ruler measuring stick.', 'X X X X sneaker.', 'X X X X safe.', 'X X X X safety pin.', 'X X X X salt shaker.', 'X X X X sandal.', 'X X X X sarong.', 'X X X X saxophone.', 'X X X X scabbard.', 'X X X X weighing scale.', 'X X X X school bus.', 'X X X X schooner.', 'X X X X scoreboard.', 'X X X X CRT monitor.', 'X X X X screw.', 'X X X X screwdriver.', 'X X X X seat belt.', 'X X X X sewing machine.', 'X X X X shield.', 'X X X X shoe store.', 'X X X X shoji screen / room divider.', 'X X X X shopping basket.', 'X X X X shopping cart.', 'X X X X shovel.', 'X X X X shower cap.', 'X X X X shower curtain.', 'X X X X ski.', 'X X X X balaclava ski mask.', 'X X X X sleeping bag.', 'X X X X slide rule.', 'X X X X sliding door.', 'X X X X slot machine.', 'X X X X snorkel.', 'X X X X snowmobile.', 'X X X X snowplow.', 'X X X X soap dispenser.', 'X X X X soccer ball.', 'X X X X sock.', 'X X X X solar thermal collector.', 'X X X X sombrero.', 'X X X X soup bowl.', 'X X X X keyboard space bar.', 'X X X X space heater.', 'X X X X space shuttle.', 'X X X X spatula.', 'X X X X motorboat.', 'X X X X spider web.', 'X X X X spindle.', 'X X X X sports car.', 'X X X X spotlight.', 'X X X X stage.', 'X X X X steam locomotive.', 'X X X X through arch bridge.', 'X X X X steel drum.', 'X X X X stethoscope.', 'X X X X scarf.', 'X X X X stone wall.', 'X X X X stopwatch.', 'X X X X stove.', 'X X X X strainer.', 'X X X X tram.', 'X X X X stretcher.', 'X X X X couch.', 'X X X X stupa.', 'X X X X submarine.', 'X X X X suit.', 'X X X X sundial.', 'X X X X sunglasses.', 'X X X X sunglasses.', 'X X X X sunscreen.', 'X X X X suspension bridge.', 'X X X X mop.', 'X X X X sweatshirt.', 'X X X X swim trunks / shorts.', 'X X X X swing.', 'X X X X electrical switch.', 'X X X X syringe.', 'X X X X table lamp.', 'X X X X tank.', 'X X X X tape player.', 'X X X X teapot.', 'X X X X teddy bear.', 'X X X X television.', 'X X X X tennis ball.', 'X X X X thatched roof.', 'X X X X front curtain.', 'X X X X thimble.', 'X X X X threshing machine.', 'X X X X throne.', 'X X X X tile roof.', 'X X X X toaster.', 'X X X X tobacco shop.', 'X X X X toilet seat.', 'X X X X torch.', 'X X X X totem pole.', 'X X X X tow truck.', 'X X X X toy store.', 'X X X X tractor.', 'X X X X semi-trailer truck.', 'X X X X tray.', 'X X X X trench coat.', 'X X X X tricycle.', 'X X X X trimaran.', 'X X X X tripod.', 'X X X X triumphal arch.', 'X X X X trolleybus.', 'X X X X trombone.', 'X X X X hot tub.', 'X X X X turnstile.', 'X X X X typewriter keyboard.', 'X X X X umbrella.', 'X X X X unicycle.', 'X X X X upright piano.', 'X X X X vacuum cleaner.', 'X X X X vase.', 'X X X X vaulted or arched ceiling.', 'X X X X velvet fabric.', 'X X X X vending machine.', 'X X X X vestment.', 'X X X X viaduct.', 'X X X X violin.', 'X X X X volleyball.', 'X X X X waffle iron.', 'X X X X wall clock.', 'X X X X wallet.', 'X X X X wardrobe.', 'X X X X military aircraft.', 'X X X X sink.', 'X X X X washing machine.', 'X X X X water bottle.', 'X X X X water jug.', 'X X X X water tower.', 'X X X X whiskey jug.', 'X X X X whistle.', 'X X X X hair wig.', 'X X X X window screen.', 'X X X X window shade.', 'X X X X Windsor tie.', 'X X X X wine bottle.', 'X X X X airplane wing.', 'X X X X wok.', 'X X X X wooden spoon.', 'X X X X wool.', 'X X X X split-rail fence.', 'X X X X shipwreck.', 'X X X X sailboat.', 'X X X X yurt.', 'X X X X website.', 'X X X X comic book.', 'X X X X crossword.', 'X X X X traffic or street sign.', 'X X X X traffic light.', 'X X X X dust jacket.', 'X X X X menu.', 'X X X X plate.', 'X X X X guacamole.', 'X X X X consomme.', 'X X X X hot pot.', 'X X X X trifle.', 'X X X X ice cream.', 'X X X X popsicle.', 'X X X X baguette.', 'X X X X bagel.', 'X X X X pretzel.', 'X X X X cheeseburger.', 'X X X X hot dog.', 'X X X X mashed potatoes.', 'X X X X cabbage.', 'X X X X broccoli.', 'X X X X cauliflower.', 'X X X X zucchini.', 'X X X X spaghetti squash.', 'X X X X acorn squash.', 'X X X X butternut squash.', 'X X X X cucumber.', 'X X X X artichoke.', 'X X X X bell pepper.', 'X X X X cardoon.', 'X X X X mushroom.', 'X X X X Granny Smith apple.', 'X X X X strawberry.', 'X X X X orange.', 'X X X X lemon.', 'X X X X fig.', 'X X X X pineapple.', 'X X X X banana.', 'X X X X jackfruit.', 'X X X X cherimoya (custard apple).', 'X X X X pomegranate.', 'X X X X hay.', 'X X X X carbonara.', 'X X X X chocolate syrup.', 'X X X X dough.', 'X X X X meatloaf.', 'X X X X pizza.', 'X X X X pot pie.', 'X X X X burrito.', 'X X X X red wine.', 'X X X X espresso.', 'X X X X tea cup.', 'X X X X eggnog.', 'X X X X mountain.', 'X X X X bubble.', 'X X X X cliff.', 'X X X X coral reef.', 'X X X X geyser.', 'X X X X lakeshore.', 'X X X X promontory.', 'X X X X sandbar.', 'X X X X beach.', 'X X X X valley.', 'X X X X volcano.', 'X X X X baseball player.', 'X X X X bridegroom.', 'X X X X scuba diver.', 'X X X X rapeseed.', 'X X X X daisy.', "X X X X yellow lady's slipper.", 'X X X X corn.', 'X X X X acorn.', 'X X X X rose hip.', 'X X X X horse chestnut seed.', 'X X X X coral fungus.', 'X X X X agaric.', 'X X X X gyromitra.', 'X X X X stinkhorn mushroom.', 'X X X X earth star fungus.', 'X X X X hen of the woods mushroom.', 'X X X X bolete.', 'X X X X corn cob.', 'X X X X toilet paper.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx', 'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx_pos_params'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+load model names is ['normal_prompt_learner', 'anchor_prompt_learner']
+Loading weights to anchor_prompt_learner from "output/imagenet/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_10_MSE_1000.0_CE_100.0_ACE_0.0/seed4/anchor_prompt_learner/model.pth.tar-10" (epoch = 10)
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 25,000
+* correct: 17,753
+* accuracy: 71.012%
+* error: 28.99%
+* macro_f1: 70.28%

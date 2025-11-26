@@ -1,0 +1,395 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/oxford_flowers.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '100']
+output_dir: output/oxford_flowers/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed4
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 4
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordFlowers
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 100
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/oxford_flowers/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed4
+RESUME: 
+SEED: 4
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: OxfordFlowers
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/oxford_flowers/split_zhou_OxfordFlowers.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/oxford_flowers/split_fewshot/shot_16-seed_4.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  -------------
+Dataset    OxfordFlowers
+# classes  51
+# train_x  816
+# val      204
+# test     1,053
+---------  -------------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of pink primrose.', 'X of hard-leaved pocket orchid.', 'X of canterbury bells.', 'X of sweet pea.', 'X of english marigold.', 'X of tiger lily.', 'X of moon orchid.', 'X of bird of paradise.', 'X of monkshood.', 'X of globe thistle.', 'X of snapdragon.', "X of colt's foot.", 'X of king protea.', 'X of spear thistle.', 'X of yellow iris.', 'X of globe-flower.', 'X of purple coneflower.', 'X of peruvian lily.', 'X of balloon flower.', 'X of giant white arum lily.', 'X of fire lily.', 'X of pincushion flower.', 'X of fritillary.', 'X of red ginger.', 'X of grape hyacinth.', 'X of corn poppy.', 'X of prince of wales feathers.', 'X of stemless gentian.', 'X of artichoke.', 'X of sweet william.', 'X of carnation.', 'X of garden phlox.', 'X of love in the mist.', 'X of mexican aster.', 'X of alpine sea holly.', 'X of ruby-lipped cattleya.', 'X of cape flower.', 'X of great masterwort.', 'X of siam tulip.', 'X of lenten rose.', 'X of barbeton daisy.', 'X of daffodil.', 'X of sword lily.', 'X of poinsettia.', 'X of bolero deep blue.', 'X of wallflower.', 'X of marigold.', 'X of buttercup.', 'X of oxeye daisy.', 'X of common dandelion.', 'X of petunia.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X pink primrose.', 'X X X X hard-leaved pocket orchid.', 'X X X X canterbury bells.', 'X X X X sweet pea.', 'X X X X english marigold.', 'X X X X tiger lily.', 'X X X X moon orchid.', 'X X X X bird of paradise.', 'X X X X monkshood.', 'X X X X globe thistle.', 'X X X X snapdragon.', "X X X X colt's foot.", 'X X X X king protea.', 'X X X X spear thistle.', 'X X X X yellow iris.', 'X X X X globe-flower.', 'X X X X purple coneflower.', 'X X X X peruvian lily.', 'X X X X balloon flower.', 'X X X X giant white arum lily.', 'X X X X fire lily.', 'X X X X pincushion flower.', 'X X X X fritillary.', 'X X X X red ginger.', 'X X X X grape hyacinth.', 'X X X X corn poppy.', 'X X X X prince of wales feathers.', 'X X X X stemless gentian.', 'X X X X artichoke.', 'X X X X sweet william.', 'X X X X carnation.', 'X X X X garden phlox.', 'X X X X love in the mist.', 'X X X X mexican aster.', 'X X X X alpine sea holly.', 'X X X X ruby-lipped cattleya.', 'X X X X cape flower.', 'X X X X great masterwort.', 'X X X X siam tulip.', 'X X X X lenten rose.', 'X X X X barbeton daisy.', 'X X X X daffodil.', 'X X X X sword lily.', 'X X X X poinsettia.', 'X X X X bolero deep blue.', 'X X X X wallflower.', 'X X X X marigold.', 'X X X X buttercup.', 'X X X X oxeye daisy.', 'X X X X common dandelion.', 'X X X X petunia.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx', 'normal_prompt_learner.ctx_pos_params', 'anchor_prompt_learner.anchor_ctx_1'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/100] batch [20/25] time 0.774 (0.828) data 0.000 (0.034) loss_val 1091.0000 (2015.2000) lr 1.0000e-05 eta 0:34:12
+epoch [2/100] batch [20/25] time 0.771 (0.805) data 0.000 (0.036) loss_val 1456.0000 (1575.5500) lr 2.0000e-03 eta 0:32:56
+epoch [3/100] batch [20/25] time 0.781 (0.799) data 0.000 (0.024) loss_val 1119.0000 (1349.6000) lr 1.9995e-03 eta 0:32:22
+epoch [4/100] batch [20/25] time 0.771 (0.798) data 0.000 (0.023) loss_val 949.5000 (1212.1500) lr 1.9980e-03 eta 0:31:58
+epoch [5/100] batch [20/25] time 0.768 (0.801) data 0.000 (0.026) loss_val 892.0000 (1089.2250) lr 1.9956e-03 eta 0:31:45
+epoch [6/100] batch [20/25] time 0.770 (0.783) data 0.000 (0.025) loss_val 912.5000 (1121.1500) lr 1.9921e-03 eta 0:30:43
+epoch [7/100] batch [20/25] time 0.783 (0.798) data 0.000 (0.024) loss_val 1009.0000 (1042.7250) lr 1.9877e-03 eta 0:30:59
+epoch [8/100] batch [20/25] time 0.778 (0.800) data 0.000 (0.024) loss_val 967.0000 (992.3000) lr 1.9823e-03 eta 0:30:43
+epoch [9/100] batch [20/25] time 0.757 (0.802) data 0.000 (0.025) loss_val 698.0000 (915.1750) lr 1.9759e-03 eta 0:30:28
+epoch [10/100] batch [20/25] time 0.780 (0.803) data 0.000 (0.026) loss_val 932.5000 (894.5500) lr 1.9686e-03 eta 0:30:10
+epoch [11/100] batch [20/25] time 0.777 (0.804) data 0.000 (0.025) loss_val 874.5000 (882.3000) lr 1.9603e-03 eta 0:29:53
+epoch [12/100] batch [20/25] time 0.774 (0.799) data 0.000 (0.023) loss_val 754.0000 (817.9500) lr 1.9511e-03 eta 0:29:21
+epoch [13/100] batch [20/25] time 0.780 (0.786) data 0.000 (0.026) loss_val 733.5000 (782.4000) lr 1.9409e-03 eta 0:28:32
+epoch [14/100] batch [20/25] time 0.772 (0.801) data 0.000 (0.024) loss_val 813.5000 (805.0750) lr 1.9298e-03 eta 0:28:45
+epoch [15/100] batch [20/25] time 0.782 (0.804) data 0.000 (0.026) loss_val 777.5000 (719.2500) lr 1.9178e-03 eta 0:28:32
+epoch [16/100] batch [20/25] time 0.771 (0.782) data 0.000 (0.024) loss_val 590.5000 (691.3000) lr 1.9048e-03 eta 0:27:26
+epoch [17/100] batch [20/25] time 0.776 (0.803) data 0.000 (0.026) loss_val 607.5000 (714.0625) lr 1.8910e-03 eta 0:27:50
+epoch [18/100] batch [20/25] time 0.784 (0.804) data 0.000 (0.027) loss_val 1141.0000 (632.0125) lr 1.8763e-03 eta 0:27:32
+epoch [19/100] batch [20/25] time 0.772 (0.802) data 0.000 (0.025) loss_val 680.0000 (629.8750) lr 1.8607e-03 eta 0:27:08
+epoch [20/100] batch [20/25] time 0.779 (0.788) data 0.000 (0.024) loss_val 831.5000 (610.4000) lr 1.8443e-03 eta 0:26:19
+epoch [21/100] batch [20/25] time 0.784 (0.801) data 0.000 (0.024) loss_val 619.0000 (571.8875) lr 1.8271e-03 eta 0:26:25
+epoch [22/100] batch [20/25] time 0.785 (0.804) data 0.000 (0.026) loss_val 798.5000 (593.7875) lr 1.8090e-03 eta 0:26:12
+epoch [23/100] batch [20/25] time 0.772 (0.775) data 0.000 (0.024) loss_val 538.5000 (516.3875) lr 1.7902e-03 eta 0:24:56
+epoch [24/100] batch [20/25] time 0.781 (0.801) data 0.000 (0.025) loss_val 220.6250 (495.7937) lr 1.7705e-03 eta 0:25:25
+epoch [25/100] batch [20/25] time 0.773 (0.804) data 0.000 (0.025) loss_val 647.5000 (498.6125) lr 1.7501e-03 eta 0:25:12
+epoch [26/100] batch [20/25] time 0.783 (0.801) data 0.000 (0.025) loss_val 601.0000 (543.0125) lr 1.7290e-03 eta 0:24:46
+epoch [27/100] batch [20/25] time 0.770 (0.790) data 0.000 (0.025) loss_val 468.0000 (500.4625) lr 1.7071e-03 eta 0:24:06
+epoch [28/100] batch [20/25] time 0.775 (0.800) data 0.000 (0.025) loss_val 399.2500 (525.4000) lr 1.6845e-03 eta 0:24:03
+epoch [29/100] batch [20/25] time 0.772 (0.800) data 0.000 (0.026) loss_val 464.0000 (555.2375) lr 1.6613e-03 eta 0:23:44
+epoch [30/100] batch [20/25] time 0.772 (0.798) data 0.000 (0.039) loss_val 451.7500 (516.0500) lr 1.6374e-03 eta 0:23:19
+epoch [31/100] batch [20/25] time 0.785 (0.800) data 0.000 (0.024) loss_val 420.0000 (522.0625) lr 1.6129e-03 eta 0:23:04
+epoch [32/100] batch [20/25] time 0.774 (0.800) data 0.000 (0.024) loss_val 394.2500 (397.0688) lr 1.5878e-03 eta 0:22:43
+epoch [33/100] batch [20/25] time 0.784 (0.811) data 0.000 (0.035) loss_val 765.0000 (486.0625) lr 1.5621e-03 eta 0:22:43
+epoch [34/100] batch [20/25] time 0.778 (0.801) data 0.000 (0.023) loss_val 384.2500 (438.8813) lr 1.5358e-03 eta 0:22:04
+epoch [35/100] batch [20/25] time 0.779 (0.801) data 0.000 (0.026) loss_val 166.5000 (445.5125) lr 1.5090e-03 eta 0:21:44
+epoch [36/100] batch [20/25] time 0.770 (0.801) data 0.000 (0.026) loss_val 271.0000 (437.4625) lr 1.4818e-03 eta 0:21:24
+epoch [37/100] batch [20/25] time 0.776 (0.773) data 0.000 (0.023) loss_val 322.0000 (412.0437) lr 1.4540e-03 eta 0:20:21
+epoch [38/100] batch [20/25] time 0.751 (0.795) data 0.000 (0.023) loss_val 347.5000 (406.8813) lr 1.4258e-03 eta 0:20:36
+epoch [39/100] batch [20/25] time 0.772 (0.797) data 0.000 (0.024) loss_val 514.0000 (459.9500) lr 1.3971e-03 eta 0:20:20
+epoch [40/100] batch [20/25] time 0.783 (0.799) data 0.000 (0.026) loss_val 301.2500 (364.7563) lr 1.3681e-03 eta 0:20:02
+epoch [41/100] batch [20/25] time 0.776 (0.800) data 0.000 (0.024) loss_val 330.2500 (418.0688) lr 1.3387e-03 eta 0:19:44
+epoch [42/100] batch [20/25] time 0.779 (0.798) data 0.000 (0.023) loss_val 310.5000 (434.6062) lr 1.3090e-03 eta 0:19:21
+epoch [43/100] batch [20/25] time 0.772 (0.798) data 0.000 (0.024) loss_val 760.0000 (428.1250) lr 1.2790e-03 eta 0:19:01
+epoch [44/100] batch [20/25] time 0.784 (0.785) data 0.000 (0.026) loss_val 386.5000 (408.1375) lr 1.2487e-03 eta 0:18:22
+epoch [45/100] batch [20/25] time 0.775 (0.801) data 0.000 (0.026) loss_val 531.5000 (386.3062) lr 1.2181e-03 eta 0:18:25
+epoch [46/100] batch [20/25] time 0.781 (0.800) data 0.000 (0.026) loss_val 381.7500 (408.8062) lr 1.1874e-03 eta 0:18:04
+epoch [47/100] batch [20/25] time 0.739 (0.777) data 0.000 (0.024) loss_val 290.0000 (355.0437) lr 1.1564e-03 eta 0:17:13
+epoch [48/100] batch [20/25] time 0.782 (0.795) data 0.000 (0.023) loss_val 392.7500 (390.0375) lr 1.1253e-03 eta 0:17:17
+epoch [49/100] batch [20/25] time 0.770 (0.800) data 0.000 (0.025) loss_val 602.0000 (371.7688) lr 1.0941e-03 eta 0:17:03
+epoch [50/100] batch [20/25] time 0.783 (0.800) data 0.000 (0.025) loss_val 276.5000 (363.3875) lr 1.0628e-03 eta 0:16:44
+epoch [51/100] batch [20/25] time 0.768 (0.783) data 0.000 (0.026) loss_val 341.0000 (360.5219) lr 1.0314e-03 eta 0:16:03
+epoch [52/100] batch [20/25] time 0.782 (0.800) data 0.000 (0.023) loss_val 360.2500 (383.6750) lr 1.0000e-03 eta 0:16:04
+epoch [53/100] batch [20/25] time 0.757 (0.803) data 0.000 (0.026) loss_val 426.7500 (386.7375) lr 9.6859e-04 eta 0:15:47
+epoch [54/100] batch [20/25] time 0.770 (0.784) data 0.000 (0.026) loss_val 213.0000 (324.5000) lr 9.3721e-04 eta 0:15:05
+epoch [55/100] batch [20/25] time 0.781 (0.801) data 0.000 (0.024) loss_val 363.7500 (368.4750) lr 9.0589e-04 eta 0:15:04
+epoch [56/100] batch [20/25] time 0.776 (0.801) data 0.000 (0.023) loss_val 483.0000 (370.5625) lr 8.7467e-04 eta 0:14:44
+epoch [57/100] batch [20/25] time 0.779 (0.802) data 0.000 (0.024) loss_val 574.5000 (410.8062) lr 8.4357e-04 eta 0:14:25
+epoch [58/100] batch [20/25] time 0.780 (0.795) data 0.000 (0.025) loss_val 264.2500 (375.3875) lr 8.1262e-04 eta 0:13:58
+epoch [59/100] batch [20/25] time 0.775 (0.802) data 0.000 (0.024) loss_val 376.5000 (365.3562) lr 7.8186e-04 eta 0:13:45
+epoch [60/100] batch [20/25] time 0.782 (0.800) data 0.000 (0.023) loss_val 477.0000 (357.2312) lr 7.5131e-04 eta 0:13:23
+epoch [61/100] batch [20/25] time 0.772 (0.780) data 0.000 (0.024) loss_val 293.2500 (342.0688) lr 7.2101e-04 eta 0:12:44
+epoch [62/100] batch [20/25] time 0.781 (0.800) data 0.000 (0.024) loss_val 252.0000 (325.0750) lr 6.9098e-04 eta 0:12:44
+epoch [63/100] batch [20/25] time 0.778 (0.801) data 0.000 (0.025) loss_val 304.7500 (358.3813) lr 6.6126e-04 eta 0:12:24
+epoch [64/100] batch [20/25] time 0.781 (0.803) data 0.000 (0.026) loss_val 434.0000 (386.4625) lr 6.3188e-04 eta 0:12:06
+epoch [65/100] batch [20/25] time 0.762 (0.799) data 0.000 (0.026) loss_val 234.6250 (331.9812) lr 6.0285e-04 eta 0:11:43
+epoch [66/100] batch [20/25] time 0.777 (0.799) data 0.000 (0.024) loss_val 212.8750 (321.5938) lr 5.7422e-04 eta 0:11:22
+epoch [67/100] batch [20/25] time 0.780 (0.804) data 0.000 (0.026) loss_val 641.0000 (310.5906) lr 5.4601e-04 eta 0:11:07
+epoch [68/100] batch [20/25] time 0.776 (0.784) data 0.000 (0.027) loss_val 366.7500 (376.1125) lr 5.1825e-04 eta 0:10:31
+epoch [69/100] batch [20/25] time 0.777 (0.801) data 0.000 (0.025) loss_val 287.0000 (347.8125) lr 4.9096e-04 eta 0:10:24
+epoch [70/100] batch [20/25] time 0.768 (0.808) data 0.000 (0.027) loss_val 206.5000 (364.6562) lr 4.6417e-04 eta 0:10:09
+epoch [71/100] batch [20/25] time 0.687 (0.791) data 0.000 (0.025) loss_val 597.0000 (401.3125) lr 4.3792e-04 eta 0:09:37
+epoch [72/100] batch [20/25] time 0.782 (0.804) data 0.000 (0.025) loss_val 319.7500 (366.8000) lr 4.1221e-04 eta 0:09:26
+epoch [73/100] batch [20/25] time 0.776 (0.801) data 0.000 (0.026) loss_val 385.7500 (345.6875) lr 3.8709e-04 eta 0:09:04
+epoch [74/100] batch [20/25] time 0.781 (0.798) data 0.000 (0.024) loss_val 544.5000 (399.9875) lr 3.6258e-04 eta 0:08:42
+epoch [75/100] batch [20/25] time 0.759 (0.781) data 0.000 (0.024) loss_val 216.2500 (303.1125) lr 3.3869e-04 eta 0:08:12
+epoch [76/100] batch [20/25] time 0.783 (0.798) data 0.000 (0.024) loss_val 401.7500 (334.5562) lr 3.1545e-04 eta 0:08:02
+epoch [77/100] batch [20/25] time 0.780 (0.799) data 0.000 (0.024) loss_val 303.2500 (363.6125) lr 2.9289e-04 eta 0:07:43
+epoch [78/100] batch [20/25] time 0.775 (0.781) data 0.000 (0.024) loss_val 247.2500 (334.9500) lr 2.7103e-04 eta 0:07:13
+epoch [79/100] batch [20/25] time 0.760 (0.797) data 0.000 (0.023) loss_val 525.0000 (325.7469) lr 2.4989e-04 eta 0:07:02
+epoch [80/100] batch [20/25] time 0.785 (0.800) data 0.000 (0.023) loss_val 441.7500 (355.1219) lr 2.2949e-04 eta 0:06:44
+epoch [81/100] batch [20/25] time 0.767 (0.798) data 0.000 (0.025) loss_val 427.5000 (392.1000) lr 2.0984e-04 eta 0:06:23
+epoch [82/100] batch [20/25] time 0.797 (0.789) data 0.000 (0.025) loss_val 196.3750 (362.1000) lr 1.9098e-04 eta 0:05:58
+epoch [83/100] batch [20/25] time 0.775 (0.808) data 0.000 (0.024) loss_val 181.6250 (328.5938) lr 1.7292e-04 eta 0:05:47
+epoch [84/100] batch [20/25] time 0.760 (0.804) data 0.000 (0.025) loss_val 171.0000 (358.3156) lr 1.5567e-04 eta 0:05:25
+epoch [85/100] batch [20/25] time 0.770 (0.775) data 0.000 (0.023) loss_val 337.7500 (321.4875) lr 1.3926e-04 eta 0:04:54
+epoch [86/100] batch [20/25] time 0.759 (0.798) data 0.000 (0.024) loss_val 242.0000 (308.4750) lr 1.2369e-04 eta 0:04:43
+epoch [87/100] batch [20/25] time 0.784 (0.799) data 0.000 (0.024) loss_val 292.5000 (303.5375) lr 1.0899e-04 eta 0:04:23
+epoch [88/100] batch [20/25] time 0.773 (0.805) data 0.000 (0.026) loss_val 204.7500 (331.3188) lr 9.5173e-05 eta 0:04:05
+epoch [89/100] batch [20/25] time 0.769 (0.802) data 0.000 (0.024) loss_val 477.2500 (330.8250) lr 8.2245e-05 eta 0:03:44
+epoch [90/100] batch [20/25] time 0.782 (0.804) data 0.000 (0.025) loss_val 247.5000 (313.1875) lr 7.0224e-05 eta 0:03:24
+epoch [91/100] batch [20/25] time 0.770 (0.807) data 0.000 (0.028) loss_val 232.3750 (312.6062) lr 5.9119e-05 eta 0:03:05
+epoch [92/100] batch [20/25] time 0.778 (0.788) data 0.000 (0.028) loss_val 225.3750 (315.2063) lr 4.8943e-05 eta 0:02:41
+epoch [93/100] batch [20/25] time 0.808 (0.806) data 0.000 (0.023) loss_val 220.8750 (320.4125) lr 3.9706e-05 eta 0:02:25
+epoch [94/100] batch [20/25] time 0.760 (0.804) data 0.000 (0.025) loss_val 200.5000 (285.5312) lr 3.1417e-05 eta 0:02:04
+epoch [95/100] batch [20/25] time 0.700 (0.791) data 0.000 (0.027) loss_val 210.7500 (337.7625) lr 2.4083e-05 eta 0:01:42
+epoch [96/100] batch [20/25] time 0.784 (0.807) data 0.000 (0.025) loss_val 408.0000 (363.0125) lr 1.7713e-05 eta 0:01:24
+epoch [97/100] batch [20/25] time 0.764 (0.804) data 0.000 (0.025) loss_val 259.7500 (285.5125) lr 1.2312e-05 eta 0:01:04
+epoch [98/100] batch [20/25] time 0.775 (0.804) data 0.000 (0.026) loss_val 164.3750 (367.2000) lr 7.8853e-06 eta 0:00:44
+epoch [99/100] batch [20/25] time 0.779 (0.787) data 0.000 (0.025) loss_val 170.5000 (350.2437) lr 4.4380e-06 eta 0:00:23
+epoch [100/100] batch [20/25] time 0.778 (0.801) data 0.000 (0.024) loss_val 231.5000 (367.8188) lr 1.9733e-06 eta 0:00:04
+Checkpoint saved to output/oxford_flowers/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed4/anchor_prompt_learner/model.pth.tar-100
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 1,053
+* correct: 773
+* accuracy: 73.409%
+* error: 26.59%
+* macro_f1: 67.99%
+Elapsed: 0:33:20

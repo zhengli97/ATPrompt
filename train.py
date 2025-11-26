@@ -25,12 +25,21 @@ import datasets.imagenet_r
 
 import trainers.coop
 import trainers.coop_atp
+import trainers.coop_anchoropt
+import trainers.coop_pretrain_anchor
+
 import trainers.cocoop
 import trainers.cocoop_atp
+import trainers.cocoop_anchoropt
+
 import trainers.dept
 import trainers.dept_atp
+import trainers.dept_anchoropt
+
 import trainers.maple
 import trainers.maple_atp
+import trainers.maple_anchoropt
+
 import trainers.zsclip
 
 def print_args(args, cfg):
@@ -140,6 +149,18 @@ def extend_cfg(cfg):
     cfg.TRAINER.ATPROMPT.ATT2_TEXT = "none"
     cfg.TRAINER.ATPROMPT.ATT3_TEXT = "none"
     
+    # Config for AnchorOPT
+    cfg.TRAINER.ANCHOROPT = CN()
+    cfg.TRAINER.ANCHOROPT.USE_ANCHOROPT = False
+    cfg.TRAINER.ANCHOROPT.N_CTX = 4  # number of
+    cfg.TRAINER.ANCHOROPT.ANCHOR_LEN = 1
+    cfg.TRAINER.ANCHOROPT.GUMBEL_TEMP = 1.0
+    cfg.TRAINER.ANCHOROPT.KD_TEMPERATURE = 1.0
+    cfg.TRAINER.ANCHOROPT.ANCHOR_MSE_WEIGHT = 10.0
+    cfg.TRAINER.ANCHOROPT.PROMPT_CE_WEIGHT = 1.0
+    cfg.TRAINER.ANCHOROPT.KD_WEIGHT = 1.0
+    cfg.TRAINER.ANCHOROPT.MAX_TEMPLATE_LENGTH = 10
+
     cfg.DATASET.SUBSAMPLE_CLASSES = "all"  # all, base or new
 
     # Config for independent Vision Language prompting (independent-vlp)

@@ -1,0 +1,1495 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/CoOp/vit_b16.yaml
+dataset_config_file: configs/datasets/dtd.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['TRAINER.COOP.N_CTX', '4', 'TRAINER.COOP.CSC', 'False', 'TRAINER.COOP.CLASS_TOKEN_POSITION', 'end', 'TRAINER.COOP.ANCHOR_LEN', '1', 'TRAINER.COOP.PROMPT_CE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_MSE_WEIGHT', '1000.0', 'TRAINER.COOP.ANCHOR_CE_WEIGHT', '1.0', 'TRAINER.COOP.TEMP', '2.0', 'TRAINER.COOP.MAX_TEMPLATE_LENGTH', '10', 'DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base', 'OPTIM.MAX_EPOCH', '100']
+output_dir: output/dtd/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed1
+resume: 
+root: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+seed: 1
+source_domains: None
+target_domains: None
+trainer: CoOp_dyntoken_1anchor_template
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: DescribableTextures
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /mnt/gemininjceph3/jeffzli/dataset/prompt_learning
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 100
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/dtd/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed1
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  ATPROMPT:
+    ATT1_TEXT: none
+    ATT2_TEXT: none
+    ATT3_TEXT: none
+    ATT_NUM: 0
+    N_ATT1: 4
+    N_ATT2: 4
+    N_ATT3: 4
+    USE_ATPROMPT: False
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    ANCHOR_CE_WEIGHT: 1.0
+    ANCHOR_LEN: 1
+    ANCHOR_MSE_WEIGHT: 1000.0
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: False
+    MAX_TEMPLATE_LENGTH: 10
+    N_CTX: 4
+    PREC: fp16
+    PROMPT_CE_WEIGHT: 1000.0
+    TEMP: 2.0
+    W: 2.0
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FILM:
+    LINEAR_PROBE: True
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  IVLP:
+    CTX_INIT: a photo of a
+    IMG_WEIGHT: 0.5
+    N_CTX_TEXT: 2
+    N_CTX_VISION: 2
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+  LINEAR_PROBE:
+    TEST_TIME_FUSION: True
+    TYPE: linear
+    WEIGHT: 0.7
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MAPLE:
+    CTX_INIT: a photo of a
+    N_CTX: 2
+    PREC: fp16
+    PROMPT_DEPTH: 9
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: CoOp_dyntoken_1anchor_template
+  NAMES_TO_UPDATE: ['prompt_learner', 'linear_probe', 'film']
+  PROMPTSRC:
+    CTX_INIT: 
+    GPA_MEAN: 15
+    GPA_STD: 1
+    IMAGE_LOSS_WEIGHT: 10
+    N_CTX_TEXT: 4
+    N_CTX_VISION: 4
+    PREC: fp16
+    PROMPT_DEPTH_TEXT: 9
+    PROMPT_DEPTH_VISION: 9
+    TEXT_LOSS_WEIGHT: 25
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Loading trainer: CoOp_dyntoken_1anchor_template
+Loading dataset: DescribableTextures
+Reading split from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/dtd/split_zhou_DescribableTextures.json
+Loading preprocessed few-shot data from /mnt/gemininjceph3/jeffzli/dataset/prompt_learning/dtd/split_fewshot/shot_16-seed_1.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  -------------------
+Dataset    DescribableTextures
+# classes  24
+# train_x  384
+# val      96
+# test     864
+---------  -------------------
+Loading CLIP (backbone: ViT-B/16)
+build model vit is True
+Building custom CLIP
+Initializing a generic context
+Initial context: "X of"
+Number of context words (tokens): 4
+build model vit is True
+['X of banded.', 'X of blotchy.', 'X of braided.', 'X of bubbly.', 'X of bumpy.', 'X of chequered.', 'X of cobwebbed.', 'X of cracked.', 'X of crosshatched.', 'X of crystalline.', 'X of dotted.', 'X of fibrous.', 'X of flecked.', 'X of freckled.', 'X of frilly.', 'X of gauzy.', 'X of grid.', 'X of grooved.', 'X of honeycombed.', 'X of interlaced.', 'X of knitted.', 'X of lacelike.', 'X of lined.', 'X of marbled.']
+Initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+['X X X X banded.', 'X X X X blotchy.', 'X X X X braided.', 'X X X X bubbly.', 'X X X X bumpy.', 'X X X X chequered.', 'X X X X cobwebbed.', 'X X X X cracked.', 'X X X X crosshatched.', 'X X X X crystalline.', 'X X X X dotted.', 'X X X X fibrous.', 'X X X X flecked.', 'X X X X freckled.', 'X X X X frilly.', 'X X X X gauzy.', 'X X X X grid.', 'X X X X grooved.', 'X X X X honeycombed.', 'X X X X interlaced.', 'X X X X knitted.', 'X X X X lacelike.', 'X X X X lined.', 'X X X X marbled.']
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'normal_prompt_learner.ctx', 'anchor_prompt_learner.anchor_ctx_1', 'normal_prompt_learner.ctx_pos_params'}
+Parameters count: 3
+momentum is 0.9, weight_decay is 0.0005
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+epoch [1/100] batch [1/12] time 1.369 (1.369) data 0.791 (0.791) loss_val 2404.0000 (2404.0000) lr 1.0000e-05 eta 0:27:21
+epoch [1/100] batch [2/12] time 0.281 (0.825) data 0.000 (0.395) loss_val 3664.0000 (3034.0000) lr 1.0000e-05 eta 0:16:28
+epoch [1/100] batch [3/12] time 0.276 (0.642) data 0.000 (0.264) loss_val 2202.0000 (2756.6667) lr 1.0000e-05 eta 0:12:48
+epoch [1/100] batch [4/12] time 0.278 (0.551) data 0.000 (0.198) loss_val 2174.0000 (2611.0000) lr 1.0000e-05 eta 0:10:59
+epoch [1/100] batch [5/12] time 0.264 (0.494) data 0.000 (0.158) loss_val 1632.0000 (2415.2000) lr 1.0000e-05 eta 0:09:49
+epoch [1/100] batch [6/12] time 0.267 (0.456) data 0.000 (0.132) loss_val 1738.0000 (2302.3333) lr 1.0000e-05 eta 0:09:04
+epoch [1/100] batch [7/12] time 0.272 (0.430) data 0.000 (0.113) loss_val 1522.0000 (2190.8571) lr 1.0000e-05 eta 0:08:32
+epoch [1/100] batch [8/12] time 0.283 (0.411) data 0.000 (0.099) loss_val 2120.0000 (2182.0000) lr 1.0000e-05 eta 0:08:10
+epoch [1/100] batch [9/12] time 0.268 (0.395) data 0.000 (0.088) loss_val 1514.0000 (2107.7778) lr 1.0000e-05 eta 0:07:50
+epoch [1/100] batch [10/12] time 0.271 (0.383) data 0.000 (0.079) loss_val 1699.0000 (2066.9000) lr 1.0000e-05 eta 0:07:35
+epoch [1/100] batch [11/12] time 0.271 (0.373) data 0.000 (0.072) loss_val 1871.0000 (2049.0909) lr 1.0000e-05 eta 0:07:23
+epoch [1/100] batch [12/12] time 0.269 (0.364) data 0.000 (0.066) loss_val 1266.0000 (1983.8333) lr 2.0000e-03 eta 0:07:12
+epoch [2/100] batch [1/12] time 0.819 (0.819) data 0.512 (0.512) loss_val 2124.0000 (2124.0000) lr 2.0000e-03 eta 0:16:11
+epoch [2/100] batch [2/12] time 0.287 (0.553) data 0.000 (0.256) loss_val 2446.0000 (2285.0000) lr 2.0000e-03 eta 0:10:55
+epoch [2/100] batch [3/12] time 0.291 (0.466) data 0.000 (0.171) loss_val 1980.0000 (2183.3333) lr 2.0000e-03 eta 0:09:11
+epoch [2/100] batch [4/12] time 0.295 (0.423) data 0.000 (0.128) loss_val 1706.0000 (2064.0000) lr 2.0000e-03 eta 0:08:20
+epoch [2/100] batch [5/12] time 0.275 (0.393) data 0.000 (0.102) loss_val 2178.0000 (2086.8000) lr 2.0000e-03 eta 0:07:45
+epoch [2/100] batch [6/12] time 0.289 (0.376) data 0.000 (0.085) loss_val 1821.0000 (2042.5000) lr 2.0000e-03 eta 0:07:24
+epoch [2/100] batch [7/12] time 0.280 (0.362) data 0.000 (0.073) loss_val nan (nan) lr 2.0000e-03 eta 0:07:07
+epoch [2/100] batch [8/12] time 0.279 (0.352) data 0.000 (0.064) loss_val nan (nan) lr 2.0000e-03 eta 0:06:55
+epoch [2/100] batch [9/12] time 0.277 (0.344) data 0.000 (0.057) loss_val nan (nan) lr 2.0000e-03 eta 0:06:45
+epoch [2/100] batch [10/12] time 0.278 (0.337) data 0.000 (0.051) loss_val nan (nan) lr 2.0000e-03 eta 0:06:36
+epoch [2/100] batch [11/12] time 0.270 (0.331) data 0.000 (0.047) loss_val nan (nan) lr 2.0000e-03 eta 0:06:29
+epoch [2/100] batch [12/12] time 0.271 (0.326) data 0.000 (0.043) loss_val nan (nan) lr 1.9995e-03 eta 0:06:23
+epoch [3/100] batch [1/12] time 0.807 (0.807) data 0.520 (0.520) loss_val nan (nan) lr 1.9995e-03 eta 0:15:48
+epoch [3/100] batch [2/12] time 0.274 (0.541) data 0.000 (0.260) loss_val nan (nan) lr 1.9995e-03 eta 0:10:34
+epoch [3/100] batch [3/12] time 0.280 (0.454) data 0.000 (0.173) loss_val nan (nan) lr 1.9995e-03 eta 0:08:52
+epoch [3/100] batch [4/12] time 0.271 (0.408) data 0.000 (0.130) loss_val nan (nan) lr 1.9995e-03 eta 0:07:58
+epoch [3/100] batch [5/12] time 0.272 (0.381) data 0.000 (0.104) loss_val nan (nan) lr 1.9995e-03 eta 0:07:25
+epoch [3/100] batch [6/12] time 0.273 (0.363) data 0.000 (0.087) loss_val nan (nan) lr 1.9995e-03 eta 0:07:04
+epoch [3/100] batch [7/12] time 0.270 (0.350) data 0.000 (0.074) loss_val nan (nan) lr 1.9995e-03 eta 0:06:48
+epoch [3/100] batch [8/12] time 0.269 (0.340) data 0.000 (0.065) loss_val nan (nan) lr 1.9995e-03 eta 0:06:36
+epoch [3/100] batch [9/12] time 0.275 (0.332) data 0.000 (0.058) loss_val nan (nan) lr 1.9995e-03 eta 0:06:27
+epoch [3/100] batch [10/12] time 0.279 (0.327) data 0.000 (0.052) loss_val nan (nan) lr 1.9995e-03 eta 0:06:21
+epoch [3/100] batch [11/12] time 0.270 (0.322) data 0.000 (0.047) loss_val nan (nan) lr 1.9995e-03 eta 0:06:14
+epoch [3/100] batch [12/12] time 0.269 (0.317) data 0.000 (0.043) loss_val nan (nan) lr 1.9980e-03 eta 0:06:09
+epoch [4/100] batch [1/12] time 0.789 (0.789) data 0.490 (0.490) loss_val nan (nan) lr 1.9980e-03 eta 0:15:17
+epoch [4/100] batch [2/12] time 0.270 (0.529) data 0.000 (0.245) loss_val nan (nan) lr 1.9980e-03 eta 0:10:15
+epoch [4/100] batch [3/12] time 0.279 (0.446) data 0.000 (0.163) loss_val nan (nan) lr 1.9980e-03 eta 0:08:37
+epoch [4/100] batch [4/12] time 0.271 (0.402) data 0.000 (0.123) loss_val nan (nan) lr 1.9980e-03 eta 0:07:46
+epoch [4/100] batch [5/12] time 0.273 (0.376) data 0.000 (0.098) loss_val nan (nan) lr 1.9980e-03 eta 0:07:16
+epoch [4/100] batch [6/12] time 0.282 (0.361) data 0.000 (0.082) loss_val nan (nan) lr 1.9980e-03 eta 0:06:57
+epoch [4/100] batch [7/12] time 0.278 (0.349) data 0.000 (0.070) loss_val nan (nan) lr 1.9980e-03 eta 0:06:43
+epoch [4/100] batch [8/12] time 0.277 (0.340) data 0.000 (0.061) loss_val nan (nan) lr 1.9980e-03 eta 0:06:32
+epoch [4/100] batch [9/12] time 0.273 (0.332) data 0.000 (0.055) loss_val nan (nan) lr 1.9980e-03 eta 0:06:23
+epoch [4/100] batch [10/12] time 0.269 (0.326) data 0.000 (0.049) loss_val nan (nan) lr 1.9980e-03 eta 0:06:16
+epoch [4/100] batch [11/12] time 0.275 (0.321) data 0.000 (0.045) loss_val nan (nan) lr 1.9980e-03 eta 0:06:10
+epoch [4/100] batch [12/12] time 0.272 (0.317) data 0.000 (0.041) loss_val nan (nan) lr 1.9956e-03 eta 0:06:05
+epoch [5/100] batch [1/12] time 0.817 (0.817) data 0.533 (0.533) loss_val nan (nan) lr 1.9956e-03 eta 0:15:40
+epoch [5/100] batch [2/12] time 0.268 (0.543) data 0.000 (0.266) loss_val nan (nan) lr 1.9956e-03 eta 0:10:24
+epoch [5/100] batch [3/12] time 0.267 (0.451) data 0.000 (0.178) loss_val nan (nan) lr 1.9956e-03 eta 0:08:38
+epoch [5/100] batch [4/12] time 0.268 (0.405) data 0.000 (0.133) loss_val nan (nan) lr 1.9956e-03 eta 0:07:44
+epoch [5/100] batch [5/12] time 0.269 (0.378) data 0.000 (0.107) loss_val nan (nan) lr 1.9956e-03 eta 0:07:13
+epoch [5/100] batch [6/12] time 0.267 (0.359) data 0.000 (0.089) loss_val nan (nan) lr 1.9956e-03 eta 0:06:51
+epoch [5/100] batch [7/12] time 0.268 (0.346) data 0.000 (0.076) loss_val nan (nan) lr 1.9956e-03 eta 0:06:36
+epoch [5/100] batch [8/12] time 0.271 (0.337) data 0.000 (0.067) loss_val nan (nan) lr 1.9956e-03 eta 0:06:25
+epoch [5/100] batch [9/12] time 0.269 (0.329) data 0.000 (0.059) loss_val nan (nan) lr 1.9956e-03 eta 0:06:16
+epoch [5/100] batch [10/12] time 0.269 (0.323) data 0.000 (0.053) loss_val nan (nan) lr 1.9956e-03 eta 0:06:09
+epoch [5/100] batch [11/12] time 0.267 (0.318) data 0.000 (0.048) loss_val nan (nan) lr 1.9956e-03 eta 0:06:03
+epoch [5/100] batch [12/12] time 0.268 (0.314) data 0.000 (0.044) loss_val nan (nan) lr 1.9921e-03 eta 0:05:57
+epoch [6/100] batch [1/12] time 0.786 (0.786) data 0.508 (0.508) loss_val nan (nan) lr 1.9921e-03 eta 0:14:55
+epoch [6/100] batch [2/12] time 0.272 (0.529) data 0.000 (0.254) loss_val nan (nan) lr 1.9921e-03 eta 0:10:02
+epoch [6/100] batch [3/12] time 0.265 (0.441) data 0.000 (0.169) loss_val nan (nan) lr 1.9921e-03 eta 0:08:21
+epoch [6/100] batch [4/12] time 0.274 (0.399) data 0.000 (0.127) loss_val nan (nan) lr 1.9921e-03 eta 0:07:33
+epoch [6/100] batch [5/12] time 0.263 (0.372) data 0.000 (0.102) loss_val nan (nan) lr 1.9921e-03 eta 0:07:02
+epoch [6/100] batch [6/12] time 0.279 (0.357) data 0.000 (0.085) loss_val nan (nan) lr 1.9921e-03 eta 0:06:44
+epoch [6/100] batch [7/12] time 0.263 (0.343) data 0.000 (0.073) loss_val nan (nan) lr 1.9921e-03 eta 0:06:28
+epoch [6/100] batch [8/12] time 0.261 (0.333) data 0.000 (0.063) loss_val nan (nan) lr 1.9921e-03 eta 0:06:16
+epoch [6/100] batch [9/12] time 0.267 (0.326) data 0.000 (0.056) loss_val nan (nan) lr 1.9921e-03 eta 0:06:08
+epoch [6/100] batch [10/12] time 0.272 (0.320) data 0.000 (0.051) loss_val nan (nan) lr 1.9921e-03 eta 0:06:01
+epoch [6/100] batch [11/12] time 0.268 (0.315) data 0.000 (0.046) loss_val nan (nan) lr 1.9921e-03 eta 0:05:56
+epoch [6/100] batch [12/12] time 0.269 (0.312) data 0.000 (0.042) loss_val nan (nan) lr 1.9877e-03 eta 0:05:51
+epoch [7/100] batch [1/12] time 0.752 (0.752) data 0.468 (0.468) loss_val nan (nan) lr 1.9877e-03 eta 0:14:06
+epoch [7/100] batch [2/12] time 0.267 (0.509) data 0.000 (0.234) loss_val nan (nan) lr 1.9877e-03 eta 0:09:33
+epoch [7/100] batch [3/12] time 0.267 (0.429) data 0.000 (0.156) loss_val nan (nan) lr 1.9877e-03 eta 0:08:02
+epoch [7/100] batch [4/12] time 0.268 (0.388) data 0.000 (0.117) loss_val nan (nan) lr 1.9877e-03 eta 0:07:16
+epoch [7/100] batch [5/12] time 0.269 (0.365) data 0.000 (0.094) loss_val nan (nan) lr 1.9877e-03 eta 0:06:49
+epoch [7/100] batch [6/12] time 0.269 (0.349) data 0.000 (0.078) loss_val nan (nan) lr 1.9877e-03 eta 0:06:31
+epoch [7/100] batch [7/12] time 0.267 (0.337) data 0.000 (0.067) loss_val nan (nan) lr 1.9877e-03 eta 0:06:17
+epoch [7/100] batch [8/12] time 0.268 (0.328) data 0.000 (0.059) loss_val nan (nan) lr 1.9877e-03 eta 0:06:07
+epoch [7/100] batch [9/12] time 0.271 (0.322) data 0.000 (0.052) loss_val nan (nan) lr 1.9877e-03 eta 0:06:00
+epoch [7/100] batch [10/12] time 0.272 (0.317) data 0.000 (0.047) loss_val nan (nan) lr 1.9877e-03 eta 0:05:54
+epoch [7/100] batch [11/12] time 0.265 (0.312) data 0.000 (0.043) loss_val nan (nan) lr 1.9877e-03 eta 0:05:48
+epoch [7/100] batch [12/12] time 0.277 (0.309) data 0.000 (0.039) loss_val nan (nan) lr 1.9823e-03 eta 0:05:45
+epoch [8/100] batch [1/12] time 0.756 (0.756) data 0.473 (0.473) loss_val nan (nan) lr 1.9823e-03 eta 0:14:03
+epoch [8/100] batch [2/12] time 0.262 (0.509) data 0.000 (0.236) loss_val nan (nan) lr 1.9823e-03 eta 0:09:27
+epoch [8/100] batch [3/12] time 0.274 (0.431) data 0.000 (0.158) loss_val nan (nan) lr 1.9823e-03 eta 0:07:59
+epoch [8/100] batch [4/12] time 0.260 (0.388) data 0.000 (0.118) loss_val nan (nan) lr 1.9823e-03 eta 0:07:11
+epoch [8/100] batch [5/12] time 0.261 (0.363) data 0.000 (0.095) loss_val nan (nan) lr 1.9823e-03 eta 0:06:42
+epoch [8/100] batch [6/12] time 0.261 (0.346) data 0.000 (0.079) loss_val nan (nan) lr 1.9823e-03 eta 0:06:23
+epoch [8/100] batch [7/12] time 0.265 (0.334) data 0.000 (0.068) loss_val nan (nan) lr 1.9823e-03 eta 0:06:10
+epoch [8/100] batch [8/12] time 0.264 (0.325) data 0.000 (0.059) loss_val nan (nan) lr 1.9823e-03 eta 0:06:00
+epoch [8/100] batch [9/12] time 0.262 (0.318) data 0.000 (0.053) loss_val nan (nan) lr 1.9823e-03 eta 0:05:52
+epoch [8/100] batch [10/12] time 0.261 (0.312) data 0.000 (0.047) loss_val nan (nan) lr 1.9823e-03 eta 0:05:45
+epoch [8/100] batch [11/12] time 0.267 (0.308) data 0.000 (0.043) loss_val nan (nan) lr 1.9823e-03 eta 0:05:40
+epoch [8/100] batch [12/12] time 0.269 (0.305) data 0.000 (0.039) loss_val nan (nan) lr 1.9759e-03 eta 0:05:36
+epoch [9/100] batch [1/12] time 0.755 (0.755) data 0.473 (0.473) loss_val nan (nan) lr 1.9759e-03 eta 0:13:52
+epoch [9/100] batch [2/12] time 0.269 (0.512) data 0.000 (0.237) loss_val nan (nan) lr 1.9759e-03 eta 0:09:24
+epoch [9/100] batch [3/12] time 0.271 (0.432) data 0.000 (0.158) loss_val nan (nan) lr 1.9759e-03 eta 0:07:55
+epoch [9/100] batch [4/12] time 0.269 (0.391) data 0.000 (0.118) loss_val nan (nan) lr 1.9759e-03 eta 0:07:10
+epoch [9/100] batch [5/12] time 0.273 (0.367) data 0.000 (0.095) loss_val nan (nan) lr 1.9759e-03 eta 0:06:43
+epoch [9/100] batch [6/12] time 0.274 (0.352) data 0.000 (0.079) loss_val nan (nan) lr 1.9759e-03 eta 0:06:26
+epoch [9/100] batch [7/12] time 0.269 (0.340) data 0.000 (0.068) loss_val nan (nan) lr 1.9759e-03 eta 0:06:12
+epoch [9/100] batch [8/12] time 0.270 (0.331) data 0.000 (0.059) loss_val nan (nan) lr 1.9759e-03 eta 0:06:02
+epoch [9/100] batch [9/12] time 0.269 (0.324) data 0.000 (0.053) loss_val nan (nan) lr 1.9759e-03 eta 0:05:55
+epoch [9/100] batch [10/12] time 0.269 (0.319) data 0.000 (0.047) loss_val nan (nan) lr 1.9759e-03 eta 0:05:48
+epoch [9/100] batch [11/12] time 0.264 (0.314) data 0.000 (0.043) loss_val nan (nan) lr 1.9759e-03 eta 0:05:42
+epoch [9/100] batch [12/12] time 0.273 (0.310) data 0.000 (0.039) loss_val nan (nan) lr 1.9686e-03 eta 0:05:38
+epoch [10/100] batch [1/12] time 0.719 (0.719) data 0.434 (0.434) loss_val nan (nan) lr 1.9686e-03 eta 0:13:04
+epoch [10/100] batch [2/12] time 0.259 (0.489) data 0.000 (0.217) loss_val nan (nan) lr 1.9686e-03 eta 0:08:53
+epoch [10/100] batch [3/12] time 0.272 (0.417) data 0.000 (0.145) loss_val nan (nan) lr 1.9686e-03 eta 0:07:33
+epoch [10/100] batch [4/12] time 0.261 (0.378) data 0.000 (0.108) loss_val nan (nan) lr 1.9686e-03 eta 0:06:51
+epoch [10/100] batch [5/12] time 0.259 (0.354) data 0.000 (0.087) loss_val nan (nan) lr 1.9686e-03 eta 0:06:24
+epoch [10/100] batch [6/12] time 0.261 (0.338) data 0.000 (0.072) loss_val nan (nan) lr 1.9686e-03 eta 0:06:07
+epoch [10/100] batch [7/12] time 0.271 (0.329) data 0.000 (0.062) loss_val nan (nan) lr 1.9686e-03 eta 0:05:56
+epoch [10/100] batch [8/12] time 0.259 (0.320) data 0.000 (0.054) loss_val nan (nan) lr 1.9686e-03 eta 0:05:46
+epoch [10/100] batch [9/12] time 0.259 (0.313) data 0.000 (0.048) loss_val nan (nan) lr 1.9686e-03 eta 0:05:39
+epoch [10/100] batch [10/12] time 0.259 (0.308) data 0.000 (0.043) loss_val nan (nan) lr 1.9686e-03 eta 0:05:33
+epoch [10/100] batch [11/12] time 0.266 (0.304) data 0.000 (0.039) loss_val nan (nan) lr 1.9686e-03 eta 0:05:28
+epoch [10/100] batch [12/12] time 0.259 (0.300) data 0.000 (0.036) loss_val nan (nan) lr 1.9603e-03 eta 0:05:24
+epoch [11/100] batch [1/12] time 0.763 (0.763) data 0.489 (0.489) loss_val nan (nan) lr 1.9603e-03 eta 0:13:43
+epoch [11/100] batch [2/12] time 0.272 (0.517) data 0.000 (0.244) loss_val nan (nan) lr 1.9603e-03 eta 0:09:17
+epoch [11/100] batch [3/12] time 0.268 (0.434) data 0.000 (0.163) loss_val nan (nan) lr 1.9603e-03 eta 0:07:47
+epoch [11/100] batch [4/12] time 0.265 (0.392) data 0.000 (0.122) loss_val nan (nan) lr 1.9603e-03 eta 0:07:01
+epoch [11/100] batch [5/12] time 0.281 (0.370) data 0.000 (0.098) loss_val nan (nan) lr 1.9603e-03 eta 0:06:37
+epoch [11/100] batch [6/12] time 0.285 (0.356) data 0.000 (0.081) loss_val nan (nan) lr 1.9603e-03 eta 0:06:22
+epoch [11/100] batch [7/12] time 0.263 (0.343) data 0.000 (0.070) loss_val nan (nan) lr 1.9603e-03 eta 0:06:07
+epoch [11/100] batch [8/12] time 0.266 (0.333) data 0.000 (0.061) loss_val nan (nan) lr 1.9603e-03 eta 0:05:57
+epoch [11/100] batch [9/12] time 0.266 (0.326) data 0.000 (0.054) loss_val nan (nan) lr 1.9603e-03 eta 0:05:48
+epoch [11/100] batch [10/12] time 0.266 (0.320) data 0.000 (0.049) loss_val nan (nan) lr 1.9603e-03 eta 0:05:41
+epoch [11/100] batch [11/12] time 0.267 (0.315) data 0.000 (0.044) loss_val nan (nan) lr 1.9603e-03 eta 0:05:36
+epoch [11/100] batch [12/12] time 0.268 (0.311) data 0.000 (0.041) loss_val nan (nan) lr 1.9511e-03 eta 0:05:31
+epoch [12/100] batch [1/12] time 0.733 (0.733) data 0.444 (0.444) loss_val nan (nan) lr 1.9511e-03 eta 0:13:01
+epoch [12/100] batch [2/12] time 0.266 (0.499) data 0.000 (0.222) loss_val nan (nan) lr 1.9511e-03 eta 0:08:52
+epoch [12/100] batch [3/12] time 0.267 (0.422) data 0.000 (0.148) loss_val nan (nan) lr 1.9511e-03 eta 0:07:29
+epoch [12/100] batch [4/12] time 0.268 (0.384) data 0.000 (0.111) loss_val nan (nan) lr 1.9511e-03 eta 0:06:48
+epoch [12/100] batch [5/12] time 0.265 (0.360) data 0.000 (0.089) loss_val nan (nan) lr 1.9511e-03 eta 0:06:22
+epoch [12/100] batch [6/12] time 0.265 (0.344) data 0.000 (0.074) loss_val nan (nan) lr 1.9511e-03 eta 0:06:05
+epoch [12/100] batch [7/12] time 0.271 (0.334) data 0.000 (0.064) loss_val nan (nan) lr 1.9511e-03 eta 0:05:53
+epoch [12/100] batch [8/12] time 0.269 (0.325) data 0.000 (0.056) loss_val nan (nan) lr 1.9511e-03 eta 0:05:44
+epoch [12/100] batch [9/12] time 0.267 (0.319) data 0.000 (0.049) loss_val nan (nan) lr 1.9511e-03 eta 0:05:37
+epoch [12/100] batch [10/12] time 0.270 (0.314) data 0.000 (0.045) loss_val nan (nan) lr 1.9511e-03 eta 0:05:32
+epoch [12/100] batch [11/12] time 0.268 (0.310) data 0.000 (0.040) loss_val nan (nan) lr 1.9511e-03 eta 0:05:27
+epoch [12/100] batch [12/12] time 0.267 (0.306) data 0.000 (0.037) loss_val nan (nan) lr 1.9409e-03 eta 0:05:23
+epoch [13/100] batch [1/12] time 0.795 (0.795) data 0.491 (0.491) loss_val nan (nan) lr 1.9409e-03 eta 0:13:58
+epoch [13/100] batch [2/12] time 0.277 (0.536) data 0.000 (0.246) loss_val nan (nan) lr 1.9409e-03 eta 0:09:25
+epoch [13/100] batch [3/12] time 0.278 (0.450) data 0.000 (0.164) loss_val nan (nan) lr 1.9409e-03 eta 0:07:53
+epoch [13/100] batch [4/12] time 0.277 (0.407) data 0.000 (0.123) loss_val nan (nan) lr 1.9409e-03 eta 0:07:08
+epoch [13/100] batch [5/12] time 0.283 (0.382) data 0.000 (0.098) loss_val nan (nan) lr 1.9409e-03 eta 0:06:41
+epoch [13/100] batch [6/12] time 0.278 (0.365) data 0.000 (0.082) loss_val nan (nan) lr 1.9409e-03 eta 0:06:22
+epoch [13/100] batch [7/12] time 0.276 (0.352) data 0.000 (0.070) loss_val nan (nan) lr 1.9409e-03 eta 0:06:09
+epoch [13/100] batch [8/12] time 0.277 (0.343) data 0.000 (0.061) loss_val nan (nan) lr 1.9409e-03 eta 0:05:59
+epoch [13/100] batch [9/12] time 0.280 (0.336) data 0.000 (0.055) loss_val nan (nan) lr 1.9409e-03 eta 0:05:51
+epoch [13/100] batch [10/12] time 0.276 (0.330) data 0.000 (0.049) loss_val nan (nan) lr 1.9409e-03 eta 0:05:44
+epoch [13/100] batch [11/12] time 0.278 (0.325) data 0.000 (0.045) loss_val nan (nan) lr 1.9409e-03 eta 0:05:39
+epoch [13/100] batch [12/12] time 0.279 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 1.9298e-03 eta 0:05:35
+epoch [14/100] batch [1/12] time 0.782 (0.782) data 0.495 (0.495) loss_val nan (nan) lr 1.9298e-03 eta 0:13:35
+epoch [14/100] batch [2/12] time 0.281 (0.532) data 0.000 (0.247) loss_val nan (nan) lr 1.9298e-03 eta 0:09:13
+epoch [14/100] batch [3/12] time 0.282 (0.448) data 0.000 (0.165) loss_val nan (nan) lr 1.9298e-03 eta 0:07:46
+epoch [14/100] batch [4/12] time 0.277 (0.406) data 0.000 (0.124) loss_val nan (nan) lr 1.9298e-03 eta 0:07:01
+epoch [14/100] batch [5/12] time 0.278 (0.380) data 0.000 (0.099) loss_val nan (nan) lr 1.9298e-03 eta 0:06:35
+epoch [14/100] batch [6/12] time 0.278 (0.363) data 0.000 (0.083) loss_val nan (nan) lr 1.9298e-03 eta 0:06:16
+epoch [14/100] batch [7/12] time 0.277 (0.351) data 0.000 (0.071) loss_val nan (nan) lr 1.9298e-03 eta 0:06:03
+epoch [14/100] batch [8/12] time 0.285 (0.343) data 0.000 (0.062) loss_val nan (nan) lr 1.9298e-03 eta 0:05:54
+epoch [14/100] batch [9/12] time 0.279 (0.336) data 0.000 (0.055) loss_val nan (nan) lr 1.9298e-03 eta 0:05:47
+epoch [14/100] batch [10/12] time 0.276 (0.330) data 0.000 (0.050) loss_val nan (nan) lr 1.9298e-03 eta 0:05:40
+epoch [14/100] batch [11/12] time 0.279 (0.325) data 0.000 (0.045) loss_val nan (nan) lr 1.9298e-03 eta 0:05:35
+epoch [14/100] batch [12/12] time 0.279 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 1.9178e-03 eta 0:05:31
+epoch [15/100] batch [1/12] time 0.775 (0.775) data 0.490 (0.490) loss_val nan (nan) lr 1.9178e-03 eta 0:13:18
+epoch [15/100] batch [2/12] time 0.273 (0.524) data 0.000 (0.245) loss_val nan (nan) lr 1.9178e-03 eta 0:08:59
+epoch [15/100] batch [3/12] time 0.274 (0.441) data 0.000 (0.164) loss_val nan (nan) lr 1.9178e-03 eta 0:07:33
+epoch [15/100] batch [4/12] time 0.275 (0.399) data 0.000 (0.123) loss_val nan (nan) lr 1.9178e-03 eta 0:06:50
+epoch [15/100] batch [5/12] time 0.283 (0.376) data 0.000 (0.098) loss_val nan (nan) lr 1.9178e-03 eta 0:06:26
+epoch [15/100] batch [6/12] time 0.276 (0.359) data 0.000 (0.082) loss_val nan (nan) lr 1.9178e-03 eta 0:06:08
+epoch [15/100] batch [7/12] time 0.275 (0.347) data 0.000 (0.070) loss_val nan (nan) lr 1.9178e-03 eta 0:05:55
+epoch [15/100] batch [8/12] time 0.275 (0.338) data 0.000 (0.061) loss_val nan (nan) lr 1.9178e-03 eta 0:05:46
+epoch [15/100] batch [9/12] time 0.275 (0.331) data 0.000 (0.055) loss_val nan (nan) lr 1.9178e-03 eta 0:05:38
+epoch [15/100] batch [10/12] time 0.275 (0.326) data 0.000 (0.049) loss_val nan (nan) lr 1.9178e-03 eta 0:05:32
+epoch [15/100] batch [11/12] time 0.275 (0.321) data 0.000 (0.045) loss_val nan (nan) lr 1.9178e-03 eta 0:05:27
+epoch [15/100] batch [12/12] time 0.277 (0.317) data 0.000 (0.041) loss_val nan (nan) lr 1.9048e-03 eta 0:05:23
+epoch [16/100] batch [1/12] time 0.758 (0.758) data 0.466 (0.466) loss_val nan (nan) lr 1.9048e-03 eta 0:12:52
+epoch [16/100] batch [2/12] time 0.282 (0.520) data 0.000 (0.233) loss_val nan (nan) lr 1.9048e-03 eta 0:08:49
+epoch [16/100] batch [3/12] time 0.279 (0.440) data 0.000 (0.155) loss_val nan (nan) lr 1.9048e-03 eta 0:07:27
+epoch [16/100] batch [4/12] time 0.278 (0.399) data 0.000 (0.117) loss_val nan (nan) lr 1.9048e-03 eta 0:06:45
+epoch [16/100] batch [5/12] time 0.276 (0.375) data 0.000 (0.093) loss_val nan (nan) lr 1.9048e-03 eta 0:06:20
+epoch [16/100] batch [6/12] time 0.278 (0.359) data 0.000 (0.078) loss_val nan (nan) lr 1.9048e-03 eta 0:06:03
+epoch [16/100] batch [7/12] time 0.281 (0.347) data 0.000 (0.067) loss_val nan (nan) lr 1.9048e-03 eta 0:05:51
+epoch [16/100] batch [8/12] time 0.275 (0.338) data 0.000 (0.058) loss_val nan (nan) lr 1.9048e-03 eta 0:05:42
+epoch [16/100] batch [9/12] time 0.279 (0.332) data 0.000 (0.052) loss_val nan (nan) lr 1.9048e-03 eta 0:05:35
+epoch [16/100] batch [10/12] time 0.274 (0.326) data 0.000 (0.047) loss_val nan (nan) lr 1.9048e-03 eta 0:05:29
+epoch [16/100] batch [11/12] time 0.274 (0.321) data 0.000 (0.042) loss_val nan (nan) lr 1.9048e-03 eta 0:05:24
+epoch [16/100] batch [12/12] time 0.275 (0.317) data 0.000 (0.039) loss_val nan (nan) lr 1.8910e-03 eta 0:05:20
+epoch [17/100] batch [1/12] time 0.851 (0.851) data 0.564 (0.564) loss_val nan (nan) lr 1.8910e-03 eta 0:14:16
+epoch [17/100] batch [2/12] time 0.270 (0.560) data 0.000 (0.282) loss_val nan (nan) lr 1.8910e-03 eta 0:09:23
+epoch [17/100] batch [3/12] time 0.270 (0.464) data 0.000 (0.188) loss_val nan (nan) lr 1.8910e-03 eta 0:07:46
+epoch [17/100] batch [4/12] time 0.270 (0.415) data 0.000 (0.141) loss_val nan (nan) lr 1.8910e-03 eta 0:06:56
+epoch [17/100] batch [5/12] time 0.269 (0.386) data 0.000 (0.113) loss_val nan (nan) lr 1.8910e-03 eta 0:06:27
+epoch [17/100] batch [6/12] time 0.270 (0.367) data 0.000 (0.094) loss_val nan (nan) lr 1.8910e-03 eta 0:06:07
+epoch [17/100] batch [7/12] time 0.270 (0.353) data 0.000 (0.081) loss_val nan (nan) lr 1.8910e-03 eta 0:05:53
+epoch [17/100] batch [8/12] time 0.271 (0.343) data 0.000 (0.070) loss_val nan (nan) lr 1.8910e-03 eta 0:05:42
+epoch [17/100] batch [9/12] time 0.271 (0.335) data 0.000 (0.063) loss_val nan (nan) lr 1.8910e-03 eta 0:05:34
+epoch [17/100] batch [10/12] time 0.271 (0.328) data 0.000 (0.056) loss_val nan (nan) lr 1.8910e-03 eta 0:05:27
+epoch [17/100] batch [11/12] time 0.275 (0.324) data 0.000 (0.051) loss_val nan (nan) lr 1.8910e-03 eta 0:05:22
+epoch [17/100] batch [12/12] time 0.277 (0.320) data 0.000 (0.047) loss_val nan (nan) lr 1.8763e-03 eta 0:05:18
+epoch [18/100] batch [1/12] time 0.770 (0.770) data 0.489 (0.489) loss_val nan (nan) lr 1.8763e-03 eta 0:12:46
+epoch [18/100] batch [2/12] time 0.270 (0.520) data 0.000 (0.245) loss_val nan (nan) lr 1.8763e-03 eta 0:08:36
+epoch [18/100] batch [3/12] time 0.270 (0.437) data 0.000 (0.163) loss_val nan (nan) lr 1.8763e-03 eta 0:07:13
+epoch [18/100] batch [4/12] time 0.274 (0.396) data 0.000 (0.122) loss_val nan (nan) lr 1.8763e-03 eta 0:06:32
+epoch [18/100] batch [5/12] time 0.279 (0.373) data 0.000 (0.098) loss_val nan (nan) lr 1.8763e-03 eta 0:06:09
+epoch [18/100] batch [6/12] time 0.278 (0.357) data 0.000 (0.082) loss_val nan (nan) lr 1.8763e-03 eta 0:05:53
+epoch [18/100] batch [7/12] time 0.279 (0.346) data 0.000 (0.070) loss_val nan (nan) lr 1.8763e-03 eta 0:05:41
+epoch [18/100] batch [8/12] time 0.280 (0.337) data 0.000 (0.061) loss_val nan (nan) lr 1.8763e-03 eta 0:05:33
+epoch [18/100] batch [9/12] time 0.279 (0.331) data 0.000 (0.054) loss_val nan (nan) lr 1.8763e-03 eta 0:05:26
+epoch [18/100] batch [10/12] time 0.279 (0.326) data 0.000 (0.049) loss_val nan (nan) lr 1.8763e-03 eta 0:05:21
+epoch [18/100] batch [11/12] time 0.278 (0.321) data 0.000 (0.045) loss_val nan (nan) lr 1.8763e-03 eta 0:05:16
+epoch [18/100] batch [12/12] time 0.281 (0.318) data 0.000 (0.041) loss_val nan (nan) lr 1.8607e-03 eta 0:05:13
+epoch [19/100] batch [1/12] time 0.786 (0.786) data 0.488 (0.488) loss_val nan (nan) lr 1.8607e-03 eta 0:12:52
+epoch [19/100] batch [2/12] time 0.275 (0.530) data 0.000 (0.244) loss_val nan (nan) lr 1.8607e-03 eta 0:08:40
+epoch [19/100] batch [3/12] time 0.283 (0.448) data 0.000 (0.163) loss_val nan (nan) lr 1.8607e-03 eta 0:07:19
+epoch [19/100] batch [4/12] time 0.280 (0.406) data 0.000 (0.122) loss_val nan (nan) lr 1.8607e-03 eta 0:06:37
+epoch [19/100] batch [5/12] time 0.286 (0.382) data 0.000 (0.098) loss_val nan (nan) lr 1.8607e-03 eta 0:06:14
+epoch [19/100] batch [6/12] time 0.280 (0.365) data 0.000 (0.081) loss_val nan (nan) lr 1.8607e-03 eta 0:05:57
+epoch [19/100] batch [7/12] time 0.281 (0.353) data 0.000 (0.070) loss_val nan (nan) lr 1.8607e-03 eta 0:05:44
+epoch [19/100] batch [8/12] time 0.277 (0.344) data 0.000 (0.061) loss_val nan (nan) lr 1.8607e-03 eta 0:05:35
+epoch [19/100] batch [9/12] time 0.292 (0.338) data 0.000 (0.054) loss_val nan (nan) lr 1.8607e-03 eta 0:05:29
+epoch [19/100] batch [10/12] time 0.280 (0.332) data 0.000 (0.049) loss_val nan (nan) lr 1.8607e-03 eta 0:05:23
+epoch [19/100] batch [11/12] time 0.279 (0.327) data 0.000 (0.044) loss_val nan (nan) lr 1.8607e-03 eta 0:05:18
+epoch [19/100] batch [12/12] time 0.277 (0.323) data 0.000 (0.041) loss_val nan (nan) lr 1.8443e-03 eta 0:05:14
+epoch [20/100] batch [1/12] time 0.764 (0.764) data 0.474 (0.474) loss_val nan (nan) lr 1.8443e-03 eta 0:12:21
+epoch [20/100] batch [2/12] time 0.276 (0.520) data 0.000 (0.237) loss_val nan (nan) lr 1.8443e-03 eta 0:08:24
+epoch [20/100] batch [3/12] time 0.277 (0.439) data 0.000 (0.158) loss_val nan (nan) lr 1.8443e-03 eta 0:07:05
+epoch [20/100] batch [4/12] time 0.276 (0.398) data 0.000 (0.119) loss_val nan (nan) lr 1.8443e-03 eta 0:06:25
+epoch [20/100] batch [5/12] time 0.278 (0.374) data 0.000 (0.095) loss_val nan (nan) lr 1.8443e-03 eta 0:06:01
+epoch [20/100] batch [6/12] time 0.277 (0.358) data 0.000 (0.079) loss_val nan (nan) lr 1.8443e-03 eta 0:05:45
+epoch [20/100] batch [7/12] time 0.277 (0.346) data 0.000 (0.068) loss_val nan (nan) lr 1.8443e-03 eta 0:05:34
+epoch [20/100] batch [8/12] time 0.277 (0.338) data 0.000 (0.059) loss_val nan (nan) lr 1.8443e-03 eta 0:05:25
+epoch [20/100] batch [9/12] time 0.276 (0.331) data 0.000 (0.053) loss_val nan (nan) lr 1.8443e-03 eta 0:05:18
+epoch [20/100] batch [10/12] time 0.276 (0.325) data 0.000 (0.047) loss_val nan (nan) lr 1.8443e-03 eta 0:05:12
+epoch [20/100] batch [11/12] time 0.277 (0.321) data 0.000 (0.043) loss_val nan (nan) lr 1.8443e-03 eta 0:05:08
+epoch [20/100] batch [12/12] time 0.278 (0.317) data 0.000 (0.040) loss_val nan (nan) lr 1.8271e-03 eta 0:05:04
+epoch [21/100] batch [1/12] time 0.723 (0.723) data 0.425 (0.425) loss_val nan (nan) lr 1.8271e-03 eta 0:11:33
+epoch [21/100] batch [2/12] time 0.276 (0.500) data 0.000 (0.213) loss_val nan (nan) lr 1.8271e-03 eta 0:07:58
+epoch [21/100] batch [3/12] time 0.277 (0.426) data 0.000 (0.142) loss_val nan (nan) lr 1.8271e-03 eta 0:06:47
+epoch [21/100] batch [4/12] time 0.279 (0.389) data 0.000 (0.106) loss_val nan (nan) lr 1.8271e-03 eta 0:06:11
+epoch [21/100] batch [5/12] time 0.278 (0.367) data 0.000 (0.085) loss_val nan (nan) lr 1.8271e-03 eta 0:05:50
+epoch [21/100] batch [6/12] time 0.278 (0.352) data 0.000 (0.071) loss_val nan (nan) lr 1.8271e-03 eta 0:05:35
+epoch [21/100] batch [7/12] time 0.278 (0.341) data 0.000 (0.061) loss_val nan (nan) lr 1.8271e-03 eta 0:05:25
+epoch [21/100] batch [8/12] time 0.282 (0.334) data 0.000 (0.053) loss_val nan (nan) lr 1.8271e-03 eta 0:05:17
+epoch [21/100] batch [9/12] time 0.286 (0.329) data 0.000 (0.047) loss_val nan (nan) lr 1.8271e-03 eta 0:05:12
+epoch [21/100] batch [10/12] time 0.279 (0.324) data 0.000 (0.043) loss_val nan (nan) lr 1.8271e-03 eta 0:05:07
+epoch [21/100] batch [11/12] time 0.277 (0.319) data 0.000 (0.039) loss_val nan (nan) lr 1.8271e-03 eta 0:05:03
+epoch [21/100] batch [12/12] time 0.280 (0.316) data 0.000 (0.036) loss_val nan (nan) lr 1.8090e-03 eta 0:04:59
+epoch [22/100] batch [1/12] time 0.743 (0.743) data 0.445 (0.445) loss_val nan (nan) lr 1.8090e-03 eta 0:11:43
+epoch [22/100] batch [2/12] time 0.275 (0.509) data 0.000 (0.223) loss_val nan (nan) lr 1.8090e-03 eta 0:08:01
+epoch [22/100] batch [3/12] time 0.275 (0.431) data 0.000 (0.148) loss_val nan (nan) lr 1.8090e-03 eta 0:06:47
+epoch [22/100] batch [4/12] time 0.277 (0.392) data 0.000 (0.111) loss_val nan (nan) lr 1.8090e-03 eta 0:06:10
+epoch [22/100] batch [5/12] time 0.278 (0.370) data 0.000 (0.089) loss_val nan (nan) lr 1.8090e-03 eta 0:05:48
+epoch [22/100] batch [6/12] time 0.277 (0.354) data 0.000 (0.074) loss_val nan (nan) lr 1.8090e-03 eta 0:05:33
+epoch [22/100] batch [7/12] time 0.283 (0.344) data 0.000 (0.064) loss_val nan (nan) lr 1.8090e-03 eta 0:05:23
+epoch [22/100] batch [8/12] time 0.280 (0.336) data 0.000 (0.056) loss_val nan (nan) lr 1.8090e-03 eta 0:05:15
+epoch [22/100] batch [9/12] time 0.276 (0.329) data 0.000 (0.049) loss_val nan (nan) lr 1.8090e-03 eta 0:05:09
+epoch [22/100] batch [10/12] time 0.283 (0.325) data 0.000 (0.045) loss_val nan (nan) lr 1.8090e-03 eta 0:05:04
+epoch [22/100] batch [11/12] time 0.279 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 1.8090e-03 eta 0:05:00
+epoch [22/100] batch [12/12] time 0.279 (0.317) data 0.000 (0.037) loss_val nan (nan) lr 1.7902e-03 eta 0:04:56
+epoch [23/100] batch [1/12] time 0.764 (0.764) data 0.471 (0.471) loss_val nan (nan) lr 1.7902e-03 eta 0:11:54
+epoch [23/100] batch [2/12] time 0.277 (0.521) data 0.000 (0.235) loss_val nan (nan) lr 1.7902e-03 eta 0:08:06
+epoch [23/100] batch [3/12] time 0.276 (0.439) data 0.000 (0.157) loss_val nan (nan) lr 1.7902e-03 eta 0:06:49
+epoch [23/100] batch [4/12] time 0.282 (0.400) data 0.000 (0.118) loss_val nan (nan) lr 1.7902e-03 eta 0:06:12
+epoch [23/100] batch [5/12] time 0.278 (0.375) data 0.000 (0.094) loss_val nan (nan) lr 1.7902e-03 eta 0:05:49
+epoch [23/100] batch [6/12] time 0.279 (0.359) data 0.000 (0.078) loss_val nan (nan) lr 1.7902e-03 eta 0:05:34
+epoch [23/100] batch [7/12] time 0.282 (0.348) data 0.000 (0.067) loss_val nan (nan) lr 1.7902e-03 eta 0:05:23
+epoch [23/100] batch [8/12] time 0.279 (0.340) data 0.000 (0.059) loss_val nan (nan) lr 1.7902e-03 eta 0:05:15
+epoch [23/100] batch [9/12] time 0.279 (0.333) data 0.000 (0.052) loss_val nan (nan) lr 1.7902e-03 eta 0:05:08
+epoch [23/100] batch [10/12] time 0.283 (0.328) data 0.000 (0.047) loss_val nan (nan) lr 1.7902e-03 eta 0:05:03
+epoch [23/100] batch [11/12] time 0.281 (0.324) data 0.000 (0.043) loss_val nan (nan) lr 1.7902e-03 eta 0:04:59
+epoch [23/100] batch [12/12] time 0.280 (0.320) data 0.000 (0.039) loss_val nan (nan) lr 1.7705e-03 eta 0:04:55
+epoch [24/100] batch [1/12] time 0.764 (0.764) data 0.473 (0.473) loss_val nan (nan) lr 1.7705e-03 eta 0:11:44
+epoch [24/100] batch [2/12] time 0.287 (0.525) data 0.000 (0.236) loss_val nan (nan) lr 1.7705e-03 eta 0:08:04
+epoch [24/100] batch [3/12] time 0.277 (0.442) data 0.000 (0.158) loss_val nan (nan) lr 1.7705e-03 eta 0:06:47
+epoch [24/100] batch [4/12] time 0.274 (0.400) data 0.000 (0.118) loss_val nan (nan) lr 1.7705e-03 eta 0:06:08
+epoch [24/100] batch [5/12] time 0.272 (0.374) data 0.000 (0.095) loss_val nan (nan) lr 1.7705e-03 eta 0:05:44
+epoch [24/100] batch [6/12] time 0.273 (0.358) data 0.000 (0.079) loss_val nan (nan) lr 1.7705e-03 eta 0:05:28
+epoch [24/100] batch [7/12] time 0.273 (0.345) data 0.000 (0.068) loss_val nan (nan) lr 1.7705e-03 eta 0:05:16
+epoch [24/100] batch [8/12] time 0.272 (0.336) data 0.000 (0.059) loss_val nan (nan) lr 1.7705e-03 eta 0:05:07
+epoch [24/100] batch [9/12] time 0.279 (0.330) data 0.000 (0.053) loss_val nan (nan) lr 1.7705e-03 eta 0:05:01
+epoch [24/100] batch [10/12] time 0.279 (0.325) data 0.000 (0.047) loss_val nan (nan) lr 1.7705e-03 eta 0:04:56
+epoch [24/100] batch [11/12] time 0.277 (0.320) data 0.000 (0.043) loss_val nan (nan) lr 1.7705e-03 eta 0:04:52
+epoch [24/100] batch [12/12] time 0.279 (0.317) data 0.000 (0.039) loss_val nan (nan) lr 1.7501e-03 eta 0:04:49
+epoch [25/100] batch [1/12] time 0.752 (0.752) data 0.466 (0.466) loss_val nan (nan) lr 1.7501e-03 eta 0:11:25
+epoch [25/100] batch [2/12] time 0.277 (0.514) data 0.000 (0.233) loss_val nan (nan) lr 1.7501e-03 eta 0:07:48
+epoch [25/100] batch [3/12] time 0.278 (0.436) data 0.000 (0.155) loss_val nan (nan) lr 1.7501e-03 eta 0:06:36
+epoch [25/100] batch [4/12] time 0.279 (0.397) data 0.000 (0.117) loss_val nan (nan) lr 1.7501e-03 eta 0:06:00
+epoch [25/100] batch [5/12] time 0.277 (0.373) data 0.000 (0.093) loss_val nan (nan) lr 1.7501e-03 eta 0:05:38
+epoch [25/100] batch [6/12] time 0.279 (0.357) data 0.000 (0.078) loss_val nan (nan) lr 1.7501e-03 eta 0:05:23
+epoch [25/100] batch [7/12] time 0.278 (0.346) data 0.000 (0.067) loss_val nan (nan) lr 1.7501e-03 eta 0:05:12
+epoch [25/100] batch [8/12] time 0.281 (0.338) data 0.000 (0.058) loss_val nan (nan) lr 1.7501e-03 eta 0:05:05
+epoch [25/100] batch [9/12] time 0.281 (0.331) data 0.000 (0.052) loss_val nan (nan) lr 1.7501e-03 eta 0:04:59
+epoch [25/100] batch [10/12] time 0.279 (0.326) data 0.000 (0.047) loss_val nan (nan) lr 1.7501e-03 eta 0:04:54
+epoch [25/100] batch [11/12] time 0.281 (0.322) data 0.000 (0.042) loss_val nan (nan) lr 1.7501e-03 eta 0:04:50
+epoch [25/100] batch [12/12] time 0.283 (0.319) data 0.000 (0.039) loss_val nan (nan) lr 1.7290e-03 eta 0:04:46
+epoch [26/100] batch [1/12] time 0.740 (0.740) data 0.452 (0.452) loss_val nan (nan) lr 1.7290e-03 eta 0:11:05
+epoch [26/100] batch [2/12] time 0.277 (0.509) data 0.000 (0.226) loss_val nan (nan) lr 1.7290e-03 eta 0:07:36
+epoch [26/100] batch [3/12] time 0.281 (0.433) data 0.000 (0.151) loss_val nan (nan) lr 1.7290e-03 eta 0:06:28
+epoch [26/100] batch [4/12] time 0.280 (0.395) data 0.000 (0.113) loss_val nan (nan) lr 1.7290e-03 eta 0:05:53
+epoch [26/100] batch [5/12] time 0.285 (0.373) data 0.000 (0.090) loss_val nan (nan) lr 1.7290e-03 eta 0:05:33
+epoch [26/100] batch [6/12] time 0.279 (0.357) data 0.000 (0.075) loss_val nan (nan) lr 1.7290e-03 eta 0:05:19
+epoch [26/100] batch [7/12] time 0.278 (0.346) data 0.000 (0.065) loss_val nan (nan) lr 1.7290e-03 eta 0:05:08
+epoch [26/100] batch [8/12] time 0.275 (0.337) data 0.000 (0.057) loss_val nan (nan) lr 1.7290e-03 eta 0:05:00
+epoch [26/100] batch [9/12] time 0.278 (0.330) data 0.000 (0.050) loss_val nan (nan) lr 1.7290e-03 eta 0:04:54
+epoch [26/100] batch [10/12] time 0.277 (0.325) data 0.000 (0.045) loss_val nan (nan) lr 1.7290e-03 eta 0:04:49
+epoch [26/100] batch [11/12] time 0.276 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 1.7290e-03 eta 0:04:45
+epoch [26/100] batch [12/12] time 0.277 (0.317) data 0.000 (0.038) loss_val nan (nan) lr 1.7071e-03 eta 0:04:41
+epoch [27/100] batch [1/12] time 0.738 (0.738) data 0.449 (0.449) loss_val nan (nan) lr 1.7071e-03 eta 0:10:54
+epoch [27/100] batch [2/12] time 0.272 (0.505) data 0.000 (0.224) loss_val nan (nan) lr 1.7071e-03 eta 0:07:27
+epoch [27/100] batch [3/12] time 0.286 (0.432) data 0.000 (0.150) loss_val nan (nan) lr 1.7071e-03 eta 0:06:22
+epoch [27/100] batch [4/12] time 0.274 (0.393) data 0.000 (0.112) loss_val nan (nan) lr 1.7071e-03 eta 0:05:47
+epoch [27/100] batch [5/12] time 0.278 (0.370) data 0.000 (0.090) loss_val nan (nan) lr 1.7071e-03 eta 0:05:26
+epoch [27/100] batch [6/12] time 0.277 (0.354) data 0.000 (0.075) loss_val nan (nan) lr 1.7071e-03 eta 0:05:12
+epoch [27/100] batch [7/12] time 0.279 (0.343) data 0.000 (0.064) loss_val nan (nan) lr 1.7071e-03 eta 0:05:02
+epoch [27/100] batch [8/12] time 0.283 (0.336) data 0.000 (0.056) loss_val nan (nan) lr 1.7071e-03 eta 0:04:55
+epoch [27/100] batch [9/12] time 0.281 (0.330) data 0.000 (0.050) loss_val nan (nan) lr 1.7071e-03 eta 0:04:49
+epoch [27/100] batch [10/12] time 0.280 (0.325) data 0.000 (0.045) loss_val nan (nan) lr 1.7071e-03 eta 0:04:45
+epoch [27/100] batch [11/12] time 0.282 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 1.7071e-03 eta 0:04:41
+epoch [27/100] batch [12/12] time 0.281 (0.318) data 0.000 (0.037) loss_val nan (nan) lr 1.6845e-03 eta 0:04:38
+epoch [28/100] batch [1/12] time 0.778 (0.778) data 0.489 (0.489) loss_val nan (nan) lr 1.6845e-03 eta 0:11:20
+epoch [28/100] batch [2/12] time 0.282 (0.530) data 0.000 (0.245) loss_val nan (nan) lr 1.6845e-03 eta 0:07:43
+epoch [28/100] batch [3/12] time 0.277 (0.445) data 0.000 (0.163) loss_val nan (nan) lr 1.6845e-03 eta 0:06:28
+epoch [28/100] batch [4/12] time 0.282 (0.405) data 0.000 (0.122) loss_val nan (nan) lr 1.6845e-03 eta 0:05:52
+epoch [28/100] batch [5/12] time 0.282 (0.380) data 0.000 (0.098) loss_val nan (nan) lr 1.6845e-03 eta 0:05:30
+epoch [28/100] batch [6/12] time 0.285 (0.364) data 0.000 (0.082) loss_val nan (nan) lr 1.6845e-03 eta 0:05:16
+epoch [28/100] batch [7/12] time 0.280 (0.352) data 0.000 (0.070) loss_val nan (nan) lr 1.6845e-03 eta 0:05:06
+epoch [28/100] batch [8/12] time 0.289 (0.344) data 0.000 (0.061) loss_val nan (nan) lr 1.6845e-03 eta 0:04:58
+epoch [28/100] batch [9/12] time 0.290 (0.338) data 0.000 (0.054) loss_val nan (nan) lr 1.6845e-03 eta 0:04:53
+epoch [28/100] batch [10/12] time 0.281 (0.332) data 0.000 (0.049) loss_val nan (nan) lr 1.6845e-03 eta 0:04:47
+epoch [28/100] batch [11/12] time 0.299 (0.329) data 0.000 (0.045) loss_val nan (nan) lr 1.6845e-03 eta 0:04:44
+epoch [28/100] batch [12/12] time 0.285 (0.326) data 0.000 (0.041) loss_val nan (nan) lr 1.6613e-03 eta 0:04:41
+epoch [29/100] batch [1/12] time 0.749 (0.749) data 0.462 (0.462) loss_val nan (nan) lr 1.6613e-03 eta 0:10:46
+epoch [29/100] batch [2/12] time 0.280 (0.514) data 0.000 (0.231) loss_val nan (nan) lr 1.6613e-03 eta 0:07:23
+epoch [29/100] batch [3/12] time 0.301 (0.443) data 0.000 (0.154) loss_val nan (nan) lr 1.6613e-03 eta 0:06:21
+epoch [29/100] batch [4/12] time 0.304 (0.408) data 0.000 (0.116) loss_val nan (nan) lr 1.6613e-03 eta 0:05:51
+epoch [29/100] batch [5/12] time 0.286 (0.384) data 0.000 (0.092) loss_val nan (nan) lr 1.6613e-03 eta 0:05:29
+epoch [29/100] batch [6/12] time 0.285 (0.367) data 0.000 (0.077) loss_val nan (nan) lr 1.6613e-03 eta 0:05:15
+epoch [29/100] batch [7/12] time 0.280 (0.355) data 0.000 (0.066) loss_val nan (nan) lr 1.6613e-03 eta 0:05:04
+epoch [29/100] batch [8/12] time 0.290 (0.347) data 0.000 (0.058) loss_val nan (nan) lr 1.6613e-03 eta 0:04:56
+epoch [29/100] batch [9/12] time 0.279 (0.339) data 0.000 (0.051) loss_val nan (nan) lr 1.6613e-03 eta 0:04:50
+epoch [29/100] batch [10/12] time 0.281 (0.333) data 0.000 (0.046) loss_val nan (nan) lr 1.6613e-03 eta 0:04:44
+epoch [29/100] batch [11/12] time 0.281 (0.329) data 0.000 (0.042) loss_val nan (nan) lr 1.6613e-03 eta 0:04:40
+epoch [29/100] batch [12/12] time 0.279 (0.325) data 0.000 (0.039) loss_val nan (nan) lr 1.6374e-03 eta 0:04:36
+epoch [30/100] batch [1/12] time 0.762 (0.762) data 0.465 (0.465) loss_val nan (nan) lr 1.6374e-03 eta 0:10:48
+epoch [30/100] batch [2/12] time 0.281 (0.522) data 0.000 (0.233) loss_val nan (nan) lr 1.6374e-03 eta 0:07:23
+epoch [30/100] batch [3/12] time 0.288 (0.444) data 0.000 (0.155) loss_val nan (nan) lr 1.6374e-03 eta 0:06:16
+epoch [30/100] batch [4/12] time 0.282 (0.403) data 0.000 (0.116) loss_val nan (nan) lr 1.6374e-03 eta 0:05:41
+epoch [30/100] batch [5/12] time 0.291 (0.381) data 0.000 (0.093) loss_val nan (nan) lr 1.6374e-03 eta 0:05:22
+epoch [30/100] batch [6/12] time 0.285 (0.365) data 0.000 (0.078) loss_val nan (nan) lr 1.6374e-03 eta 0:05:08
+epoch [30/100] batch [7/12] time 0.281 (0.353) data 0.000 (0.067) loss_val nan (nan) lr 1.6374e-03 eta 0:04:58
+epoch [30/100] batch [8/12] time 0.280 (0.344) data 0.000 (0.058) loss_val nan (nan) lr 1.6374e-03 eta 0:04:50
+epoch [30/100] batch [9/12] time 0.280 (0.337) data 0.000 (0.052) loss_val nan (nan) lr 1.6374e-03 eta 0:04:43
+epoch [30/100] batch [10/12] time 0.292 (0.332) data 0.000 (0.047) loss_val nan (nan) lr 1.6374e-03 eta 0:04:39
+epoch [30/100] batch [11/12] time 0.281 (0.328) data 0.000 (0.042) loss_val nan (nan) lr 1.6374e-03 eta 0:04:35
+epoch [30/100] batch [12/12] time 0.281 (0.324) data 0.000 (0.039) loss_val nan (nan) lr 1.6129e-03 eta 0:04:31
+epoch [31/100] batch [1/12] time 0.759 (0.759) data 0.469 (0.469) loss_val nan (nan) lr 1.6129e-03 eta 0:10:37
+epoch [31/100] batch [2/12] time 0.280 (0.520) data 0.000 (0.234) loss_val nan (nan) lr 1.6129e-03 eta 0:07:15
+epoch [31/100] batch [3/12] time 0.282 (0.441) data 0.000 (0.156) loss_val nan (nan) lr 1.6129e-03 eta 0:06:08
+epoch [31/100] batch [4/12] time 0.283 (0.401) data 0.000 (0.117) loss_val nan (nan) lr 1.6129e-03 eta 0:05:35
+epoch [31/100] batch [5/12] time 0.287 (0.378) data 0.000 (0.094) loss_val nan (nan) lr 1.6129e-03 eta 0:05:15
+epoch [31/100] batch [6/12] time 0.281 (0.362) data 0.000 (0.078) loss_val nan (nan) lr 1.6129e-03 eta 0:05:02
+epoch [31/100] batch [7/12] time 0.290 (0.352) data 0.000 (0.067) loss_val nan (nan) lr 1.6129e-03 eta 0:04:53
+epoch [31/100] batch [8/12] time 0.282 (0.343) data 0.000 (0.059) loss_val nan (nan) lr 1.6129e-03 eta 0:04:45
+epoch [31/100] batch [9/12] time 0.280 (0.336) data 0.000 (0.052) loss_val nan (nan) lr 1.6129e-03 eta 0:04:39
+epoch [31/100] batch [10/12] time 0.280 (0.331) data 0.000 (0.047) loss_val nan (nan) lr 1.6129e-03 eta 0:04:34
+epoch [31/100] batch [11/12] time 0.281 (0.326) data 0.000 (0.043) loss_val nan (nan) lr 1.6129e-03 eta 0:04:30
+epoch [31/100] batch [12/12] time 0.279 (0.322) data 0.000 (0.039) loss_val nan (nan) lr 1.5878e-03 eta 0:04:26
+epoch [32/100] batch [1/12] time 0.772 (0.772) data 0.481 (0.481) loss_val nan (nan) lr 1.5878e-03 eta 0:10:38
+epoch [32/100] batch [2/12] time 0.280 (0.526) data 0.000 (0.240) loss_val nan (nan) lr 1.5878e-03 eta 0:07:14
+epoch [32/100] batch [3/12] time 0.290 (0.447) data 0.000 (0.160) loss_val nan (nan) lr 1.5878e-03 eta 0:06:09
+epoch [32/100] batch [4/12] time 0.279 (0.405) data 0.000 (0.120) loss_val nan (nan) lr 1.5878e-03 eta 0:05:34
+epoch [32/100] batch [5/12] time 0.281 (0.381) data 0.000 (0.096) loss_val nan (nan) lr 1.5878e-03 eta 0:05:13
+epoch [32/100] batch [6/12] time 0.282 (0.364) data 0.000 (0.080) loss_val nan (nan) lr 1.5878e-03 eta 0:04:59
+epoch [32/100] batch [7/12] time 0.280 (0.352) data 0.000 (0.069) loss_val nan (nan) lr 1.5878e-03 eta 0:04:49
+epoch [32/100] batch [8/12] time 0.279 (0.343) data 0.000 (0.060) loss_val nan (nan) lr 1.5878e-03 eta 0:04:41
+epoch [32/100] batch [9/12] time 0.281 (0.336) data 0.000 (0.053) loss_val nan (nan) lr 1.5878e-03 eta 0:04:35
+epoch [32/100] batch [10/12] time 0.279 (0.330) data 0.000 (0.048) loss_val nan (nan) lr 1.5878e-03 eta 0:04:30
+epoch [32/100] batch [11/12] time 0.281 (0.326) data 0.000 (0.044) loss_val nan (nan) lr 1.5878e-03 eta 0:04:26
+epoch [32/100] batch [12/12] time 0.282 (0.322) data 0.000 (0.040) loss_val nan (nan) lr 1.5621e-03 eta 0:04:22
+epoch [33/100] batch [1/12] time 0.779 (0.779) data 0.483 (0.483) loss_val nan (nan) lr 1.5621e-03 eta 0:10:35
+epoch [33/100] batch [2/12] time 0.281 (0.530) data 0.000 (0.242) loss_val nan (nan) lr 1.5621e-03 eta 0:07:11
+epoch [33/100] batch [3/12] time 0.288 (0.449) data 0.000 (0.161) loss_val nan (nan) lr 1.5621e-03 eta 0:06:05
+epoch [33/100] batch [4/12] time 0.280 (0.407) data 0.000 (0.121) loss_val nan (nan) lr 1.5621e-03 eta 0:05:30
+epoch [33/100] batch [5/12] time 0.281 (0.382) data 0.000 (0.097) loss_val nan (nan) lr 1.5621e-03 eta 0:05:09
+epoch [33/100] batch [6/12] time 0.280 (0.365) data 0.000 (0.081) loss_val nan (nan) lr 1.5621e-03 eta 0:04:55
+epoch [33/100] batch [7/12] time 0.279 (0.353) data 0.000 (0.069) loss_val nan (nan) lr 1.5621e-03 eta 0:04:45
+epoch [33/100] batch [8/12] time 0.280 (0.344) data 0.000 (0.060) loss_val nan (nan) lr 1.5621e-03 eta 0:04:37
+epoch [33/100] batch [9/12] time 0.280 (0.336) data 0.000 (0.054) loss_val nan (nan) lr 1.5621e-03 eta 0:04:31
+epoch [33/100] batch [10/12] time 0.277 (0.331) data 0.000 (0.048) loss_val nan (nan) lr 1.5621e-03 eta 0:04:26
+epoch [33/100] batch [11/12] time 0.283 (0.326) data 0.000 (0.044) loss_val nan (nan) lr 1.5621e-03 eta 0:04:22
+epoch [33/100] batch [12/12] time 0.281 (0.322) data 0.000 (0.040) loss_val nan (nan) lr 1.5358e-03 eta 0:04:19
+epoch [34/100] batch [1/12] time 0.801 (0.801) data 0.500 (0.500) loss_val nan (nan) lr 1.5358e-03 eta 0:10:43
+epoch [34/100] batch [2/12] time 0.278 (0.539) data 0.000 (0.250) loss_val nan (nan) lr 1.5358e-03 eta 0:07:12
+epoch [34/100] batch [3/12] time 0.283 (0.454) data 0.000 (0.167) loss_val nan (nan) lr 1.5358e-03 eta 0:06:03
+epoch [34/100] batch [4/12] time 0.281 (0.411) data 0.000 (0.125) loss_val nan (nan) lr 1.5358e-03 eta 0:05:28
+epoch [34/100] batch [5/12] time 0.282 (0.385) data 0.000 (0.100) loss_val nan (nan) lr 1.5358e-03 eta 0:05:07
+epoch [34/100] batch [6/12] time 0.281 (0.367) data 0.000 (0.083) loss_val nan (nan) lr 1.5358e-03 eta 0:04:53
+epoch [34/100] batch [7/12] time 0.282 (0.355) data 0.000 (0.072) loss_val nan (nan) lr 1.5358e-03 eta 0:04:43
+epoch [34/100] batch [8/12] time 0.281 (0.346) data 0.000 (0.063) loss_val nan (nan) lr 1.5358e-03 eta 0:04:35
+epoch [34/100] batch [9/12] time 0.283 (0.339) data 0.000 (0.056) loss_val nan (nan) lr 1.5358e-03 eta 0:04:29
+epoch [34/100] batch [10/12] time 0.278 (0.333) data 0.000 (0.050) loss_val nan (nan) lr 1.5358e-03 eta 0:04:24
+epoch [34/100] batch [11/12] time 0.289 (0.329) data 0.000 (0.046) loss_val nan (nan) lr 1.5358e-03 eta 0:04:20
+epoch [34/100] batch [12/12] time 0.277 (0.325) data 0.000 (0.042) loss_val nan (nan) lr 1.5090e-03 eta 0:04:17
+epoch [35/100] batch [1/12] time 0.824 (0.824) data 0.531 (0.531) loss_val nan (nan) lr 1.5090e-03 eta 0:10:52
+epoch [35/100] batch [2/12] time 0.277 (0.550) data 0.000 (0.266) loss_val nan (nan) lr 1.5090e-03 eta 0:07:14
+epoch [35/100] batch [3/12] time 0.283 (0.461) data 0.000 (0.177) loss_val nan (nan) lr 1.5090e-03 eta 0:06:03
+epoch [35/100] batch [4/12] time 0.279 (0.416) data 0.000 (0.133) loss_val nan (nan) lr 1.5090e-03 eta 0:05:27
+epoch [35/100] batch [5/12] time 0.278 (0.388) data 0.000 (0.106) loss_val nan (nan) lr 1.5090e-03 eta 0:05:05
+epoch [35/100] batch [6/12] time 0.279 (0.370) data 0.000 (0.089) loss_val nan (nan) lr 1.5090e-03 eta 0:04:50
+epoch [35/100] batch [7/12] time 0.282 (0.357) data 0.000 (0.076) loss_val nan (nan) lr 1.5090e-03 eta 0:04:40
+epoch [35/100] batch [8/12] time 0.278 (0.348) data 0.000 (0.066) loss_val nan (nan) lr 1.5090e-03 eta 0:04:32
+epoch [35/100] batch [9/12] time 0.280 (0.340) data 0.000 (0.059) loss_val nan (nan) lr 1.5090e-03 eta 0:04:26
+epoch [35/100] batch [10/12] time 0.276 (0.334) data 0.000 (0.053) loss_val nan (nan) lr 1.5090e-03 eta 0:04:20
+epoch [35/100] batch [11/12] time 0.276 (0.328) data 0.000 (0.048) loss_val nan (nan) lr 1.5090e-03 eta 0:04:16
+epoch [35/100] batch [12/12] time 0.277 (0.324) data 0.000 (0.044) loss_val nan (nan) lr 1.4818e-03 eta 0:04:12
+epoch [36/100] batch [1/12] time 0.824 (0.824) data 0.523 (0.523) loss_val nan (nan) lr 1.4818e-03 eta 0:10:41
+epoch [36/100] batch [2/12] time 0.283 (0.553) data 0.000 (0.262) loss_val nan (nan) lr 1.4818e-03 eta 0:07:10
+epoch [36/100] batch [3/12] time 0.278 (0.462) data 0.000 (0.175) loss_val nan (nan) lr 1.4818e-03 eta 0:05:58
+epoch [36/100] batch [4/12] time 0.279 (0.416) data 0.000 (0.131) loss_val nan (nan) lr 1.4818e-03 eta 0:05:22
+epoch [36/100] batch [5/12] time 0.277 (0.388) data 0.000 (0.105) loss_val nan (nan) lr 1.4818e-03 eta 0:05:00
+epoch [36/100] batch [6/12] time 0.278 (0.370) data 0.000 (0.087) loss_val nan (nan) lr 1.4818e-03 eta 0:04:46
+epoch [36/100] batch [7/12] time 0.276 (0.356) data 0.000 (0.075) loss_val nan (nan) lr 1.4818e-03 eta 0:04:35
+epoch [36/100] batch [8/12] time 0.285 (0.347) data 0.000 (0.065) loss_val nan (nan) lr 1.4818e-03 eta 0:04:28
+epoch [36/100] batch [9/12] time 0.276 (0.340) data 0.000 (0.058) loss_val nan (nan) lr 1.4818e-03 eta 0:04:21
+epoch [36/100] batch [10/12] time 0.277 (0.333) data 0.000 (0.052) loss_val nan (nan) lr 1.4818e-03 eta 0:04:16
+epoch [36/100] batch [11/12] time 0.278 (0.328) data 0.000 (0.048) loss_val nan (nan) lr 1.4818e-03 eta 0:04:12
+epoch [36/100] batch [12/12] time 0.277 (0.324) data 0.000 (0.044) loss_val nan (nan) lr 1.4540e-03 eta 0:04:08
+epoch [37/100] batch [1/12] time 0.833 (0.833) data 0.541 (0.541) loss_val nan (nan) lr 1.4540e-03 eta 0:10:39
+epoch [37/100] batch [2/12] time 0.278 (0.556) data 0.000 (0.271) loss_val nan (nan) lr 1.4540e-03 eta 0:07:05
+epoch [37/100] batch [3/12] time 0.279 (0.463) data 0.000 (0.180) loss_val nan (nan) lr 1.4540e-03 eta 0:05:54
+epoch [37/100] batch [4/12] time 0.281 (0.418) data 0.000 (0.135) loss_val nan (nan) lr 1.4540e-03 eta 0:05:19
+epoch [37/100] batch [5/12] time 0.281 (0.391) data 0.000 (0.108) loss_val nan (nan) lr 1.4540e-03 eta 0:04:57
+epoch [37/100] batch [6/12] time 0.281 (0.372) data 0.000 (0.090) loss_val nan (nan) lr 1.4540e-03 eta 0:04:43
+epoch [37/100] batch [7/12] time 0.279 (0.359) data 0.000 (0.077) loss_val nan (nan) lr 1.4540e-03 eta 0:04:33
+epoch [37/100] batch [8/12] time 0.283 (0.349) data 0.000 (0.068) loss_val nan (nan) lr 1.4540e-03 eta 0:04:25
+epoch [37/100] batch [9/12] time 0.278 (0.342) data 0.000 (0.060) loss_val nan (nan) lr 1.4540e-03 eta 0:04:19
+epoch [37/100] batch [10/12] time 0.278 (0.335) data 0.000 (0.054) loss_val nan (nan) lr 1.4540e-03 eta 0:04:14
+epoch [37/100] batch [11/12] time 0.278 (0.330) data 0.000 (0.049) loss_val nan (nan) lr 1.4540e-03 eta 0:04:09
+epoch [37/100] batch [12/12] time 0.279 (0.326) data 0.000 (0.045) loss_val nan (nan) lr 1.4258e-03 eta 0:04:06
+epoch [38/100] batch [1/12] time 0.829 (0.829) data 0.538 (0.538) loss_val nan (nan) lr 1.4258e-03 eta 0:10:26
+epoch [38/100] batch [2/12] time 0.281 (0.555) data 0.000 (0.269) loss_val nan (nan) lr 1.4258e-03 eta 0:06:58
+epoch [38/100] batch [3/12] time 0.283 (0.464) data 0.000 (0.179) loss_val nan (nan) lr 1.4258e-03 eta 0:05:49
+epoch [38/100] batch [4/12] time 0.282 (0.419) data 0.000 (0.134) loss_val nan (nan) lr 1.4258e-03 eta 0:05:15
+epoch [38/100] batch [5/12] time 0.279 (0.391) data 0.000 (0.108) loss_val nan (nan) lr 1.4258e-03 eta 0:04:53
+epoch [38/100] batch [6/12] time 0.278 (0.372) data 0.000 (0.090) loss_val nan (nan) lr 1.4258e-03 eta 0:04:39
+epoch [38/100] batch [7/12] time 0.282 (0.359) data 0.000 (0.077) loss_val nan (nan) lr 1.4258e-03 eta 0:04:29
+epoch [38/100] batch [8/12] time 0.277 (0.349) data 0.000 (0.067) loss_val nan (nan) lr 1.4258e-03 eta 0:04:21
+epoch [38/100] batch [9/12] time 0.281 (0.341) data 0.000 (0.060) loss_val nan (nan) lr 1.4258e-03 eta 0:04:15
+epoch [38/100] batch [10/12] time 0.279 (0.335) data 0.000 (0.054) loss_val nan (nan) lr 1.4258e-03 eta 0:04:10
+epoch [38/100] batch [11/12] time 0.277 (0.330) data 0.000 (0.049) loss_val nan (nan) lr 1.4258e-03 eta 0:04:05
+epoch [38/100] batch [12/12] time 0.279 (0.326) data 0.000 (0.045) loss_val nan (nan) lr 1.3971e-03 eta 0:04:02
+epoch [39/100] batch [1/12] time 0.760 (0.760) data 0.453 (0.453) loss_val nan (nan) lr 1.3971e-03 eta 0:09:24
+epoch [39/100] batch [2/12] time 0.281 (0.520) data 0.000 (0.227) loss_val nan (nan) lr 1.3971e-03 eta 0:06:26
+epoch [39/100] batch [3/12] time 0.274 (0.438) data 0.000 (0.151) loss_val nan (nan) lr 1.3971e-03 eta 0:05:24
+epoch [39/100] batch [4/12] time 0.278 (0.398) data 0.000 (0.113) loss_val nan (nan) lr 1.3971e-03 eta 0:04:54
+epoch [39/100] batch [5/12] time 0.279 (0.374) data 0.000 (0.091) loss_val nan (nan) lr 1.3971e-03 eta 0:04:36
+epoch [39/100] batch [6/12] time 0.280 (0.358) data 0.000 (0.076) loss_val nan (nan) lr 1.3971e-03 eta 0:04:24
+epoch [39/100] batch [7/12] time 0.277 (0.347) data 0.000 (0.065) loss_val nan (nan) lr 1.3971e-03 eta 0:04:15
+epoch [39/100] batch [8/12] time 0.274 (0.338) data 0.000 (0.057) loss_val nan (nan) lr 1.3971e-03 eta 0:04:08
+epoch [39/100] batch [9/12] time 0.272 (0.330) data 0.000 (0.050) loss_val nan (nan) lr 1.3971e-03 eta 0:04:02
+epoch [39/100] batch [10/12] time 0.275 (0.325) data 0.000 (0.045) loss_val nan (nan) lr 1.3971e-03 eta 0:03:58
+epoch [39/100] batch [11/12] time 0.279 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 1.3971e-03 eta 0:03:55
+epoch [39/100] batch [12/12] time 0.279 (0.317) data 0.000 (0.038) loss_val nan (nan) lr 1.3681e-03 eta 0:03:52
+epoch [40/100] batch [1/12] time 0.760 (0.760) data 0.470 (0.470) loss_val nan (nan) lr 1.3681e-03 eta 0:09:15
+epoch [40/100] batch [2/12] time 0.273 (0.517) data 0.000 (0.235) loss_val nan (nan) lr 1.3681e-03 eta 0:06:17
+epoch [40/100] batch [3/12] time 0.278 (0.437) data 0.000 (0.157) loss_val nan (nan) lr 1.3681e-03 eta 0:05:18
+epoch [40/100] batch [4/12] time 0.286 (0.399) data 0.000 (0.118) loss_val nan (nan) lr 1.3681e-03 eta 0:04:50
+epoch [40/100] batch [5/12] time 0.278 (0.375) data 0.000 (0.094) loss_val nan (nan) lr 1.3681e-03 eta 0:04:32
+epoch [40/100] batch [6/12] time 0.280 (0.359) data 0.000 (0.078) loss_val nan (nan) lr 1.3681e-03 eta 0:04:20
+epoch [40/100] batch [7/12] time 0.279 (0.348) data 0.000 (0.067) loss_val nan (nan) lr 1.3681e-03 eta 0:04:11
+epoch [40/100] batch [8/12] time 0.286 (0.340) data 0.000 (0.059) loss_val nan (nan) lr 1.3681e-03 eta 0:04:06
+epoch [40/100] batch [9/12] time 0.277 (0.333) data 0.000 (0.052) loss_val nan (nan) lr 1.3681e-03 eta 0:04:00
+epoch [40/100] batch [10/12] time 0.277 (0.327) data 0.000 (0.047) loss_val nan (nan) lr 1.3681e-03 eta 0:03:56
+epoch [40/100] batch [11/12] time 0.277 (0.323) data 0.000 (0.043) loss_val nan (nan) lr 1.3681e-03 eta 0:03:52
+epoch [40/100] batch [12/12] time 0.277 (0.319) data 0.000 (0.039) loss_val nan (nan) lr 1.3387e-03 eta 0:03:49
+epoch [41/100] batch [1/12] time 0.752 (0.752) data 0.461 (0.461) loss_val nan (nan) lr 1.3387e-03 eta 0:09:00
+epoch [41/100] batch [2/12] time 0.280 (0.516) data 0.000 (0.231) loss_val nan (nan) lr 1.3387e-03 eta 0:06:10
+epoch [41/100] batch [3/12] time 0.279 (0.437) data 0.000 (0.154) loss_val nan (nan) lr 1.3387e-03 eta 0:05:13
+epoch [41/100] batch [4/12] time 0.283 (0.399) data 0.000 (0.115) loss_val nan (nan) lr 1.3387e-03 eta 0:04:45
+epoch [41/100] batch [5/12] time 0.282 (0.375) data 0.000 (0.092) loss_val nan (nan) lr 1.3387e-03 eta 0:04:28
+epoch [41/100] batch [6/12] time 0.272 (0.358) data 0.000 (0.077) loss_val nan (nan) lr 1.3387e-03 eta 0:04:15
+epoch [41/100] batch [7/12] time 0.272 (0.346) data 0.000 (0.066) loss_val nan (nan) lr 1.3387e-03 eta 0:04:06
+epoch [41/100] batch [8/12] time 0.279 (0.338) data 0.000 (0.058) loss_val nan (nan) lr 1.3387e-03 eta 0:04:00
+epoch [41/100] batch [9/12] time 0.282 (0.331) data 0.000 (0.051) loss_val nan (nan) lr 1.3387e-03 eta 0:03:55
+epoch [41/100] batch [10/12] time 0.273 (0.326) data 0.000 (0.046) loss_val nan (nan) lr 1.3387e-03 eta 0:03:51
+epoch [41/100] batch [11/12] time 0.275 (0.321) data 0.000 (0.042) loss_val nan (nan) lr 1.3387e-03 eta 0:03:47
+epoch [41/100] batch [12/12] time 0.286 (0.318) data 0.000 (0.039) loss_val nan (nan) lr 1.3090e-03 eta 0:03:45
+epoch [42/100] batch [1/12] time 0.762 (0.762) data 0.467 (0.467) loss_val nan (nan) lr 1.3090e-03 eta 0:08:58
+epoch [42/100] batch [2/12] time 0.274 (0.518) data 0.000 (0.234) loss_val nan (nan) lr 1.3090e-03 eta 0:06:05
+epoch [42/100] batch [3/12] time 0.275 (0.437) data 0.000 (0.156) loss_val nan (nan) lr 1.3090e-03 eta 0:05:08
+epoch [42/100] batch [4/12] time 0.275 (0.397) data 0.000 (0.117) loss_val nan (nan) lr 1.3090e-03 eta 0:04:39
+epoch [42/100] batch [5/12] time 0.275 (0.372) data 0.000 (0.093) loss_val nan (nan) lr 1.3090e-03 eta 0:04:21
+epoch [42/100] batch [6/12] time 0.275 (0.356) data 0.000 (0.078) loss_val nan (nan) lr 1.3090e-03 eta 0:04:09
+epoch [42/100] batch [7/12] time 0.274 (0.344) data 0.000 (0.067) loss_val nan (nan) lr 1.3090e-03 eta 0:04:01
+epoch [42/100] batch [8/12] time 0.276 (0.336) data 0.000 (0.058) loss_val nan (nan) lr 1.3090e-03 eta 0:03:55
+epoch [42/100] batch [9/12] time 0.276 (0.329) data 0.000 (0.052) loss_val nan (nan) lr 1.3090e-03 eta 0:03:50
+epoch [42/100] batch [10/12] time 0.277 (0.324) data 0.000 (0.047) loss_val nan (nan) lr 1.3090e-03 eta 0:03:46
+epoch [42/100] batch [11/12] time 0.276 (0.320) data 0.000 (0.043) loss_val nan (nan) lr 1.3090e-03 eta 0:03:42
+epoch [42/100] batch [12/12] time 0.276 (0.316) data 0.000 (0.039) loss_val nan (nan) lr 1.2790e-03 eta 0:03:39
+epoch [43/100] batch [1/12] time 0.779 (0.779) data 0.477 (0.477) loss_val nan (nan) lr 1.2790e-03 eta 0:09:01
+epoch [43/100] batch [2/12] time 0.289 (0.534) data 0.000 (0.238) loss_val nan (nan) lr 1.2790e-03 eta 0:06:10
+epoch [43/100] batch [3/12] time 0.281 (0.449) data 0.000 (0.159) loss_val nan (nan) lr 1.2790e-03 eta 0:05:11
+epoch [43/100] batch [4/12] time 0.289 (0.409) data 0.000 (0.119) loss_val nan (nan) lr 1.2790e-03 eta 0:04:43
+epoch [43/100] batch [5/12] time 0.277 (0.383) data 0.000 (0.095) loss_val nan (nan) lr 1.2790e-03 eta 0:04:24
+epoch [43/100] batch [6/12] time 0.276 (0.365) data 0.000 (0.080) loss_val nan (nan) lr 1.2790e-03 eta 0:04:11
+epoch [43/100] batch [7/12] time 0.277 (0.352) data 0.000 (0.068) loss_val nan (nan) lr 1.2790e-03 eta 0:04:02
+epoch [43/100] batch [8/12] time 0.281 (0.343) data 0.000 (0.060) loss_val nan (nan) lr 1.2790e-03 eta 0:03:56
+epoch [43/100] batch [9/12] time 0.279 (0.336) data 0.000 (0.053) loss_val nan (nan) lr 1.2790e-03 eta 0:03:51
+epoch [43/100] batch [10/12] time 0.278 (0.330) data 0.000 (0.048) loss_val nan (nan) lr 1.2790e-03 eta 0:03:46
+epoch [43/100] batch [11/12] time 0.278 (0.326) data 0.000 (0.043) loss_val nan (nan) lr 1.2790e-03 eta 0:03:43
+epoch [43/100] batch [12/12] time 0.277 (0.322) data 0.000 (0.040) loss_val nan (nan) lr 1.2487e-03 eta 0:03:39
+epoch [44/100] batch [1/12] time 0.828 (0.828) data 0.534 (0.534) loss_val nan (nan) lr 1.2487e-03 eta 0:09:25
+epoch [44/100] batch [2/12] time 0.284 (0.556) data 0.000 (0.267) loss_val nan (nan) lr 1.2487e-03 eta 0:06:19
+epoch [44/100] batch [3/12] time 0.279 (0.464) data 0.000 (0.178) loss_val nan (nan) lr 1.2487e-03 eta 0:05:15
+epoch [44/100] batch [4/12] time 0.281 (0.418) data 0.000 (0.133) loss_val nan (nan) lr 1.2487e-03 eta 0:04:44
+epoch [44/100] batch [5/12] time 0.285 (0.392) data 0.000 (0.107) loss_val nan (nan) lr 1.2487e-03 eta 0:04:25
+epoch [44/100] batch [6/12] time 0.281 (0.373) data 0.000 (0.089) loss_val nan (nan) lr 1.2487e-03 eta 0:04:12
+epoch [44/100] batch [7/12] time 0.280 (0.360) data 0.000 (0.076) loss_val nan (nan) lr 1.2487e-03 eta 0:04:03
+epoch [44/100] batch [8/12] time 0.279 (0.350) data 0.000 (0.067) loss_val nan (nan) lr 1.2487e-03 eta 0:03:56
+epoch [44/100] batch [9/12] time 0.279 (0.342) data 0.000 (0.059) loss_val nan (nan) lr 1.2487e-03 eta 0:03:50
+epoch [44/100] batch [10/12] time 0.280 (0.336) data 0.000 (0.053) loss_val nan (nan) lr 1.2487e-03 eta 0:03:46
+epoch [44/100] batch [11/12] time 0.283 (0.331) data 0.000 (0.049) loss_val nan (nan) lr 1.2487e-03 eta 0:03:42
+epoch [44/100] batch [12/12] time 0.277 (0.326) data 0.000 (0.045) loss_val nan (nan) lr 1.2181e-03 eta 0:03:39
+epoch [45/100] batch [1/12] time 0.759 (0.759) data 0.449 (0.449) loss_val nan (nan) lr 1.2181e-03 eta 0:08:29
+epoch [45/100] batch [2/12] time 0.278 (0.519) data 0.000 (0.225) loss_val nan (nan) lr 1.2181e-03 eta 0:05:47
+epoch [45/100] batch [3/12] time 0.279 (0.439) data 0.000 (0.150) loss_val nan (nan) lr 1.2181e-03 eta 0:04:53
+epoch [45/100] batch [4/12] time 0.279 (0.399) data 0.000 (0.112) loss_val nan (nan) lr 1.2181e-03 eta 0:04:26
+epoch [45/100] batch [5/12] time 0.283 (0.376) data 0.000 (0.090) loss_val nan (nan) lr 1.2181e-03 eta 0:04:10
+epoch [45/100] batch [6/12] time 0.280 (0.360) data 0.000 (0.075) loss_val nan (nan) lr 1.2181e-03 eta 0:03:59
+epoch [45/100] batch [7/12] time 0.278 (0.348) data 0.000 (0.064) loss_val nan (nan) lr 1.2181e-03 eta 0:03:51
+epoch [45/100] batch [8/12] time 0.279 (0.339) data 0.000 (0.056) loss_val nan (nan) lr 1.2181e-03 eta 0:03:45
+epoch [45/100] batch [9/12] time 0.282 (0.333) data 0.000 (0.050) loss_val nan (nan) lr 1.2181e-03 eta 0:03:40
+epoch [45/100] batch [10/12] time 0.280 (0.328) data 0.000 (0.045) loss_val nan (nan) lr 1.2181e-03 eta 0:03:36
+epoch [45/100] batch [11/12] time 0.283 (0.324) data 0.000 (0.041) loss_val nan (nan) lr 1.2181e-03 eta 0:03:33
+epoch [45/100] batch [12/12] time 0.280 (0.320) data 0.000 (0.037) loss_val nan (nan) lr 1.1874e-03 eta 0:03:31
+epoch [46/100] batch [1/12] time 0.774 (0.774) data 0.479 (0.479) loss_val nan (nan) lr 1.1874e-03 eta 0:08:29
+epoch [46/100] batch [2/12] time 0.280 (0.527) data 0.000 (0.240) loss_val nan (nan) lr 1.1874e-03 eta 0:05:46
+epoch [46/100] batch [3/12] time 0.283 (0.446) data 0.000 (0.160) loss_val nan (nan) lr 1.1874e-03 eta 0:04:52
+epoch [46/100] batch [4/12] time 0.282 (0.405) data 0.000 (0.120) loss_val nan (nan) lr 1.1874e-03 eta 0:04:25
+epoch [46/100] batch [5/12] time 0.289 (0.381) data 0.000 (0.096) loss_val nan (nan) lr 1.1874e-03 eta 0:04:09
+epoch [46/100] batch [6/12] time 0.279 (0.364) data 0.000 (0.080) loss_val nan (nan) lr 1.1874e-03 eta 0:03:58
+epoch [46/100] batch [7/12] time 0.289 (0.354) data 0.000 (0.069) loss_val nan (nan) lr 1.1874e-03 eta 0:03:50
+epoch [46/100] batch [8/12] time 0.274 (0.344) data 0.000 (0.060) loss_val nan (nan) lr 1.1874e-03 eta 0:03:44
+epoch [46/100] batch [9/12] time 0.272 (0.336) data 0.000 (0.053) loss_val nan (nan) lr 1.1874e-03 eta 0:03:38
+epoch [46/100] batch [10/12] time 0.286 (0.331) data 0.000 (0.048) loss_val nan (nan) lr 1.1874e-03 eta 0:03:34
+epoch [46/100] batch [11/12] time 0.272 (0.325) data 0.000 (0.044) loss_val nan (nan) lr 1.1874e-03 eta 0:03:31
+epoch [46/100] batch [12/12] time 0.286 (0.322) data 0.000 (0.040) loss_val nan (nan) lr 1.1564e-03 eta 0:03:28
+epoch [47/100] batch [1/12] time 0.807 (0.807) data 0.516 (0.516) loss_val nan (nan) lr 1.1564e-03 eta 0:08:42
+epoch [47/100] batch [2/12] time 0.277 (0.542) data 0.000 (0.258) loss_val nan (nan) lr 1.1564e-03 eta 0:05:50
+epoch [47/100] batch [3/12] time 0.278 (0.454) data 0.000 (0.172) loss_val nan (nan) lr 1.1564e-03 eta 0:04:52
+epoch [47/100] batch [4/12] time 0.287 (0.412) data 0.000 (0.129) loss_val nan (nan) lr 1.1564e-03 eta 0:04:25
+epoch [47/100] batch [5/12] time 0.271 (0.384) data 0.000 (0.103) loss_val nan (nan) lr 1.1564e-03 eta 0:04:06
+epoch [47/100] batch [6/12] time 0.269 (0.365) data 0.000 (0.086) loss_val nan (nan) lr 1.1564e-03 eta 0:03:54
+epoch [47/100] batch [7/12] time 0.289 (0.354) data 0.000 (0.074) loss_val nan (nan) lr 1.1564e-03 eta 0:03:46
+epoch [47/100] batch [8/12] time 0.278 (0.344) data 0.000 (0.065) loss_val nan (nan) lr 1.1564e-03 eta 0:03:40
+epoch [47/100] batch [9/12] time 0.277 (0.337) data 0.000 (0.057) loss_val nan (nan) lr 1.1564e-03 eta 0:03:35
+epoch [47/100] batch [10/12] time 0.277 (0.331) data 0.000 (0.052) loss_val nan (nan) lr 1.1564e-03 eta 0:03:31
+epoch [47/100] batch [11/12] time 0.276 (0.326) data 0.000 (0.047) loss_val nan (nan) lr 1.1564e-03 eta 0:03:27
+epoch [47/100] batch [12/12] time 0.278 (0.322) data 0.000 (0.043) loss_val nan (nan) lr 1.1253e-03 eta 0:03:24
+epoch [48/100] batch [1/12] time 0.820 (0.820) data 0.532 (0.532) loss_val nan (nan) lr 1.1253e-03 eta 0:08:40
+epoch [48/100] batch [2/12] time 0.276 (0.548) data 0.000 (0.266) loss_val nan (nan) lr 1.1253e-03 eta 0:05:47
+epoch [48/100] batch [3/12] time 0.280 (0.459) data 0.000 (0.177) loss_val nan (nan) lr 1.1253e-03 eta 0:04:50
+epoch [48/100] batch [4/12] time 0.279 (0.414) data 0.000 (0.133) loss_val nan (nan) lr 1.1253e-03 eta 0:04:21
+epoch [48/100] batch [5/12] time 0.278 (0.387) data 0.000 (0.106) loss_val nan (nan) lr 1.1253e-03 eta 0:04:04
+epoch [48/100] batch [6/12] time 0.279 (0.369) data 0.000 (0.089) loss_val nan (nan) lr 1.1253e-03 eta 0:03:52
+epoch [48/100] batch [7/12] time 0.278 (0.356) data 0.000 (0.076) loss_val nan (nan) lr 1.1253e-03 eta 0:03:43
+epoch [48/100] batch [8/12] time 0.280 (0.346) data 0.000 (0.067) loss_val nan (nan) lr 1.1253e-03 eta 0:03:37
+epoch [48/100] batch [9/12] time 0.282 (0.339) data 0.000 (0.059) loss_val nan (nan) lr 1.1253e-03 eta 0:03:32
+epoch [48/100] batch [10/12] time 0.283 (0.334) data 0.000 (0.053) loss_val nan (nan) lr 1.1253e-03 eta 0:03:28
+epoch [48/100] batch [11/12] time 0.284 (0.329) data 0.000 (0.048) loss_val nan (nan) lr 1.1253e-03 eta 0:03:25
+epoch [48/100] batch [12/12] time 0.277 (0.325) data 0.000 (0.044) loss_val nan (nan) lr 1.0941e-03 eta 0:03:22
+epoch [49/100] batch [1/12] time 0.857 (0.857) data 0.567 (0.567) loss_val nan (nan) lr 1.0941e-03 eta 0:08:53
+epoch [49/100] batch [2/12] time 0.278 (0.567) data 0.000 (0.284) loss_val nan (nan) lr 1.0941e-03 eta 0:05:52
+epoch [49/100] batch [3/12] time 0.276 (0.470) data 0.000 (0.189) loss_val nan (nan) lr 1.0941e-03 eta 0:04:51
+epoch [49/100] batch [4/12] time 0.278 (0.422) data 0.000 (0.142) loss_val nan (nan) lr 1.0941e-03 eta 0:04:21
+epoch [49/100] batch [5/12] time 0.284 (0.395) data 0.000 (0.114) loss_val nan (nan) lr 1.0941e-03 eta 0:04:04
+epoch [49/100] batch [6/12] time 0.277 (0.375) data 0.000 (0.095) loss_val nan (nan) lr 1.0941e-03 eta 0:03:51
+epoch [49/100] batch [7/12] time 0.277 (0.361) data 0.000 (0.081) loss_val nan (nan) lr 1.0941e-03 eta 0:03:42
+epoch [49/100] batch [8/12] time 0.275 (0.350) data 0.000 (0.071) loss_val nan (nan) lr 1.0941e-03 eta 0:03:35
+epoch [49/100] batch [9/12] time 0.277 (0.342) data 0.000 (0.063) loss_val nan (nan) lr 1.0941e-03 eta 0:03:30
+epoch [49/100] batch [10/12] time 0.277 (0.336) data 0.000 (0.057) loss_val nan (nan) lr 1.0941e-03 eta 0:03:26
+epoch [49/100] batch [11/12] time 0.275 (0.330) data 0.000 (0.052) loss_val nan (nan) lr 1.0941e-03 eta 0:03:22
+epoch [49/100] batch [12/12] time 0.273 (0.325) data 0.000 (0.047) loss_val nan (nan) lr 1.0628e-03 eta 0:03:19
+epoch [50/100] batch [1/12] time 0.813 (0.813) data 0.511 (0.511) loss_val nan (nan) lr 1.0628e-03 eta 0:08:16
+epoch [50/100] batch [2/12] time 0.278 (0.545) data 0.000 (0.255) loss_val nan (nan) lr 1.0628e-03 eta 0:05:32
+epoch [50/100] batch [3/12] time 0.277 (0.456) data 0.000 (0.170) loss_val nan (nan) lr 1.0628e-03 eta 0:04:37
+epoch [50/100] batch [4/12] time 0.273 (0.410) data 0.000 (0.128) loss_val nan (nan) lr 1.0628e-03 eta 0:04:09
+epoch [50/100] batch [5/12] time 0.274 (0.383) data 0.000 (0.102) loss_val nan (nan) lr 1.0628e-03 eta 0:03:52
+epoch [50/100] batch [6/12] time 0.273 (0.365) data 0.000 (0.085) loss_val nan (nan) lr 1.0628e-03 eta 0:03:40
+epoch [50/100] batch [7/12] time 0.273 (0.351) data 0.000 (0.073) loss_val nan (nan) lr 1.0628e-03 eta 0:03:32
+epoch [50/100] batch [8/12] time 0.275 (0.342) data 0.000 (0.064) loss_val nan (nan) lr 1.0628e-03 eta 0:03:26
+epoch [50/100] batch [9/12] time 0.277 (0.335) data 0.000 (0.057) loss_val nan (nan) lr 1.0628e-03 eta 0:03:21
+epoch [50/100] batch [10/12] time 0.274 (0.329) data 0.000 (0.051) loss_val nan (nan) lr 1.0628e-03 eta 0:03:17
+epoch [50/100] batch [11/12] time 0.271 (0.323) data 0.000 (0.046) loss_val nan (nan) lr 1.0628e-03 eta 0:03:14
+epoch [50/100] batch [12/12] time 0.271 (0.319) data 0.000 (0.043) loss_val nan (nan) lr 1.0314e-03 eta 0:03:11
+epoch [51/100] batch [1/12] time 0.777 (0.777) data 0.490 (0.490) loss_val nan (nan) lr 1.0314e-03 eta 0:07:45
+epoch [51/100] batch [2/12] time 0.289 (0.533) data 0.000 (0.245) loss_val nan (nan) lr 1.0314e-03 eta 0:05:18
+epoch [51/100] batch [3/12] time 0.280 (0.449) data 0.000 (0.163) loss_val nan (nan) lr 1.0314e-03 eta 0:04:28
+epoch [51/100] batch [4/12] time 0.287 (0.408) data 0.000 (0.123) loss_val nan (nan) lr 1.0314e-03 eta 0:04:03
+epoch [51/100] batch [5/12] time 0.282 (0.383) data 0.000 (0.098) loss_val nan (nan) lr 1.0314e-03 eta 0:03:48
+epoch [51/100] batch [6/12] time 0.279 (0.366) data 0.000 (0.082) loss_val nan (nan) lr 1.0314e-03 eta 0:03:37
+epoch [51/100] batch [7/12] time 0.291 (0.355) data 0.000 (0.070) loss_val nan (nan) lr 1.0314e-03 eta 0:03:30
+epoch [51/100] batch [8/12] time 0.280 (0.346) data 0.000 (0.061) loss_val nan (nan) lr 1.0314e-03 eta 0:03:24
+epoch [51/100] batch [9/12] time 0.278 (0.338) data 0.000 (0.055) loss_val nan (nan) lr 1.0314e-03 eta 0:03:19
+epoch [51/100] batch [10/12] time 0.278 (0.332) data 0.000 (0.049) loss_val nan (nan) lr 1.0314e-03 eta 0:03:16
+epoch [51/100] batch [11/12] time 0.279 (0.327) data 0.000 (0.045) loss_val nan (nan) lr 1.0314e-03 eta 0:03:12
+epoch [51/100] batch [12/12] time 0.288 (0.324) data 0.000 (0.041) loss_val nan (nan) lr 1.0000e-03 eta 0:03:10
+epoch [52/100] batch [1/12] time 0.847 (0.847) data 0.560 (0.560) loss_val nan (nan) lr 1.0000e-03 eta 0:08:16
+epoch [52/100] batch [2/12] time 0.273 (0.560) data 0.000 (0.280) loss_val nan (nan) lr 1.0000e-03 eta 0:05:28
+epoch [52/100] batch [3/12] time 0.272 (0.464) data 0.000 (0.187) loss_val nan (nan) lr 1.0000e-03 eta 0:04:31
+epoch [52/100] batch [4/12] time 0.271 (0.416) data 0.000 (0.140) loss_val nan (nan) lr 1.0000e-03 eta 0:04:02
+epoch [52/100] batch [5/12] time 0.276 (0.388) data 0.000 (0.112) loss_val nan (nan) lr 1.0000e-03 eta 0:03:45
+epoch [52/100] batch [6/12] time 0.270 (0.368) data 0.000 (0.093) loss_val nan (nan) lr 1.0000e-03 eta 0:03:34
+epoch [52/100] batch [7/12] time 0.270 (0.354) data 0.000 (0.080) loss_val nan (nan) lr 1.0000e-03 eta 0:03:25
+epoch [52/100] batch [8/12] time 0.271 (0.344) data 0.000 (0.070) loss_val nan (nan) lr 1.0000e-03 eta 0:03:19
+epoch [52/100] batch [9/12] time 0.270 (0.335) data 0.000 (0.062) loss_val nan (nan) lr 1.0000e-03 eta 0:03:14
+epoch [52/100] batch [10/12] time 0.270 (0.329) data 0.000 (0.056) loss_val nan (nan) lr 1.0000e-03 eta 0:03:10
+epoch [52/100] batch [11/12] time 0.271 (0.324) data 0.000 (0.051) loss_val nan (nan) lr 1.0000e-03 eta 0:03:06
+epoch [52/100] batch [12/12] time 0.274 (0.320) data 0.000 (0.047) loss_val nan (nan) lr 9.6859e-04 eta 0:03:04
+epoch [53/100] batch [1/12] time 0.816 (0.816) data 0.536 (0.536) loss_val nan (nan) lr 9.6859e-04 eta 0:07:49
+epoch [53/100] batch [2/12] time 0.270 (0.543) data 0.000 (0.268) loss_val nan (nan) lr 9.6859e-04 eta 0:05:11
+epoch [53/100] batch [3/12] time 0.271 (0.453) data 0.000 (0.179) loss_val nan (nan) lr 9.6859e-04 eta 0:04:19
+epoch [53/100] batch [4/12] time 0.272 (0.407) data 0.000 (0.134) loss_val nan (nan) lr 9.6859e-04 eta 0:03:52
+epoch [53/100] batch [5/12] time 0.272 (0.380) data 0.000 (0.107) loss_val nan (nan) lr 9.6859e-04 eta 0:03:37
+epoch [53/100] batch [6/12] time 0.271 (0.362) data 0.000 (0.089) loss_val nan (nan) lr 9.6859e-04 eta 0:03:26
+epoch [53/100] batch [7/12] time 0.273 (0.349) data 0.000 (0.077) loss_val nan (nan) lr 9.6859e-04 eta 0:03:18
+epoch [53/100] batch [8/12] time 0.272 (0.340) data 0.000 (0.067) loss_val nan (nan) lr 9.6859e-04 eta 0:03:12
+epoch [53/100] batch [9/12] time 0.271 (0.332) data 0.000 (0.060) loss_val nan (nan) lr 9.6859e-04 eta 0:03:08
+epoch [53/100] batch [10/12] time 0.270 (0.326) data 0.000 (0.054) loss_val nan (nan) lr 9.6859e-04 eta 0:03:04
+epoch [53/100] batch [11/12] time 0.271 (0.321) data 0.000 (0.049) loss_val nan (nan) lr 9.6859e-04 eta 0:03:01
+epoch [53/100] batch [12/12] time 0.274 (0.317) data 0.000 (0.045) loss_val nan (nan) lr 9.3721e-04 eta 0:02:58
+epoch [54/100] batch [1/12] time 0.992 (0.992) data 0.708 (0.708) loss_val nan (nan) lr 9.3721e-04 eta 0:09:18
+epoch [54/100] batch [2/12] time 0.274 (0.633) data 0.000 (0.354) loss_val nan (nan) lr 9.3721e-04 eta 0:05:55
+epoch [54/100] batch [3/12] time 0.272 (0.513) data 0.000 (0.236) loss_val nan (nan) lr 9.3721e-04 eta 0:04:47
+epoch [54/100] batch [4/12] time 0.270 (0.452) data 0.000 (0.177) loss_val nan (nan) lr 9.3721e-04 eta 0:04:13
+epoch [54/100] batch [5/12] time 0.273 (0.416) data 0.000 (0.142) loss_val nan (nan) lr 9.3721e-04 eta 0:03:52
+epoch [54/100] batch [6/12] time 0.274 (0.392) data 0.000 (0.118) loss_val nan (nan) lr 9.3721e-04 eta 0:03:38
+epoch [54/100] batch [7/12] time 0.273 (0.375) data 0.000 (0.101) loss_val nan (nan) lr 9.3721e-04 eta 0:03:29
+epoch [54/100] batch [8/12] time 0.273 (0.362) data 0.000 (0.089) loss_val nan (nan) lr 9.3721e-04 eta 0:03:21
+epoch [54/100] batch [9/12] time 0.275 (0.353) data 0.000 (0.079) loss_val nan (nan) lr 9.3721e-04 eta 0:03:15
+epoch [54/100] batch [10/12] time 0.277 (0.345) data 0.000 (0.071) loss_val nan (nan) lr 9.3721e-04 eta 0:03:11
+epoch [54/100] batch [11/12] time 0.280 (0.339) data 0.000 (0.064) loss_val nan (nan) lr 9.3721e-04 eta 0:03:07
+epoch [54/100] batch [12/12] time 0.278 (0.334) data 0.000 (0.059) loss_val nan (nan) lr 9.0589e-04 eta 0:03:04
+epoch [55/100] batch [1/12] time 0.762 (0.762) data 0.461 (0.461) loss_val nan (nan) lr 9.0589e-04 eta 0:07:00
+epoch [55/100] batch [2/12] time 0.278 (0.520) data 0.000 (0.230) loss_val nan (nan) lr 9.0589e-04 eta 0:04:46
+epoch [55/100] batch [3/12] time 0.283 (0.441) data 0.000 (0.154) loss_val nan (nan) lr 9.0589e-04 eta 0:04:02
+epoch [55/100] batch [4/12] time 0.275 (0.400) data 0.000 (0.115) loss_val nan (nan) lr 9.0589e-04 eta 0:03:38
+epoch [55/100] batch [5/12] time 0.274 (0.374) data 0.000 (0.092) loss_val nan (nan) lr 9.0589e-04 eta 0:03:24
+epoch [55/100] batch [6/12] time 0.288 (0.360) data 0.000 (0.077) loss_val nan (nan) lr 9.0589e-04 eta 0:03:16
+epoch [55/100] batch [7/12] time 0.307 (0.352) data 0.000 (0.066) loss_val nan (nan) lr 9.0589e-04 eta 0:03:12
+epoch [55/100] batch [8/12] time 0.281 (0.343) data 0.000 (0.058) loss_val nan (nan) lr 9.0589e-04 eta 0:03:06
+epoch [55/100] batch [9/12] time 0.288 (0.337) data 0.000 (0.051) loss_val nan (nan) lr 9.0589e-04 eta 0:03:03
+epoch [55/100] batch [10/12] time 0.277 (0.331) data 0.000 (0.046) loss_val nan (nan) lr 9.0589e-04 eta 0:02:59
+epoch [55/100] batch [11/12] time 0.290 (0.327) data 0.000 (0.042) loss_val nan (nan) lr 9.0589e-04 eta 0:02:57
+epoch [55/100] batch [12/12] time 0.279 (0.323) data 0.000 (0.038) loss_val nan (nan) lr 8.7467e-04 eta 0:02:54
+epoch [56/100] batch [1/12] time 0.767 (0.767) data 0.466 (0.466) loss_val nan (nan) lr 8.7467e-04 eta 0:06:53
+epoch [56/100] batch [2/12] time 0.270 (0.519) data 0.000 (0.233) loss_val nan (nan) lr 8.7467e-04 eta 0:04:39
+epoch [56/100] batch [3/12] time 0.274 (0.437) data 0.000 (0.155) loss_val nan (nan) lr 8.7467e-04 eta 0:03:54
+epoch [56/100] batch [4/12] time 0.273 (0.396) data 0.000 (0.117) loss_val nan (nan) lr 8.7467e-04 eta 0:03:32
+epoch [56/100] batch [5/12] time 0.272 (0.371) data 0.000 (0.093) loss_val nan (nan) lr 8.7467e-04 eta 0:03:18
+epoch [56/100] batch [6/12] time 0.272 (0.355) data 0.000 (0.078) loss_val nan (nan) lr 8.7467e-04 eta 0:03:09
+epoch [56/100] batch [7/12] time 0.274 (0.343) data 0.000 (0.067) loss_val nan (nan) lr 8.7467e-04 eta 0:03:02
+epoch [56/100] batch [8/12] time 0.269 (0.334) data 0.000 (0.058) loss_val nan (nan) lr 8.7467e-04 eta 0:02:57
+epoch [56/100] batch [9/12] time 0.269 (0.327) data 0.000 (0.052) loss_val nan (nan) lr 8.7467e-04 eta 0:02:53
+epoch [56/100] batch [10/12] time 0.270 (0.321) data 0.000 (0.047) loss_val nan (nan) lr 8.7467e-04 eta 0:02:50
+epoch [56/100] batch [11/12] time 0.278 (0.317) data 0.000 (0.042) loss_val nan (nan) lr 8.7467e-04 eta 0:02:47
+epoch [56/100] batch [12/12] time 0.277 (0.314) data 0.000 (0.039) loss_val nan (nan) lr 8.4357e-04 eta 0:02:45
+epoch [57/100] batch [1/12] time 0.775 (0.775) data 0.491 (0.491) loss_val nan (nan) lr 8.4357e-04 eta 0:06:48
+epoch [57/100] batch [2/12] time 0.273 (0.524) data 0.000 (0.246) loss_val nan (nan) lr 8.4357e-04 eta 0:04:35
+epoch [57/100] batch [3/12] time 0.274 (0.440) data 0.000 (0.164) loss_val nan (nan) lr 8.4357e-04 eta 0:03:51
+epoch [57/100] batch [4/12] time 0.277 (0.399) data 0.000 (0.123) loss_val nan (nan) lr 8.4357e-04 eta 0:03:29
+epoch [57/100] batch [5/12] time 0.277 (0.375) data 0.000 (0.098) loss_val nan (nan) lr 8.4357e-04 eta 0:03:16
+epoch [57/100] batch [6/12] time 0.278 (0.359) data 0.000 (0.082) loss_val nan (nan) lr 8.4357e-04 eta 0:03:07
+epoch [57/100] batch [7/12] time 0.288 (0.349) data 0.000 (0.070) loss_val nan (nan) lr 8.4357e-04 eta 0:03:01
+epoch [57/100] batch [8/12] time 0.274 (0.339) data 0.000 (0.061) loss_val nan (nan) lr 8.4357e-04 eta 0:02:56
+epoch [57/100] batch [9/12] time 0.273 (0.332) data 0.000 (0.055) loss_val nan (nan) lr 8.4357e-04 eta 0:02:52
+epoch [57/100] batch [10/12] time 0.275 (0.326) data 0.000 (0.049) loss_val nan (nan) lr 8.4357e-04 eta 0:02:48
+epoch [57/100] batch [11/12] time 0.273 (0.321) data 0.000 (0.045) loss_val nan (nan) lr 8.4357e-04 eta 0:02:46
+epoch [57/100] batch [12/12] time 0.275 (0.317) data 0.000 (0.041) loss_val nan (nan) lr 8.1262e-04 eta 0:02:43
+epoch [58/100] batch [1/12] time 0.779 (0.779) data 0.498 (0.498) loss_val nan (nan) lr 8.1262e-04 eta 0:06:41
+epoch [58/100] batch [2/12] time 0.272 (0.525) data 0.000 (0.249) loss_val nan (nan) lr 8.1262e-04 eta 0:04:29
+epoch [58/100] batch [3/12] time 0.326 (0.459) data 0.000 (0.166) loss_val nan (nan) lr 8.1262e-04 eta 0:03:55
+epoch [58/100] batch [4/12] time 0.272 (0.412) data 0.000 (0.124) loss_val nan (nan) lr 8.1262e-04 eta 0:03:30
+epoch [58/100] batch [5/12] time 0.278 (0.385) data 0.000 (0.100) loss_val nan (nan) lr 8.1262e-04 eta 0:03:16
+epoch [58/100] batch [6/12] time 0.285 (0.369) data 0.000 (0.083) loss_val nan (nan) lr 8.1262e-04 eta 0:03:07
+epoch [58/100] batch [7/12] time 0.277 (0.356) data 0.000 (0.071) loss_val nan (nan) lr 8.1262e-04 eta 0:03:00
+epoch [58/100] batch [8/12] time 0.280 (0.346) data 0.000 (0.062) loss_val nan (nan) lr 8.1262e-04 eta 0:02:55
+epoch [58/100] batch [9/12] time 0.275 (0.338) data 0.000 (0.055) loss_val nan (nan) lr 8.1262e-04 eta 0:02:51
+epoch [58/100] batch [10/12] time 0.296 (0.334) data 0.000 (0.050) loss_val nan (nan) lr 8.1262e-04 eta 0:02:49
+epoch [58/100] batch [11/12] time 0.275 (0.329) data 0.000 (0.045) loss_val nan (nan) lr 8.1262e-04 eta 0:02:46
+epoch [58/100] batch [12/12] time 0.277 (0.324) data 0.000 (0.042) loss_val nan (nan) lr 7.8186e-04 eta 0:02:43
+epoch [59/100] batch [1/12] time 0.945 (0.945) data 0.636 (0.636) loss_val nan (nan) lr 7.8186e-04 eta 0:07:55
+epoch [59/100] batch [2/12] time 0.283 (0.614) data 0.000 (0.318) loss_val nan (nan) lr 7.8186e-04 eta 0:05:08
+epoch [59/100] batch [3/12] time 0.280 (0.502) data 0.000 (0.212) loss_val nan (nan) lr 7.8186e-04 eta 0:04:11
+epoch [59/100] batch [4/12] time 0.281 (0.447) data 0.000 (0.159) loss_val nan (nan) lr 7.8186e-04 eta 0:03:43
+epoch [59/100] batch [5/12] time 0.281 (0.414) data 0.000 (0.127) loss_val nan (nan) lr 7.8186e-04 eta 0:03:26
+epoch [59/100] batch [6/12] time 0.278 (0.391) data 0.000 (0.106) loss_val nan (nan) lr 7.8186e-04 eta 0:03:14
+epoch [59/100] batch [7/12] time 0.281 (0.375) data 0.000 (0.091) loss_val nan (nan) lr 7.8186e-04 eta 0:03:06
+epoch [59/100] batch [8/12] time 0.279 (0.363) data 0.000 (0.080) loss_val nan (nan) lr 7.8186e-04 eta 0:03:00
+epoch [59/100] batch [9/12] time 0.278 (0.354) data 0.000 (0.071) loss_val nan (nan) lr 7.8186e-04 eta 0:02:55
+epoch [59/100] batch [10/12] time 0.278 (0.346) data 0.000 (0.064) loss_val nan (nan) lr 7.8186e-04 eta 0:02:51
+epoch [59/100] batch [11/12] time 0.282 (0.341) data 0.000 (0.058) loss_val nan (nan) lr 7.8186e-04 eta 0:02:47
+epoch [59/100] batch [12/12] time 0.282 (0.336) data 0.000 (0.053) loss_val nan (nan) lr 7.5131e-04 eta 0:02:45
+epoch [60/100] batch [1/12] time 0.823 (0.823) data 0.514 (0.514) loss_val nan (nan) lr 7.5131e-04 eta 0:06:43
+epoch [60/100] batch [2/12] time 0.287 (0.555) data 0.000 (0.257) loss_val nan (nan) lr 7.5131e-04 eta 0:04:31
+epoch [60/100] batch [3/12] time 0.324 (0.478) data 0.000 (0.171) loss_val nan (nan) lr 7.5131e-04 eta 0:03:53
+epoch [60/100] batch [4/12] time 0.293 (0.432) data 0.000 (0.128) loss_val nan (nan) lr 7.5131e-04 eta 0:03:30
+epoch [60/100] batch [5/12] time 0.300 (0.405) data 0.000 (0.103) loss_val nan (nan) lr 7.5131e-04 eta 0:03:17
+epoch [60/100] batch [6/12] time 0.285 (0.385) data 0.000 (0.086) loss_val nan (nan) lr 7.5131e-04 eta 0:03:07
+epoch [60/100] batch [7/12] time 0.288 (0.371) data 0.000 (0.073) loss_val nan (nan) lr 7.5131e-04 eta 0:03:00
+epoch [60/100] batch [8/12] time 0.290 (0.361) data 0.000 (0.064) loss_val nan (nan) lr 7.5131e-04 eta 0:02:54
+epoch [60/100] batch [9/12] time 0.306 (0.355) data 0.000 (0.057) loss_val nan (nan) lr 7.5131e-04 eta 0:02:51
+epoch [60/100] batch [10/12] time 0.298 (0.349) data 0.000 (0.051) loss_val nan (nan) lr 7.5131e-04 eta 0:02:48
+epoch [60/100] batch [11/12] time 0.338 (0.348) data 0.000 (0.047) loss_val nan (nan) lr 7.5131e-04 eta 0:02:47
+epoch [60/100] batch [12/12] time 0.298 (0.344) data 0.000 (0.043) loss_val nan (nan) lr 7.2101e-04 eta 0:02:45
+epoch [61/100] batch [1/12] time 0.814 (0.814) data 0.487 (0.487) loss_val nan (nan) lr 7.2101e-04 eta 0:06:30
+epoch [61/100] batch [2/12] time 0.288 (0.551) data 0.000 (0.244) loss_val nan (nan) lr 7.2101e-04 eta 0:04:23
+epoch [61/100] batch [3/12] time 0.301 (0.468) data 0.000 (0.162) loss_val nan (nan) lr 7.2101e-04 eta 0:03:43
+epoch [61/100] batch [4/12] time 0.285 (0.422) data 0.000 (0.122) loss_val nan (nan) lr 7.2101e-04 eta 0:03:20
+epoch [61/100] batch [5/12] time 0.295 (0.397) data 0.000 (0.097) loss_val nan (nan) lr 7.2101e-04 eta 0:03:08
+epoch [61/100] batch [6/12] time 0.296 (0.380) data 0.000 (0.081) loss_val nan (nan) lr 7.2101e-04 eta 0:03:00
+epoch [61/100] batch [7/12] time 0.307 (0.369) data 0.000 (0.070) loss_val nan (nan) lr 7.2101e-04 eta 0:02:54
+epoch [61/100] batch [8/12] time 0.286 (0.359) data 0.000 (0.061) loss_val nan (nan) lr 7.2101e-04 eta 0:02:49
+epoch [61/100] batch [9/12] time 0.290 (0.351) data 0.000 (0.054) loss_val nan (nan) lr 7.2101e-04 eta 0:02:45
+epoch [61/100] batch [10/12] time 0.289 (0.345) data 0.000 (0.049) loss_val nan (nan) lr 7.2101e-04 eta 0:02:42
+epoch [61/100] batch [11/12] time 0.286 (0.340) data 0.000 (0.044) loss_val nan (nan) lr 7.2101e-04 eta 0:02:39
+epoch [61/100] batch [12/12] time 0.285 (0.335) data 0.000 (0.041) loss_val nan (nan) lr 6.9098e-04 eta 0:02:36
+epoch [62/100] batch [1/12] time 0.818 (0.818) data 0.514 (0.514) loss_val nan (nan) lr 6.9098e-04 eta 0:06:22
+epoch [62/100] batch [2/12] time 0.288 (0.553) data 0.000 (0.257) loss_val nan (nan) lr 6.9098e-04 eta 0:04:17
+epoch [62/100] batch [3/12] time 0.285 (0.464) data 0.000 (0.171) loss_val nan (nan) lr 6.9098e-04 eta 0:03:35
+epoch [62/100] batch [4/12] time 0.301 (0.423) data 0.000 (0.129) loss_val nan (nan) lr 6.9098e-04 eta 0:03:16
+epoch [62/100] batch [5/12] time 0.315 (0.401) data 0.000 (0.103) loss_val nan (nan) lr 6.9098e-04 eta 0:03:05
+epoch [62/100] batch [6/12] time 0.277 (0.381) data 0.000 (0.086) loss_val nan (nan) lr 6.9098e-04 eta 0:02:55
+epoch [62/100] batch [7/12] time 0.280 (0.366) data 0.000 (0.073) loss_val nan (nan) lr 6.9098e-04 eta 0:02:48
+epoch [62/100] batch [8/12] time 0.316 (0.360) data 0.000 (0.064) loss_val nan (nan) lr 6.9098e-04 eta 0:02:45
+epoch [62/100] batch [9/12] time 0.308 (0.354) data 0.000 (0.057) loss_val nan (nan) lr 6.9098e-04 eta 0:02:42
+epoch [62/100] batch [10/12] time 0.292 (0.348) data 0.000 (0.051) loss_val nan (nan) lr 6.9098e-04 eta 0:02:39
+epoch [62/100] batch [11/12] time 0.302 (0.344) data 0.000 (0.047) loss_val nan (nan) lr 6.9098e-04 eta 0:02:37
+epoch [62/100] batch [12/12] time 0.290 (0.339) data 0.000 (0.043) loss_val nan (nan) lr 6.6126e-04 eta 0:02:34
+epoch [63/100] batch [1/12] time 0.804 (0.804) data 0.483 (0.483) loss_val nan (nan) lr 6.6126e-04 eta 0:06:05
+epoch [63/100] batch [2/12] time 0.297 (0.550) data 0.000 (0.242) loss_val nan (nan) lr 6.6126e-04 eta 0:04:09
+epoch [63/100] batch [3/12] time 0.289 (0.463) data 0.000 (0.161) loss_val nan (nan) lr 6.6126e-04 eta 0:03:29
+epoch [63/100] batch [4/12] time 0.299 (0.422) data 0.000 (0.121) loss_val nan (nan) lr 6.6126e-04 eta 0:03:10
+epoch [63/100] batch [5/12] time 0.304 (0.399) data 0.000 (0.097) loss_val nan (nan) lr 6.6126e-04 eta 0:02:59
+epoch [63/100] batch [6/12] time 0.299 (0.382) data 0.000 (0.081) loss_val nan (nan) lr 6.6126e-04 eta 0:02:51
+epoch [63/100] batch [7/12] time 0.298 (0.370) data 0.000 (0.069) loss_val nan (nan) lr 6.6126e-04 eta 0:02:46
+epoch [63/100] batch [8/12] time 0.291 (0.360) data 0.000 (0.060) loss_val nan (nan) lr 6.6126e-04 eta 0:02:41
+epoch [63/100] batch [9/12] time 0.292 (0.353) data 0.000 (0.054) loss_val nan (nan) lr 6.6126e-04 eta 0:02:37
+epoch [63/100] batch [10/12] time 0.289 (0.346) data 0.000 (0.048) loss_val nan (nan) lr 6.6126e-04 eta 0:02:34
+epoch [63/100] batch [11/12] time 0.297 (0.342) data 0.000 (0.044) loss_val nan (nan) lr 6.6126e-04 eta 0:02:32
+epoch [63/100] batch [12/12] time 0.295 (0.338) data 0.000 (0.040) loss_val nan (nan) lr 6.3188e-04 eta 0:02:30
+epoch [64/100] batch [1/12] time 0.828 (0.828) data 0.488 (0.488) loss_val nan (nan) lr 6.3188e-04 eta 0:06:06
+epoch [64/100] batch [2/12] time 0.296 (0.562) data 0.000 (0.244) loss_val nan (nan) lr 6.3188e-04 eta 0:04:08
+epoch [64/100] batch [3/12] time 0.301 (0.475) data 0.000 (0.163) loss_val nan (nan) lr 6.3188e-04 eta 0:03:29
+epoch [64/100] batch [4/12] time 0.299 (0.431) data 0.000 (0.122) loss_val nan (nan) lr 6.3188e-04 eta 0:03:09
+epoch [64/100] batch [5/12] time 0.293 (0.403) data 0.000 (0.098) loss_val nan (nan) lr 6.3188e-04 eta 0:02:57
+epoch [64/100] batch [6/12] time 0.288 (0.384) data 0.000 (0.081) loss_val nan (nan) lr 6.3188e-04 eta 0:02:48
+epoch [64/100] batch [7/12] time 0.297 (0.372) data 0.000 (0.070) loss_val nan (nan) lr 6.3188e-04 eta 0:02:42
+epoch [64/100] batch [8/12] time 0.289 (0.361) data 0.000 (0.061) loss_val nan (nan) lr 6.3188e-04 eta 0:02:37
+epoch [64/100] batch [9/12] time 0.311 (0.356) data 0.000 (0.054) loss_val nan (nan) lr 6.3188e-04 eta 0:02:34
+epoch [64/100] batch [10/12] time 0.287 (0.349) data 0.000 (0.049) loss_val nan (nan) lr 6.3188e-04 eta 0:02:31
+epoch [64/100] batch [11/12] time 0.305 (0.345) data 0.000 (0.044) loss_val nan (nan) lr 6.3188e-04 eta 0:02:29
+epoch [64/100] batch [12/12] time 0.294 (0.341) data 0.000 (0.041) loss_val nan (nan) lr 6.0285e-04 eta 0:02:27
+epoch [65/100] batch [1/12] time 0.853 (0.853) data 0.552 (0.552) loss_val nan (nan) lr 6.0285e-04 eta 0:06:07
+epoch [65/100] batch [2/12] time 0.302 (0.578) data 0.000 (0.276) loss_val nan (nan) lr 6.0285e-04 eta 0:04:08
+epoch [65/100] batch [3/12] time 0.294 (0.483) data 0.000 (0.184) loss_val nan (nan) lr 6.0285e-04 eta 0:03:27
+epoch [65/100] batch [4/12] time 0.295 (0.436) data 0.000 (0.138) loss_val nan (nan) lr 6.0285e-04 eta 0:03:06
+epoch [65/100] batch [5/12] time 0.302 (0.409) data 0.000 (0.110) loss_val nan (nan) lr 6.0285e-04 eta 0:02:54
+epoch [65/100] batch [6/12] time 0.300 (0.391) data 0.000 (0.092) loss_val nan (nan) lr 6.0285e-04 eta 0:02:46
+epoch [65/100] batch [7/12] time 0.287 (0.376) data 0.000 (0.079) loss_val nan (nan) lr 6.0285e-04 eta 0:02:39
+epoch [65/100] batch [8/12] time 0.291 (0.365) data 0.000 (0.069) loss_val nan (nan) lr 6.0285e-04 eta 0:02:34
+epoch [65/100] batch [9/12] time 0.303 (0.359) data 0.000 (0.061) loss_val nan (nan) lr 6.0285e-04 eta 0:02:31
+epoch [65/100] batch [10/12] time 0.293 (0.352) data 0.000 (0.055) loss_val nan (nan) lr 6.0285e-04 eta 0:02:28
+epoch [65/100] batch [11/12] time 0.294 (0.347) data 0.000 (0.050) loss_val nan (nan) lr 6.0285e-04 eta 0:02:25
+epoch [65/100] batch [12/12] time 0.291 (0.342) data 0.000 (0.046) loss_val nan (nan) lr 5.7422e-04 eta 0:02:23
+epoch [66/100] batch [1/12] time 0.792 (0.792) data 0.477 (0.477) loss_val nan (nan) lr 5.7422e-04 eta 0:05:31
+epoch [66/100] batch [2/12] time 0.287 (0.539) data 0.000 (0.239) loss_val nan (nan) lr 5.7422e-04 eta 0:03:45
+epoch [66/100] batch [3/12] time 0.283 (0.454) data 0.000 (0.159) loss_val nan (nan) lr 5.7422e-04 eta 0:03:09
+epoch [66/100] batch [4/12] time 0.285 (0.412) data 0.000 (0.119) loss_val nan (nan) lr 5.7422e-04 eta 0:02:51
+epoch [66/100] batch [5/12] time 0.292 (0.388) data 0.000 (0.096) loss_val nan (nan) lr 5.7422e-04 eta 0:02:40
+epoch [66/100] batch [6/12] time 0.294 (0.372) data 0.000 (0.080) loss_val nan (nan) lr 5.7422e-04 eta 0:02:34
+epoch [66/100] batch [7/12] time 0.292 (0.361) data 0.000 (0.068) loss_val nan (nan) lr 5.7422e-04 eta 0:02:28
+epoch [66/100] batch [8/12] time 0.281 (0.351) data 0.000 (0.060) loss_val nan (nan) lr 5.7422e-04 eta 0:02:24
+epoch [66/100] batch [9/12] time 0.296 (0.345) data 0.000 (0.053) loss_val nan (nan) lr 5.7422e-04 eta 0:02:21
+epoch [66/100] batch [10/12] time 0.287 (0.339) data 0.000 (0.048) loss_val nan (nan) lr 5.7422e-04 eta 0:02:18
+epoch [66/100] batch [11/12] time 0.292 (0.335) data 0.000 (0.043) loss_val nan (nan) lr 5.7422e-04 eta 0:02:16
+epoch [66/100] batch [12/12] time 0.316 (0.333) data 0.000 (0.040) loss_val nan (nan) lr 5.4601e-04 eta 0:02:15
+epoch [67/100] batch [1/12] time 0.804 (0.804) data 0.484 (0.484) loss_val nan (nan) lr 5.4601e-04 eta 0:05:27
+epoch [67/100] batch [2/12] time 0.286 (0.545) data 0.000 (0.242) loss_val nan (nan) lr 5.4601e-04 eta 0:03:41
+epoch [67/100] batch [3/12] time 0.298 (0.462) data 0.000 (0.161) loss_val nan (nan) lr 5.4601e-04 eta 0:03:07
+epoch [67/100] batch [4/12] time 0.282 (0.417) data 0.000 (0.121) loss_val nan (nan) lr 5.4601e-04 eta 0:02:48
+epoch [67/100] batch [5/12] time 0.292 (0.392) data 0.000 (0.097) loss_val nan (nan) lr 5.4601e-04 eta 0:02:38
+epoch [67/100] batch [6/12] time 0.294 (0.376) data 0.000 (0.081) loss_val nan (nan) lr 5.4601e-04 eta 0:02:31
+epoch [67/100] batch [7/12] time 0.295 (0.364) data 0.000 (0.069) loss_val nan (nan) lr 5.4601e-04 eta 0:02:26
+epoch [67/100] batch [8/12] time 0.295 (0.356) data 0.000 (0.060) loss_val nan (nan) lr 5.4601e-04 eta 0:02:22
+epoch [67/100] batch [9/12] time 0.304 (0.350) data 0.000 (0.054) loss_val nan (nan) lr 5.4601e-04 eta 0:02:19
+epoch [67/100] batch [10/12] time 0.286 (0.344) data 0.000 (0.048) loss_val nan (nan) lr 5.4601e-04 eta 0:02:16
+epoch [67/100] batch [11/12] time 0.301 (0.340) data 0.000 (0.044) loss_val nan (nan) lr 5.4601e-04 eta 0:02:14
+epoch [67/100] batch [12/12] time 0.286 (0.335) data 0.000 (0.040) loss_val nan (nan) lr 5.1825e-04 eta 0:02:12
+epoch [68/100] batch [1/12] time 0.825 (0.825) data 0.494 (0.494) loss_val nan (nan) lr 5.1825e-04 eta 0:05:25
+epoch [68/100] batch [2/12] time 0.319 (0.572) data 0.000 (0.247) loss_val nan (nan) lr 5.1825e-04 eta 0:03:45
+epoch [68/100] batch [3/12] time 0.291 (0.478) data 0.000 (0.165) loss_val nan (nan) lr 5.1825e-04 eta 0:03:07
+epoch [68/100] batch [4/12] time 0.290 (0.431) data 0.000 (0.124) loss_val nan (nan) lr 5.1825e-04 eta 0:02:49
+epoch [68/100] batch [5/12] time 0.287 (0.402) data 0.000 (0.099) loss_val nan (nan) lr 5.1825e-04 eta 0:02:37
+epoch [68/100] batch [6/12] time 0.299 (0.385) data 0.000 (0.082) loss_val nan (nan) lr 5.1825e-04 eta 0:02:30
+epoch [68/100] batch [7/12] time 0.297 (0.372) data 0.000 (0.071) loss_val nan (nan) lr 5.1825e-04 eta 0:02:24
+epoch [68/100] batch [8/12] time 0.287 (0.362) data 0.000 (0.062) loss_val nan (nan) lr 5.1825e-04 eta 0:02:20
+epoch [68/100] batch [9/12] time 0.283 (0.353) data 0.000 (0.055) loss_val nan (nan) lr 5.1825e-04 eta 0:02:16
+epoch [68/100] batch [10/12] time 0.287 (0.346) data 0.000 (0.049) loss_val nan (nan) lr 5.1825e-04 eta 0:02:13
+epoch [68/100] batch [11/12] time 0.282 (0.341) data 0.000 (0.045) loss_val nan (nan) lr 5.1825e-04 eta 0:02:11
+epoch [68/100] batch [12/12] time 0.287 (0.336) data 0.000 (0.041) loss_val nan (nan) lr 4.9096e-04 eta 0:02:09
+epoch [69/100] batch [1/12] time 0.800 (0.800) data 0.490 (0.490) loss_val nan (nan) lr 4.9096e-04 eta 0:05:06
+epoch [69/100] batch [2/12] time 0.279 (0.540) data 0.000 (0.245) loss_val nan (nan) lr 4.9096e-04 eta 0:03:26
+epoch [69/100] batch [3/12] time 0.276 (0.452) data 0.000 (0.163) loss_val nan (nan) lr 4.9096e-04 eta 0:02:52
+epoch [69/100] batch [4/12] time 0.288 (0.411) data 0.000 (0.123) loss_val nan (nan) lr 4.9096e-04 eta 0:02:36
+epoch [69/100] batch [5/12] time 0.288 (0.386) data 0.000 (0.098) loss_val nan (nan) lr 4.9096e-04 eta 0:02:26
+epoch [69/100] batch [6/12] time 0.288 (0.370) data 0.000 (0.082) loss_val nan (nan) lr 4.9096e-04 eta 0:02:19
+epoch [69/100] batch [7/12] time 0.290 (0.358) data 0.000 (0.070) loss_val nan (nan) lr 4.9096e-04 eta 0:02:15
+epoch [69/100] batch [8/12] time 0.285 (0.349) data 0.000 (0.061) loss_val nan (nan) lr 4.9096e-04 eta 0:02:11
+epoch [69/100] batch [9/12] time 0.287 (0.342) data 0.000 (0.054) loss_val nan (nan) lr 4.9096e-04 eta 0:02:08
+epoch [69/100] batch [10/12] time 0.283 (0.336) data 0.000 (0.049) loss_val nan (nan) lr 4.9096e-04 eta 0:02:05
+epoch [69/100] batch [11/12] time 0.281 (0.331) data 0.000 (0.045) loss_val nan (nan) lr 4.9096e-04 eta 0:02:03
+epoch [69/100] batch [12/12] time 0.290 (0.328) data 0.000 (0.041) loss_val nan (nan) lr 4.6417e-04 eta 0:02:01
+epoch [70/100] batch [1/12] time 0.804 (0.804) data 0.489 (0.489) loss_val nan (nan) lr 4.6417e-04 eta 0:04:58
+epoch [70/100] batch [2/12] time 0.289 (0.547) data 0.000 (0.245) loss_val nan (nan) lr 4.6417e-04 eta 0:03:22
+epoch [70/100] batch [3/12] time 0.289 (0.461) data 0.000 (0.163) loss_val nan (nan) lr 4.6417e-04 eta 0:02:50
+epoch [70/100] batch [4/12] time 0.294 (0.419) data 0.000 (0.122) loss_val nan (nan) lr 4.6417e-04 eta 0:02:34
+epoch [70/100] batch [5/12] time 0.287 (0.393) data 0.000 (0.098) loss_val nan (nan) lr 4.6417e-04 eta 0:02:24
+epoch [70/100] batch [6/12] time 0.280 (0.374) data 0.000 (0.082) loss_val nan (nan) lr 4.6417e-04 eta 0:02:16
+epoch [70/100] batch [7/12] time 0.283 (0.361) data 0.000 (0.070) loss_val nan (nan) lr 4.6417e-04 eta 0:02:11
+epoch [70/100] batch [8/12] time 0.279 (0.351) data 0.000 (0.061) loss_val nan (nan) lr 4.6417e-04 eta 0:02:07
+epoch [70/100] batch [9/12] time 0.296 (0.345) data 0.000 (0.054) loss_val nan (nan) lr 4.6417e-04 eta 0:02:05
+epoch [70/100] batch [10/12] time 0.277 (0.338) data 0.000 (0.049) loss_val nan (nan) lr 4.6417e-04 eta 0:02:02
+epoch [70/100] batch [11/12] time 0.283 (0.333) data 0.000 (0.045) loss_val nan (nan) lr 4.6417e-04 eta 0:02:00
+epoch [70/100] batch [12/12] time 0.280 (0.328) data 0.000 (0.041) loss_val nan (nan) lr 4.3792e-04 eta 0:01:58
+epoch [71/100] batch [1/12] time 0.811 (0.811) data 0.502 (0.502) loss_val nan (nan) lr 4.3792e-04 eta 0:04:51
+epoch [71/100] batch [2/12] time 0.284 (0.547) data 0.000 (0.251) loss_val nan (nan) lr 4.3792e-04 eta 0:03:15
+epoch [71/100] batch [3/12] time 0.303 (0.466) data 0.000 (0.167) loss_val nan (nan) lr 4.3792e-04 eta 0:02:46
+epoch [71/100] batch [4/12] time 0.308 (0.426) data 0.000 (0.126) loss_val nan (nan) lr 4.3792e-04 eta 0:02:31
+epoch [71/100] batch [5/12] time 0.285 (0.398) data 0.000 (0.100) loss_val nan (nan) lr 4.3792e-04 eta 0:02:21
+epoch [71/100] batch [6/12] time 0.300 (0.382) data 0.000 (0.084) loss_val nan (nan) lr 4.3792e-04 eta 0:02:15
+epoch [71/100] batch [7/12] time 0.284 (0.368) data 0.000 (0.072) loss_val nan (nan) lr 4.3792e-04 eta 0:02:09
+epoch [71/100] batch [8/12] time 0.307 (0.360) data 0.000 (0.063) loss_val nan (nan) lr 4.3792e-04 eta 0:02:06
+epoch [71/100] batch [9/12] time 0.291 (0.353) data 0.000 (0.056) loss_val nan (nan) lr 4.3792e-04 eta 0:02:03
+epoch [71/100] batch [10/12] time 0.286 (0.346) data 0.000 (0.050) loss_val nan (nan) lr 4.3792e-04 eta 0:02:01
+epoch [71/100] batch [11/12] time 0.300 (0.342) data 0.000 (0.046) loss_val nan (nan) lr 4.3792e-04 eta 0:01:59
+epoch [71/100] batch [12/12] time 0.281 (0.337) data 0.000 (0.042) loss_val nan (nan) lr 4.1221e-04 eta 0:01:57
+epoch [72/100] batch [1/12] time 0.796 (0.796) data 0.495 (0.495) loss_val nan (nan) lr 4.1221e-04 eta 0:04:36
+epoch [72/100] batch [2/12] time 0.282 (0.539) data 0.000 (0.247) loss_val nan (nan) lr 4.1221e-04 eta 0:03:06
+epoch [72/100] batch [3/12] time 0.282 (0.453) data 0.000 (0.165) loss_val nan (nan) lr 4.1221e-04 eta 0:02:36
+epoch [72/100] batch [4/12] time 0.279 (0.410) data 0.000 (0.124) loss_val nan (nan) lr 4.1221e-04 eta 0:02:20
+epoch [72/100] batch [5/12] time 0.281 (0.384) data 0.000 (0.099) loss_val nan (nan) lr 4.1221e-04 eta 0:02:11
+epoch [72/100] batch [6/12] time 0.286 (0.367) data 0.000 (0.083) loss_val nan (nan) lr 4.1221e-04 eta 0:02:05
+epoch [72/100] batch [7/12] time 0.276 (0.354) data 0.000 (0.071) loss_val nan (nan) lr 4.1221e-04 eta 0:02:00
+epoch [72/100] batch [8/12] time 0.293 (0.347) data 0.000 (0.062) loss_val nan (nan) lr 4.1221e-04 eta 0:01:57
+epoch [72/100] batch [9/12] time 0.290 (0.340) data 0.000 (0.055) loss_val nan (nan) lr 4.1221e-04 eta 0:01:55
+epoch [72/100] batch [10/12] time 0.295 (0.336) data 0.000 (0.050) loss_val nan (nan) lr 4.1221e-04 eta 0:01:53
+epoch [72/100] batch [11/12] time 0.294 (0.332) data 0.000 (0.045) loss_val nan (nan) lr 4.1221e-04 eta 0:01:51
+epoch [72/100] batch [12/12] time 0.299 (0.329) data 0.000 (0.041) loss_val nan (nan) lr 3.8709e-04 eta 0:01:50
+epoch [73/100] batch [1/12] time 0.804 (0.804) data 0.506 (0.506) loss_val nan (nan) lr 3.8709e-04 eta 0:04:29
+epoch [73/100] batch [2/12] time 0.282 (0.543) data 0.000 (0.253) loss_val nan (nan) lr 3.8709e-04 eta 0:03:01
+epoch [73/100] batch [3/12] time 0.299 (0.462) data 0.000 (0.169) loss_val nan (nan) lr 3.8709e-04 eta 0:02:33
+epoch [73/100] batch [4/12] time 0.291 (0.419) data 0.000 (0.126) loss_val nan (nan) lr 3.8709e-04 eta 0:02:19
+epoch [73/100] batch [5/12] time 0.273 (0.390) data 0.000 (0.101) loss_val nan (nan) lr 3.8709e-04 eta 0:02:08
+epoch [73/100] batch [6/12] time 0.275 (0.371) data 0.000 (0.084) loss_val nan (nan) lr 3.8709e-04 eta 0:02:02
+epoch [73/100] batch [7/12] time 0.283 (0.358) data 0.000 (0.072) loss_val nan (nan) lr 3.8709e-04 eta 0:01:57
+epoch [73/100] batch [8/12] time 0.274 (0.347) data 0.000 (0.063) loss_val nan (nan) lr 3.8709e-04 eta 0:01:53
+epoch [73/100] batch [9/12] time 0.281 (0.340) data 0.000 (0.056) loss_val nan (nan) lr 3.8709e-04 eta 0:01:51
+epoch [73/100] batch [10/12] time 0.282 (0.334) data 0.000 (0.051) loss_val nan (nan) lr 3.8709e-04 eta 0:01:48
+epoch [73/100] batch [11/12] time 0.282 (0.330) data 0.000 (0.046) loss_val nan (nan) lr 3.8709e-04 eta 0:01:47
+epoch [73/100] batch [12/12] time 0.289 (0.326) data 0.000 (0.042) loss_val nan (nan) lr 3.6258e-04 eta 0:01:45
+epoch [74/100] batch [1/12] time 0.903 (0.903) data 0.592 (0.592) loss_val nan (nan) lr 3.6258e-04 eta 0:04:51
+epoch [74/100] batch [2/12] time 0.286 (0.595) data 0.000 (0.296) loss_val nan (nan) lr 3.6258e-04 eta 0:03:11
+epoch [74/100] batch [3/12] time 0.274 (0.488) data 0.000 (0.197) loss_val nan (nan) lr 3.6258e-04 eta 0:02:36
+epoch [74/100] batch [4/12] time 0.276 (0.435) data 0.000 (0.148) loss_val nan (nan) lr 3.6258e-04 eta 0:02:19
+epoch [74/100] batch [5/12] time 0.287 (0.405) data 0.000 (0.118) loss_val nan (nan) lr 3.6258e-04 eta 0:02:09
+epoch [74/100] batch [6/12] time 0.321 (0.391) data 0.000 (0.099) loss_val nan (nan) lr 3.6258e-04 eta 0:02:04
+epoch [74/100] batch [7/12] time 0.316 (0.381) data 0.000 (0.085) loss_val nan (nan) lr 3.6258e-04 eta 0:02:00
+epoch [74/100] batch [8/12] time 0.282 (0.368) data 0.000 (0.074) loss_val nan (nan) lr 3.6258e-04 eta 0:01:56
+epoch [74/100] batch [9/12] time 0.314 (0.362) data 0.000 (0.066) loss_val nan (nan) lr 3.6258e-04 eta 0:01:54
+epoch [74/100] batch [10/12] time 0.274 (0.353) data 0.000 (0.059) loss_val nan (nan) lr 3.6258e-04 eta 0:01:50
+epoch [74/100] batch [11/12] time 0.276 (0.346) data 0.000 (0.054) loss_val nan (nan) lr 3.6258e-04 eta 0:01:48
+epoch [74/100] batch [12/12] time 0.322 (0.344) data 0.000 (0.049) loss_val nan (nan) lr 3.3869e-04 eta 0:01:47
+epoch [75/100] batch [1/12] time 0.782 (0.782) data 0.490 (0.490) loss_val nan (nan) lr 3.3869e-04 eta 0:04:03
+epoch [75/100] batch [2/12] time 0.289 (0.536) data 0.000 (0.245) loss_val nan (nan) lr 3.3869e-04 eta 0:02:46
+epoch [75/100] batch [3/12] time 0.312 (0.461) data 0.000 (0.163) loss_val nan (nan) lr 3.3869e-04 eta 0:02:22
+epoch [75/100] batch [4/12] time 0.281 (0.416) data 0.000 (0.123) loss_val nan (nan) lr 3.3869e-04 eta 0:02:08
+epoch [75/100] batch [5/12] time 0.312 (0.395) data 0.000 (0.098) loss_val nan (nan) lr 3.3869e-04 eta 0:02:01
+epoch [75/100] batch [6/12] time 0.281 (0.376) data 0.000 (0.082) loss_val nan (nan) lr 3.3869e-04 eta 0:01:55
+epoch [75/100] batch [7/12] time 0.269 (0.361) data 0.000 (0.070) loss_val nan (nan) lr 3.3869e-04 eta 0:01:50
+epoch [75/100] batch [8/12] time 0.306 (0.354) data 0.000 (0.061) loss_val nan (nan) lr 3.3869e-04 eta 0:01:47
+epoch [75/100] batch [9/12] time 0.277 (0.345) data 0.000 (0.055) loss_val nan (nan) lr 3.3869e-04 eta 0:01:44
+epoch [75/100] batch [10/12] time 0.279 (0.339) data 0.000 (0.049) loss_val nan (nan) lr 3.3869e-04 eta 0:01:42
+epoch [75/100] batch [11/12] time 0.273 (0.333) data 0.000 (0.045) loss_val nan (nan) lr 3.3869e-04 eta 0:01:40
+epoch [75/100] batch [12/12] time 0.307 (0.331) data 0.000 (0.041) loss_val nan (nan) lr 3.1545e-04 eta 0:01:39
+epoch [76/100] batch [1/12] time 0.790 (0.790) data 0.498 (0.498) loss_val nan (nan) lr 3.1545e-04 eta 0:03:56
+epoch [76/100] batch [2/12] time 0.287 (0.538) data 0.000 (0.249) loss_val nan (nan) lr 3.1545e-04 eta 0:02:40
+epoch [76/100] batch [3/12] time 0.272 (0.450) data 0.000 (0.166) loss_val nan (nan) lr 3.1545e-04 eta 0:02:13
+epoch [76/100] batch [4/12] time 0.263 (0.403) data 0.000 (0.125) loss_val nan (nan) lr 3.1545e-04 eta 0:01:59
+epoch [76/100] batch [5/12] time 0.265 (0.375) data 0.000 (0.100) loss_val nan (nan) lr 3.1545e-04 eta 0:01:50
+epoch [76/100] batch [6/12] time 0.269 (0.358) data 0.000 (0.083) loss_val nan (nan) lr 3.1545e-04 eta 0:01:45
+epoch [76/100] batch [7/12] time 0.271 (0.345) data 0.000 (0.071) loss_val nan (nan) lr 3.1545e-04 eta 0:01:41
+epoch [76/100] batch [8/12] time 0.270 (0.336) data 0.000 (0.062) loss_val nan (nan) lr 3.1545e-04 eta 0:01:38
+epoch [76/100] batch [9/12] time 0.269 (0.329) data 0.000 (0.055) loss_val nan (nan) lr 3.1545e-04 eta 0:01:35
+epoch [76/100] batch [10/12] time 0.268 (0.322) data 0.000 (0.050) loss_val nan (nan) lr 3.1545e-04 eta 0:01:33
+epoch [76/100] batch [11/12] time 0.272 (0.318) data 0.000 (0.045) loss_val nan (nan) lr 3.1545e-04 eta 0:01:31
+epoch [76/100] batch [12/12] time 0.275 (0.314) data 0.000 (0.042) loss_val nan (nan) lr 2.9289e-04 eta 0:01:30
+epoch [77/100] batch [1/12] time 0.800 (0.800) data 0.504 (0.504) loss_val nan (nan) lr 2.9289e-04 eta 0:03:49
+epoch [77/100] batch [2/12] time 0.279 (0.540) data 0.000 (0.252) loss_val nan (nan) lr 2.9289e-04 eta 0:02:34
+epoch [77/100] batch [3/12] time 0.275 (0.451) data 0.000 (0.168) loss_val nan (nan) lr 2.9289e-04 eta 0:02:08
+epoch [77/100] batch [4/12] time 0.277 (0.408) data 0.000 (0.126) loss_val nan (nan) lr 2.9289e-04 eta 0:01:55
+epoch [77/100] batch [5/12] time 0.276 (0.382) data 0.000 (0.101) loss_val nan (nan) lr 2.9289e-04 eta 0:01:47
+epoch [77/100] batch [6/12] time 0.272 (0.363) data 0.000 (0.084) loss_val nan (nan) lr 2.9289e-04 eta 0:01:42
+epoch [77/100] batch [7/12] time 0.271 (0.350) data 0.000 (0.072) loss_val nan (nan) lr 2.9289e-04 eta 0:01:38
+epoch [77/100] batch [8/12] time 0.274 (0.341) data 0.000 (0.063) loss_val nan (nan) lr 2.9289e-04 eta 0:01:35
+epoch [77/100] batch [9/12] time 0.274 (0.333) data 0.000 (0.056) loss_val nan (nan) lr 2.9289e-04 eta 0:01:32
+epoch [77/100] batch [10/12] time 0.302 (0.330) data 0.000 (0.050) loss_val nan (nan) lr 2.9289e-04 eta 0:01:31
+epoch [77/100] batch [11/12] time 0.284 (0.326) data 0.000 (0.046) loss_val nan (nan) lr 2.9289e-04 eta 0:01:30
+epoch [77/100] batch [12/12] time 0.300 (0.324) data 0.000 (0.042) loss_val nan (nan) lr 2.7103e-04 eta 0:01:29
+epoch [78/100] batch [1/12] time 0.829 (0.829) data 0.539 (0.539) loss_val nan (nan) lr 2.7103e-04 eta 0:03:47
+epoch [78/100] batch [2/12] time 0.315 (0.572) data 0.000 (0.270) loss_val nan (nan) lr 2.7103e-04 eta 0:02:36
+epoch [78/100] batch [3/12] time 0.292 (0.478) data 0.000 (0.180) loss_val nan (nan) lr 2.7103e-04 eta 0:02:10
+epoch [78/100] batch [4/12] time 0.277 (0.428) data 0.000 (0.135) loss_val nan (nan) lr 2.7103e-04 eta 0:01:56
+epoch [78/100] batch [5/12] time 0.279 (0.398) data 0.000 (0.108) loss_val nan (nan) lr 2.7103e-04 eta 0:01:47
+epoch [78/100] batch [6/12] time 0.274 (0.378) data 0.000 (0.090) loss_val nan (nan) lr 2.7103e-04 eta 0:01:41
+epoch [78/100] batch [7/12] time 0.272 (0.363) data 0.000 (0.077) loss_val nan (nan) lr 2.7103e-04 eta 0:01:37
+epoch [78/100] batch [8/12] time 0.292 (0.354) data 0.000 (0.067) loss_val nan (nan) lr 2.7103e-04 eta 0:01:34
+epoch [78/100] batch [9/12] time 0.304 (0.348) data 0.000 (0.060) loss_val nan (nan) lr 2.7103e-04 eta 0:01:32
+epoch [78/100] batch [10/12] time 0.280 (0.341) data 0.000 (0.054) loss_val nan (nan) lr 2.7103e-04 eta 0:01:30
+epoch [78/100] batch [11/12] time 0.286 (0.336) data 0.000 (0.049) loss_val nan (nan) lr 2.7103e-04 eta 0:01:29
+epoch [78/100] batch [12/12] time 0.292 (0.333) data 0.000 (0.045) loss_val nan (nan) lr 2.4989e-04 eta 0:01:27
+epoch [79/100] batch [1/12] time 0.820 (0.820) data 0.518 (0.518) loss_val nan (nan) lr 2.4989e-04 eta 0:03:35
+epoch [79/100] batch [2/12] time 0.285 (0.552) data 0.000 (0.259) loss_val nan (nan) lr 2.4989e-04 eta 0:02:24
+epoch [79/100] batch [3/12] time 0.299 (0.468) data 0.000 (0.173) loss_val nan (nan) lr 2.4989e-04 eta 0:02:02
+epoch [79/100] batch [4/12] time 0.280 (0.421) data 0.000 (0.129) loss_val nan (nan) lr 2.4989e-04 eta 0:01:49
+epoch [79/100] batch [5/12] time 0.275 (0.392) data 0.000 (0.104) loss_val nan (nan) lr 2.4989e-04 eta 0:01:41
+epoch [79/100] batch [6/12] time 0.282 (0.373) data 0.000 (0.086) loss_val nan (nan) lr 2.4989e-04 eta 0:01:36
+epoch [79/100] batch [7/12] time 0.280 (0.360) data 0.000 (0.074) loss_val nan (nan) lr 2.4989e-04 eta 0:01:32
+epoch [79/100] batch [8/12] time 0.280 (0.350) data 0.000 (0.065) loss_val nan (nan) lr 2.4989e-04 eta 0:01:29
+epoch [79/100] batch [9/12] time 0.277 (0.342) data 0.000 (0.058) loss_val nan (nan) lr 2.4989e-04 eta 0:01:27
+epoch [79/100] batch [10/12] time 0.273 (0.335) data 0.000 (0.052) loss_val nan (nan) lr 2.4989e-04 eta 0:01:25
+epoch [79/100] batch [11/12] time 0.300 (0.332) data 0.000 (0.047) loss_val nan (nan) lr 2.4989e-04 eta 0:01:23
+epoch [79/100] batch [12/12] time 0.282 (0.328) data 0.000 (0.043) loss_val nan (nan) lr 2.2949e-04 eta 0:01:22
+epoch [80/100] batch [1/12] time 0.834 (0.834) data 0.525 (0.525) loss_val nan (nan) lr 2.2949e-04 eta 0:03:29
+epoch [80/100] batch [2/12] time 0.278 (0.556) data 0.000 (0.263) loss_val nan (nan) lr 2.2949e-04 eta 0:02:19
+epoch [80/100] batch [3/12] time 0.279 (0.464) data 0.000 (0.175) loss_val nan (nan) lr 2.2949e-04 eta 0:01:55
+epoch [80/100] batch [4/12] time 0.280 (0.418) data 0.000 (0.131) loss_val nan (nan) lr 2.2949e-04 eta 0:01:43
+epoch [80/100] batch [5/12] time 0.278 (0.390) data 0.000 (0.105) loss_val nan (nan) lr 2.2949e-04 eta 0:01:36
+epoch [80/100] batch [6/12] time 0.277 (0.371) data 0.000 (0.088) loss_val nan (nan) lr 2.2949e-04 eta 0:01:31
+epoch [80/100] batch [7/12] time 0.283 (0.359) data 0.000 (0.075) loss_val nan (nan) lr 2.2949e-04 eta 0:01:27
+epoch [80/100] batch [8/12] time 0.281 (0.349) data 0.000 (0.066) loss_val nan (nan) lr 2.2949e-04 eta 0:01:25
+epoch [80/100] batch [9/12] time 0.269 (0.340) data 0.000 (0.058) loss_val nan (nan) lr 2.2949e-04 eta 0:01:22
+epoch [80/100] batch [10/12] time 0.272 (0.333) data 0.000 (0.053) loss_val nan (nan) lr 2.2949e-04 eta 0:01:20
+epoch [80/100] batch [11/12] time 0.285 (0.329) data 0.000 (0.048) loss_val nan (nan) lr 2.2949e-04 eta 0:01:19
+epoch [80/100] batch [12/12] time 0.287 (0.325) data 0.000 (0.044) loss_val nan (nan) lr 2.0984e-04 eta 0:01:18
+epoch [81/100] batch [1/12] time 0.853 (0.853) data 0.560 (0.560) loss_val nan (nan) lr 2.0984e-04 eta 0:03:23
+epoch [81/100] batch [2/12] time 0.271 (0.562) data 0.000 (0.280) loss_val nan (nan) lr 2.0984e-04 eta 0:02:13
+epoch [81/100] batch [3/12] time 0.276 (0.467) data 0.000 (0.187) loss_val nan (nan) lr 2.0984e-04 eta 0:01:50
+epoch [81/100] batch [4/12] time 0.285 (0.421) data 0.000 (0.140) loss_val nan (nan) lr 2.0984e-04 eta 0:01:39
+epoch [81/100] batch [5/12] time 0.279 (0.393) data 0.000 (0.112) loss_val nan (nan) lr 2.0984e-04 eta 0:01:32
+epoch [81/100] batch [6/12] time 0.285 (0.375) data 0.000 (0.093) loss_val nan (nan) lr 2.0984e-04 eta 0:01:27
+epoch [81/100] batch [7/12] time 0.282 (0.361) data 0.000 (0.080) loss_val nan (nan) lr 2.0984e-04 eta 0:01:24
+epoch [81/100] batch [8/12] time 0.281 (0.351) data 0.000 (0.070) loss_val nan (nan) lr 2.0984e-04 eta 0:01:21
+epoch [81/100] batch [9/12] time 0.280 (0.343) data 0.000 (0.062) loss_val nan (nan) lr 2.0984e-04 eta 0:01:19
+epoch [81/100] batch [10/12] time 0.280 (0.337) data 0.000 (0.056) loss_val nan (nan) lr 2.0984e-04 eta 0:01:17
+epoch [81/100] batch [11/12] time 0.287 (0.333) data 0.000 (0.051) loss_val nan (nan) lr 2.0984e-04 eta 0:01:16
+epoch [81/100] batch [12/12] time 0.286 (0.329) data 0.000 (0.047) loss_val nan (nan) lr 1.9098e-04 eta 0:01:14
+epoch [82/100] batch [1/12] time 0.803 (0.803) data 0.487 (0.487) loss_val nan (nan) lr 1.9098e-04 eta 0:03:02
+epoch [82/100] batch [2/12] time 0.290 (0.546) data 0.000 (0.244) loss_val nan (nan) lr 1.9098e-04 eta 0:02:03
+epoch [82/100] batch [3/12] time 0.292 (0.462) data 0.000 (0.162) loss_val nan (nan) lr 1.9098e-04 eta 0:01:43
+epoch [82/100] batch [4/12] time 0.273 (0.414) data 0.000 (0.122) loss_val nan (nan) lr 1.9098e-04 eta 0:01:32
+epoch [82/100] batch [5/12] time 0.282 (0.388) data 0.000 (0.097) loss_val nan (nan) lr 1.9098e-04 eta 0:01:26
+epoch [82/100] batch [6/12] time 0.275 (0.369) data 0.000 (0.081) loss_val nan (nan) lr 1.9098e-04 eta 0:01:21
+epoch [82/100] batch [7/12] time 0.289 (0.358) data 0.000 (0.070) loss_val nan (nan) lr 1.9098e-04 eta 0:01:19
+epoch [82/100] batch [8/12] time 0.298 (0.350) data 0.000 (0.061) loss_val nan (nan) lr 1.9098e-04 eta 0:01:17
+epoch [82/100] batch [9/12] time 0.274 (0.342) data 0.000 (0.054) loss_val nan (nan) lr 1.9098e-04 eta 0:01:14
+epoch [82/100] batch [10/12] time 0.273 (0.335) data 0.000 (0.049) loss_val nan (nan) lr 1.9098e-04 eta 0:01:12
+epoch [82/100] batch [11/12] time 0.273 (0.329) data 0.000 (0.044) loss_val nan (nan) lr 1.9098e-04 eta 0:01:11
+epoch [82/100] batch [12/12] time 0.314 (0.328) data 0.000 (0.041) loss_val nan (nan) lr 1.7292e-04 eta 0:01:10
+epoch [83/100] batch [1/12] time 0.787 (0.787) data 0.503 (0.503) loss_val nan (nan) lr 1.7292e-04 eta 0:02:49
+epoch [83/100] batch [2/12] time 0.273 (0.530) data 0.000 (0.251) loss_val nan (nan) lr 1.7292e-04 eta 0:01:53
+epoch [83/100] batch [3/12] time 0.273 (0.444) data 0.000 (0.168) loss_val nan (nan) lr 1.7292e-04 eta 0:01:34
+epoch [83/100] batch [4/12] time 0.282 (0.404) data 0.000 (0.126) loss_val nan (nan) lr 1.7292e-04 eta 0:01:25
+epoch [83/100] batch [5/12] time 0.268 (0.377) data 0.000 (0.101) loss_val nan (nan) lr 1.7292e-04 eta 0:01:19
+epoch [83/100] batch [6/12] time 0.270 (0.359) data 0.000 (0.084) loss_val nan (nan) lr 1.7292e-04 eta 0:01:15
+epoch [83/100] batch [7/12] time 0.273 (0.347) data 0.000 (0.072) loss_val nan (nan) lr 1.7292e-04 eta 0:01:12
+epoch [83/100] batch [8/12] time 0.271 (0.337) data 0.000 (0.063) loss_val nan (nan) lr 1.7292e-04 eta 0:01:10
+epoch [83/100] batch [9/12] time 0.276 (0.330) data 0.000 (0.056) loss_val nan (nan) lr 1.7292e-04 eta 0:01:08
+epoch [83/100] batch [10/12] time 0.280 (0.325) data 0.000 (0.050) loss_val nan (nan) lr 1.7292e-04 eta 0:01:07
+epoch [83/100] batch [11/12] time 0.272 (0.321) data 0.000 (0.046) loss_val nan (nan) lr 1.7292e-04 eta 0:01:05
+epoch [83/100] batch [12/12] time 0.270 (0.316) data 0.000 (0.042) loss_val nan (nan) lr 1.5567e-04 eta 0:01:04
+epoch [84/100] batch [1/12] time 0.831 (0.831) data 0.530 (0.530) loss_val nan (nan) lr 1.5567e-04 eta 0:02:48
+epoch [84/100] batch [2/12] time 0.271 (0.551) data 0.000 (0.265) loss_val nan (nan) lr 1.5567e-04 eta 0:01:51
+epoch [84/100] batch [3/12] time 0.283 (0.462) data 0.000 (0.177) loss_val nan (nan) lr 1.5567e-04 eta 0:01:32
+epoch [84/100] batch [4/12] time 0.291 (0.419) data 0.000 (0.133) loss_val nan (nan) lr 1.5567e-04 eta 0:01:23
+epoch [84/100] batch [5/12] time 0.295 (0.394) data 0.000 (0.106) loss_val nan (nan) lr 1.5567e-04 eta 0:01:18
+epoch [84/100] batch [6/12] time 0.267 (0.373) data 0.000 (0.088) loss_val nan (nan) lr 1.5567e-04 eta 0:01:13
+epoch [84/100] batch [7/12] time 0.267 (0.358) data 0.000 (0.076) loss_val nan (nan) lr 1.5567e-04 eta 0:01:10
+epoch [84/100] batch [8/12] time 0.270 (0.347) data 0.000 (0.066) loss_val nan (nan) lr 1.5567e-04 eta 0:01:07
+epoch [84/100] batch [9/12] time 0.269 (0.338) data 0.000 (0.059) loss_val nan (nan) lr 1.5567e-04 eta 0:01:05
+epoch [84/100] batch [10/12] time 0.285 (0.333) data 0.000 (0.053) loss_val nan (nan) lr 1.5567e-04 eta 0:01:04
+epoch [84/100] batch [11/12] time 0.270 (0.327) data 0.000 (0.048) loss_val nan (nan) lr 1.5567e-04 eta 0:01:03
+epoch [84/100] batch [12/12] time 0.263 (0.322) data 0.000 (0.044) loss_val nan (nan) lr 1.3926e-04 eta 0:01:01
+epoch [85/100] batch [1/12] time 0.821 (0.821) data 0.535 (0.535) loss_val nan (nan) lr 1.3926e-04 eta 0:02:36
+epoch [85/100] batch [2/12] time 0.268 (0.544) data 0.000 (0.267) loss_val nan (nan) lr 1.3926e-04 eta 0:01:43
+epoch [85/100] batch [3/12] time 0.268 (0.452) data 0.000 (0.178) loss_val nan (nan) lr 1.3926e-04 eta 0:01:25
+epoch [85/100] batch [4/12] time 0.269 (0.406) data 0.000 (0.134) loss_val nan (nan) lr 1.3926e-04 eta 0:01:16
+epoch [85/100] batch [5/12] time 0.271 (0.379) data 0.000 (0.107) loss_val nan (nan) lr 1.3926e-04 eta 0:01:10
+epoch [85/100] batch [6/12] time 0.267 (0.361) data 0.000 (0.089) loss_val nan (nan) lr 1.3926e-04 eta 0:01:07
+epoch [85/100] batch [7/12] time 0.266 (0.347) data 0.000 (0.076) loss_val nan (nan) lr 1.3926e-04 eta 0:01:04
+epoch [85/100] batch [8/12] time 0.269 (0.337) data 0.000 (0.067) loss_val nan (nan) lr 1.3926e-04 eta 0:01:02
+epoch [85/100] batch [9/12] time 0.267 (0.330) data 0.000 (0.059) loss_val nan (nan) lr 1.3926e-04 eta 0:01:00
+epoch [85/100] batch [10/12] time 0.267 (0.323) data 0.000 (0.054) loss_val nan (nan) lr 1.3926e-04 eta 0:00:58
+epoch [85/100] batch [11/12] time 0.271 (0.318) data 0.000 (0.049) loss_val nan (nan) lr 1.3926e-04 eta 0:00:57
+epoch [85/100] batch [12/12] time 0.269 (0.314) data 0.000 (0.045) loss_val nan (nan) lr 1.2369e-04 eta 0:00:56
+epoch [86/100] batch [1/12] time 0.778 (0.778) data 0.489 (0.489) loss_val nan (nan) lr 1.2369e-04 eta 0:02:19
+epoch [86/100] batch [2/12] time 0.264 (0.521) data 0.000 (0.245) loss_val nan (nan) lr 1.2369e-04 eta 0:01:32
+epoch [86/100] batch [3/12] time 0.267 (0.436) data 0.000 (0.163) loss_val nan (nan) lr 1.2369e-04 eta 0:01:17
+epoch [86/100] batch [4/12] time 0.268 (0.394) data 0.000 (0.122) loss_val nan (nan) lr 1.2369e-04 eta 0:01:09
+epoch [86/100] batch [5/12] time 0.267 (0.369) data 0.000 (0.098) loss_val nan (nan) lr 1.2369e-04 eta 0:01:04
+epoch [86/100] batch [6/12] time 0.267 (0.352) data 0.000 (0.082) loss_val nan (nan) lr 1.2369e-04 eta 0:01:01
+epoch [86/100] batch [7/12] time 0.269 (0.340) data 0.000 (0.070) loss_val nan (nan) lr 1.2369e-04 eta 0:00:58
+epoch [86/100] batch [8/12] time 0.268 (0.331) data 0.000 (0.061) loss_val nan (nan) lr 1.2369e-04 eta 0:00:56
+epoch [86/100] batch [9/12] time 0.269 (0.324) data 0.000 (0.054) loss_val nan (nan) lr 1.2369e-04 eta 0:00:55
+epoch [86/100] batch [10/12] time 0.268 (0.319) data 0.000 (0.049) loss_val nan (nan) lr 1.2369e-04 eta 0:00:54
+epoch [86/100] batch [11/12] time 0.268 (0.314) data 0.000 (0.045) loss_val nan (nan) lr 1.2369e-04 eta 0:00:53
+epoch [86/100] batch [12/12] time 0.270 (0.310) data 0.000 (0.041) loss_val nan (nan) lr 1.0899e-04 eta 0:00:52
+epoch [87/100] batch [1/12] time 0.865 (0.865) data 0.552 (0.552) loss_val nan (nan) lr 1.0899e-04 eta 0:02:24
+epoch [87/100] batch [2/12] time 0.276 (0.570) data 0.000 (0.276) loss_val nan (nan) lr 1.0899e-04 eta 0:01:34
+epoch [87/100] batch [3/12] time 0.270 (0.470) data 0.000 (0.184) loss_val nan (nan) lr 1.0899e-04 eta 0:01:17
+epoch [87/100] batch [4/12] time 0.276 (0.421) data 0.000 (0.138) loss_val nan (nan) lr 1.0899e-04 eta 0:01:09
+epoch [87/100] batch [5/12] time 0.265 (0.390) data 0.000 (0.110) loss_val nan (nan) lr 1.0899e-04 eta 0:01:03
+epoch [87/100] batch [6/12] time 0.266 (0.369) data 0.000 (0.092) loss_val nan (nan) lr 1.0899e-04 eta 0:00:59
+epoch [87/100] batch [7/12] time 0.264 (0.354) data 0.000 (0.079) loss_val nan (nan) lr 1.0899e-04 eta 0:00:57
+epoch [87/100] batch [8/12] time 0.265 (0.343) data 0.000 (0.069) loss_val nan (nan) lr 1.0899e-04 eta 0:00:54
+epoch [87/100] batch [9/12] time 0.267 (0.335) data 0.000 (0.061) loss_val nan (nan) lr 1.0899e-04 eta 0:00:53
+epoch [87/100] batch [10/12] time 0.286 (0.330) data 0.000 (0.055) loss_val nan (nan) lr 1.0899e-04 eta 0:00:52
+epoch [87/100] batch [11/12] time 0.272 (0.325) data 0.000 (0.050) loss_val nan (nan) lr 1.0899e-04 eta 0:00:50
+epoch [87/100] batch [12/12] time 0.269 (0.320) data 0.000 (0.046) loss_val nan (nan) lr 9.5173e-05 eta 0:00:49
+epoch [88/100] batch [1/12] time 0.798 (0.798) data 0.520 (0.520) loss_val nan (nan) lr 9.5173e-05 eta 0:02:03
+epoch [88/100] batch [2/12] time 0.269 (0.533) data 0.000 (0.260) loss_val nan (nan) lr 9.5173e-05 eta 0:01:22
+epoch [88/100] batch [3/12] time 0.270 (0.446) data 0.000 (0.173) loss_val nan (nan) lr 9.5173e-05 eta 0:01:08
+epoch [88/100] batch [4/12] time 0.280 (0.404) data 0.000 (0.130) loss_val nan (nan) lr 9.5173e-05 eta 0:01:01
+epoch [88/100] batch [5/12] time 0.263 (0.376) data 0.000 (0.104) loss_val nan (nan) lr 9.5173e-05 eta 0:00:56
+epoch [88/100] batch [6/12] time 0.262 (0.357) data 0.000 (0.087) loss_val nan (nan) lr 9.5173e-05 eta 0:00:53
+epoch [88/100] batch [7/12] time 0.267 (0.344) data 0.000 (0.074) loss_val nan (nan) lr 9.5173e-05 eta 0:00:51
+epoch [88/100] batch [8/12] time 0.270 (0.335) data 0.000 (0.065) loss_val nan (nan) lr 9.5173e-05 eta 0:00:49
+epoch [88/100] batch [9/12] time 0.271 (0.328) data 0.000 (0.058) loss_val nan (nan) lr 9.5173e-05 eta 0:00:48
+epoch [88/100] batch [10/12] time 0.271 (0.322) data 0.000 (0.052) loss_val nan (nan) lr 9.5173e-05 eta 0:00:47
+epoch [88/100] batch [11/12] time 0.269 (0.317) data 0.000 (0.047) loss_val nan (nan) lr 9.5173e-05 eta 0:00:46
+epoch [88/100] batch [12/12] time 0.270 (0.313) data 0.000 (0.043) loss_val nan (nan) lr 8.2245e-05 eta 0:00:45
+epoch [89/100] batch [1/12] time 0.758 (0.758) data 0.472 (0.472) loss_val nan (nan) lr 8.2245e-05 eta 0:01:48
+epoch [89/100] batch [2/12] time 0.269 (0.514) data 0.000 (0.236) loss_val nan (nan) lr 8.2245e-05 eta 0:01:12
+epoch [89/100] batch [3/12] time 0.268 (0.432) data 0.000 (0.157) loss_val nan (nan) lr 8.2245e-05 eta 0:01:00
+epoch [89/100] batch [4/12] time 0.268 (0.391) data 0.000 (0.118) loss_val nan (nan) lr 8.2245e-05 eta 0:00:54
+epoch [89/100] batch [5/12] time 0.262 (0.365) data 0.000 (0.095) loss_val nan (nan) lr 8.2245e-05 eta 0:00:50
+epoch [89/100] batch [6/12] time 0.270 (0.349) data 0.000 (0.079) loss_val nan (nan) lr 8.2245e-05 eta 0:00:48
+epoch [89/100] batch [7/12] time 0.272 (0.338) data 0.000 (0.068) loss_val nan (nan) lr 8.2245e-05 eta 0:00:46
+epoch [89/100] batch [8/12] time 0.274 (0.330) data 0.000 (0.059) loss_val nan (nan) lr 8.2245e-05 eta 0:00:44
+epoch [89/100] batch [9/12] time 0.270 (0.324) data 0.000 (0.053) loss_val nan (nan) lr 8.2245e-05 eta 0:00:43
+epoch [89/100] batch [10/12] time 0.270 (0.318) data 0.000 (0.047) loss_val nan (nan) lr 8.2245e-05 eta 0:00:42
+epoch [89/100] batch [11/12] time 0.275 (0.314) data 0.000 (0.043) loss_val nan (nan) lr 8.2245e-05 eta 0:00:41
+epoch [89/100] batch [12/12] time 0.271 (0.311) data 0.000 (0.039) loss_val nan (nan) lr 7.0224e-05 eta 0:00:41
+epoch [90/100] batch [1/12] time 0.837 (0.837) data 0.540 (0.540) loss_val nan (nan) lr 7.0224e-05 eta 0:01:49
+epoch [90/100] batch [2/12] time 0.281 (0.559) data 0.000 (0.270) loss_val nan (nan) lr 7.0224e-05 eta 0:01:12
+epoch [90/100] batch [3/12] time 0.284 (0.467) data 0.000 (0.180) loss_val nan (nan) lr 7.0224e-05 eta 0:01:00
+epoch [90/100] batch [4/12] time 0.291 (0.423) data 0.000 (0.135) loss_val nan (nan) lr 7.0224e-05 eta 0:00:54
+epoch [90/100] batch [5/12] time 0.280 (0.395) data 0.000 (0.108) loss_val nan (nan) lr 7.0224e-05 eta 0:00:50
+epoch [90/100] batch [6/12] time 0.307 (0.380) data 0.000 (0.090) loss_val nan (nan) lr 7.0224e-05 eta 0:00:47
+epoch [90/100] batch [7/12] time 0.303 (0.369) data 0.000 (0.077) loss_val nan (nan) lr 7.0224e-05 eta 0:00:46
+epoch [90/100] batch [8/12] time 0.318 (0.363) data 0.000 (0.068) loss_val nan (nan) lr 7.0224e-05 eta 0:00:44
+epoch [90/100] batch [9/12] time 0.304 (0.356) data 0.000 (0.060) loss_val nan (nan) lr 7.0224e-05 eta 0:00:43
+epoch [90/100] batch [10/12] time 0.286 (0.349) data 0.000 (0.054) loss_val nan (nan) lr 7.0224e-05 eta 0:00:42
+epoch [90/100] batch [11/12] time 0.279 (0.343) data 0.000 (0.049) loss_val nan (nan) lr 7.0224e-05 eta 0:00:41
+epoch [90/100] batch [12/12] time 0.280 (0.338) data 0.000 (0.045) loss_val nan (nan) lr 5.9119e-05 eta 0:00:40
+epoch [91/100] batch [1/12] time 0.790 (0.790) data 0.480 (0.480) loss_val nan (nan) lr 5.9119e-05 eta 0:01:34
+epoch [91/100] batch [2/12] time 0.284 (0.537) data 0.000 (0.240) loss_val nan (nan) lr 5.9119e-05 eta 0:01:03
+epoch [91/100] batch [3/12] time 0.289 (0.454) data 0.000 (0.160) loss_val nan (nan) lr 5.9119e-05 eta 0:00:53
+epoch [91/100] batch [4/12] time 0.280 (0.411) data 0.000 (0.120) loss_val nan (nan) lr 5.9119e-05 eta 0:00:47
+epoch [91/100] batch [5/12] time 0.289 (0.386) data 0.000 (0.096) loss_val nan (nan) lr 5.9119e-05 eta 0:00:44
+epoch [91/100] batch [6/12] time 0.281 (0.369) data 0.000 (0.080) loss_val nan (nan) lr 5.9119e-05 eta 0:00:42
+epoch [91/100] batch [7/12] time 0.282 (0.356) data 0.000 (0.069) loss_val nan (nan) lr 5.9119e-05 eta 0:00:40
+epoch [91/100] batch [8/12] time 0.283 (0.347) data 0.000 (0.060) loss_val nan (nan) lr 5.9119e-05 eta 0:00:38
+epoch [91/100] batch [9/12] time 0.282 (0.340) data 0.000 (0.053) loss_val nan (nan) lr 5.9119e-05 eta 0:00:37
+epoch [91/100] batch [10/12] time 0.280 (0.334) data 0.000 (0.048) loss_val nan (nan) lr 5.9119e-05 eta 0:00:36
+epoch [91/100] batch [11/12] time 0.277 (0.329) data 0.000 (0.044) loss_val nan (nan) lr 5.9119e-05 eta 0:00:35
+epoch [91/100] batch [12/12] time 0.279 (0.325) data 0.000 (0.040) loss_val nan (nan) lr 4.8943e-05 eta 0:00:35
+epoch [92/100] batch [1/12] time 0.791 (0.791) data 0.488 (0.488) loss_val nan (nan) lr 4.8943e-05 eta 0:01:24
+epoch [92/100] batch [2/12] time 0.280 (0.536) data 0.000 (0.244) loss_val nan (nan) lr 4.8943e-05 eta 0:00:56
+epoch [92/100] batch [3/12] time 0.278 (0.450) data 0.000 (0.163) loss_val nan (nan) lr 4.8943e-05 eta 0:00:47
+epoch [92/100] batch [4/12] time 0.276 (0.406) data 0.000 (0.122) loss_val nan (nan) lr 4.8943e-05 eta 0:00:42
+epoch [92/100] batch [5/12] time 0.278 (0.381) data 0.000 (0.098) loss_val nan (nan) lr 4.8943e-05 eta 0:00:39
+epoch [92/100] batch [6/12] time 0.278 (0.364) data 0.000 (0.081) loss_val nan (nan) lr 4.8943e-05 eta 0:00:37
+epoch [92/100] batch [7/12] time 0.277 (0.351) data 0.000 (0.070) loss_val nan (nan) lr 4.8943e-05 eta 0:00:35
+epoch [92/100] batch [8/12] time 0.282 (0.343) data 0.000 (0.061) loss_val nan (nan) lr 4.8943e-05 eta 0:00:34
+epoch [92/100] batch [9/12] time 0.274 (0.335) data 0.000 (0.054) loss_val nan (nan) lr 4.8943e-05 eta 0:00:33
+epoch [92/100] batch [10/12] time 0.285 (0.330) data 0.000 (0.049) loss_val nan (nan) lr 4.8943e-05 eta 0:00:32
+epoch [92/100] batch [11/12] time 0.278 (0.325) data 0.000 (0.044) loss_val nan (nan) lr 4.8943e-05 eta 0:00:31
+epoch [92/100] batch [12/12] time 0.276 (0.321) data 0.000 (0.041) loss_val nan (nan) lr 3.9706e-05 eta 0:00:30
+epoch [93/100] batch [1/12] time 0.817 (0.817) data 0.530 (0.530) loss_val nan (nan) lr 3.9706e-05 eta 0:01:17
+epoch [93/100] batch [2/12] time 0.266 (0.542) data 0.000 (0.265) loss_val nan (nan) lr 3.9706e-05 eta 0:00:50
+epoch [93/100] batch [3/12] time 0.263 (0.449) data 0.000 (0.177) loss_val nan (nan) lr 3.9706e-05 eta 0:00:41
+epoch [93/100] batch [4/12] time 0.261 (0.402) data 0.000 (0.133) loss_val nan (nan) lr 3.9706e-05 eta 0:00:36
+epoch [93/100] batch [5/12] time 0.260 (0.373) data 0.000 (0.106) loss_val nan (nan) lr 3.9706e-05 eta 0:00:33
+epoch [93/100] batch [6/12] time 0.268 (0.356) data 0.000 (0.088) loss_val nan (nan) lr 3.9706e-05 eta 0:00:32
+epoch [93/100] batch [7/12] time 0.264 (0.343) data 0.000 (0.076) loss_val nan (nan) lr 3.9706e-05 eta 0:00:30
+epoch [93/100] batch [8/12] time 0.269 (0.334) data 0.000 (0.066) loss_val nan (nan) lr 3.9706e-05 eta 0:00:29
+epoch [93/100] batch [9/12] time 0.269 (0.326) data 0.000 (0.059) loss_val nan (nan) lr 3.9706e-05 eta 0:00:28
+epoch [93/100] batch [10/12] time 0.268 (0.320) data 0.000 (0.053) loss_val nan (nan) lr 3.9706e-05 eta 0:00:27
+epoch [93/100] batch [11/12] time 0.268 (0.316) data 0.000 (0.048) loss_val nan (nan) lr 3.9706e-05 eta 0:00:26
+epoch [93/100] batch [12/12] time 0.267 (0.312) data 0.000 (0.044) loss_val nan (nan) lr 3.1417e-05 eta 0:00:26
+epoch [94/100] batch [1/12] time 0.822 (0.822) data 0.525 (0.525) loss_val nan (nan) lr 3.1417e-05 eta 0:01:08
+epoch [94/100] batch [2/12] time 0.280 (0.551) data 0.000 (0.262) loss_val nan (nan) lr 3.1417e-05 eta 0:00:45
+epoch [94/100] batch [3/12] time 0.282 (0.461) data 0.000 (0.175) loss_val nan (nan) lr 3.1417e-05 eta 0:00:37
+epoch [94/100] batch [4/12] time 0.279 (0.416) data 0.000 (0.131) loss_val nan (nan) lr 3.1417e-05 eta 0:00:33
+epoch [94/100] batch [5/12] time 0.282 (0.389) data 0.000 (0.105) loss_val nan (nan) lr 3.1417e-05 eta 0:00:30
+epoch [94/100] batch [6/12] time 0.284 (0.371) data 0.000 (0.088) loss_val nan (nan) lr 3.1417e-05 eta 0:00:28
+epoch [94/100] batch [7/12] time 0.287 (0.359) data 0.000 (0.075) loss_val nan (nan) lr 3.1417e-05 eta 0:00:27
+epoch [94/100] batch [8/12] time 0.283 (0.350) data 0.000 (0.066) loss_val nan (nan) lr 3.1417e-05 eta 0:00:26
+epoch [94/100] batch [9/12] time 0.282 (0.342) data 0.000 (0.058) loss_val nan (nan) lr 3.1417e-05 eta 0:00:25
+epoch [94/100] batch [10/12] time 0.280 (0.336) data 0.000 (0.053) loss_val nan (nan) lr 3.1417e-05 eta 0:00:24
+epoch [94/100] batch [11/12] time 0.281 (0.331) data 0.000 (0.048) loss_val nan (nan) lr 3.1417e-05 eta 0:00:24
+epoch [94/100] batch [12/12] time 0.281 (0.327) data 0.000 (0.044) loss_val nan (nan) lr 2.4083e-05 eta 0:00:23
+epoch [95/100] batch [1/12] time 0.966 (0.966) data 0.667 (0.667) loss_val nan (nan) lr 2.4083e-05 eta 0:01:08
+epoch [95/100] batch [2/12] time 0.282 (0.624) data 0.000 (0.334) loss_val nan (nan) lr 2.4083e-05 eta 0:00:43
+epoch [95/100] batch [3/12] time 0.284 (0.511) data 0.000 (0.223) loss_val nan (nan) lr 2.4083e-05 eta 0:00:35
+epoch [95/100] batch [4/12] time 0.279 (0.453) data 0.000 (0.167) loss_val nan (nan) lr 2.4083e-05 eta 0:00:30
+epoch [95/100] batch [5/12] time 0.292 (0.421) data 0.000 (0.134) loss_val nan (nan) lr 2.4083e-05 eta 0:00:28
+epoch [95/100] batch [6/12] time 0.273 (0.396) data 0.000 (0.111) loss_val nan (nan) lr 2.4083e-05 eta 0:00:26
+epoch [95/100] batch [7/12] time 0.272 (0.378) data 0.000 (0.095) loss_val nan (nan) lr 2.4083e-05 eta 0:00:24
+epoch [95/100] batch [8/12] time 0.288 (0.367) data 0.000 (0.083) loss_val nan (nan) lr 2.4083e-05 eta 0:00:23
+epoch [95/100] batch [9/12] time 0.291 (0.359) data 0.000 (0.074) loss_val nan (nan) lr 2.4083e-05 eta 0:00:22
+epoch [95/100] batch [10/12] time 0.289 (0.352) data 0.000 (0.067) loss_val nan (nan) lr 2.4083e-05 eta 0:00:21
+epoch [95/100] batch [11/12] time 0.302 (0.347) data 0.000 (0.061) loss_val nan (nan) lr 2.4083e-05 eta 0:00:21
+epoch [95/100] batch [12/12] time 0.286 (0.342) data 0.000 (0.056) loss_val nan (nan) lr 1.7713e-05 eta 0:00:20
+epoch [96/100] batch [1/12] time 0.770 (0.770) data 0.468 (0.468) loss_val nan (nan) lr 1.7713e-05 eta 0:00:45
+epoch [96/100] batch [2/12] time 0.283 (0.526) data 0.000 (0.234) loss_val nan (nan) lr 1.7713e-05 eta 0:00:30
+epoch [96/100] batch [3/12] time 0.287 (0.447) data 0.000 (0.156) loss_val nan (nan) lr 1.7713e-05 eta 0:00:25
+epoch [96/100] batch [4/12] time 0.279 (0.405) data 0.000 (0.117) loss_val nan (nan) lr 1.7713e-05 eta 0:00:22
+epoch [96/100] batch [5/12] time 0.286 (0.381) data 0.000 (0.094) loss_val nan (nan) lr 1.7713e-05 eta 0:00:20
+epoch [96/100] batch [6/12] time 0.281 (0.364) data 0.000 (0.078) loss_val nan (nan) lr 1.7713e-05 eta 0:00:19
+epoch [96/100] batch [7/12] time 0.279 (0.352) data 0.000 (0.067) loss_val nan (nan) lr 1.7713e-05 eta 0:00:18
+epoch [96/100] batch [8/12] time 0.279 (0.343) data 0.000 (0.059) loss_val nan (nan) lr 1.7713e-05 eta 0:00:17
+epoch [96/100] batch [9/12] time 0.280 (0.336) data 0.000 (0.052) loss_val nan (nan) lr 1.7713e-05 eta 0:00:17
+epoch [96/100] batch [10/12] time 0.281 (0.330) data 0.000 (0.047) loss_val nan (nan) lr 1.7713e-05 eta 0:00:16
+epoch [96/100] batch [11/12] time 0.281 (0.326) data 0.000 (0.043) loss_val nan (nan) lr 1.7713e-05 eta 0:00:15
+epoch [96/100] batch [12/12] time 0.283 (0.322) data 0.000 (0.039) loss_val nan (nan) lr 1.2312e-05 eta 0:00:15
+epoch [97/100] batch [1/12] time 0.789 (0.789) data 0.482 (0.482) loss_val nan (nan) lr 1.2312e-05 eta 0:00:37
+epoch [97/100] batch [2/12] time 0.283 (0.536) data 0.000 (0.241) loss_val nan (nan) lr 1.2312e-05 eta 0:00:24
+epoch [97/100] batch [3/12] time 0.284 (0.452) data 0.000 (0.161) loss_val nan (nan) lr 1.2312e-05 eta 0:00:20
+epoch [97/100] batch [4/12] time 0.280 (0.409) data 0.000 (0.121) loss_val nan (nan) lr 1.2312e-05 eta 0:00:17
+epoch [97/100] batch [5/12] time 0.280 (0.383) data 0.000 (0.096) loss_val nan (nan) lr 1.2312e-05 eta 0:00:16
+epoch [97/100] batch [6/12] time 0.282 (0.366) data 0.000 (0.080) loss_val nan (nan) lr 1.2312e-05 eta 0:00:15
+epoch [97/100] batch [7/12] time 0.275 (0.353) data 0.000 (0.069) loss_val nan (nan) lr 1.2312e-05 eta 0:00:14
+epoch [97/100] batch [8/12] time 0.281 (0.344) data 0.000 (0.060) loss_val nan (nan) lr 1.2312e-05 eta 0:00:13
+epoch [97/100] batch [9/12] time 0.283 (0.337) data 0.000 (0.054) loss_val nan (nan) lr 1.2312e-05 eta 0:00:13
+epoch [97/100] batch [10/12] time 0.279 (0.331) data 0.000 (0.048) loss_val nan (nan) lr 1.2312e-05 eta 0:00:12
+epoch [97/100] batch [11/12] time 0.295 (0.328) data 0.000 (0.044) loss_val nan (nan) lr 1.2312e-05 eta 0:00:12
+epoch [97/100] batch [12/12] time 0.292 (0.325) data 0.000 (0.040) loss_val nan (nan) lr 7.8853e-06 eta 0:00:11
+epoch [98/100] batch [1/12] time 0.803 (0.803) data 0.510 (0.510) loss_val nan (nan) lr 7.8853e-06 eta 0:00:28
+epoch [98/100] batch [2/12] time 0.281 (0.542) data 0.000 (0.255) loss_val nan (nan) lr 7.8853e-06 eta 0:00:18
+epoch [98/100] batch [3/12] time 0.300 (0.461) data 0.000 (0.170) loss_val nan (nan) lr 7.8853e-06 eta 0:00:15
+epoch [98/100] batch [4/12] time 0.288 (0.418) data 0.000 (0.128) loss_val nan (nan) lr 7.8853e-06 eta 0:00:13
+epoch [98/100] batch [5/12] time 0.290 (0.392) data 0.000 (0.102) loss_val nan (nan) lr 7.8853e-06 eta 0:00:12
+epoch [98/100] batch [6/12] time 0.322 (0.381) data 0.000 (0.085) loss_val nan (nan) lr 7.8853e-06 eta 0:00:11
+epoch [98/100] batch [7/12] time 0.304 (0.370) data 0.000 (0.073) loss_val nan (nan) lr 7.8853e-06 eta 0:00:10
+epoch [98/100] batch [8/12] time 0.295 (0.360) data 0.000 (0.064) loss_val nan (nan) lr 7.8853e-06 eta 0:00:10
+epoch [98/100] batch [9/12] time 0.289 (0.352) data 0.000 (0.057) loss_val nan (nan) lr 7.8853e-06 eta 0:00:09
+epoch [98/100] batch [10/12] time 0.307 (0.348) data 0.000 (0.051) loss_val nan (nan) lr 7.8853e-06 eta 0:00:09
+epoch [98/100] batch [11/12] time 0.315 (0.345) data 0.000 (0.046) loss_val nan (nan) lr 7.8853e-06 eta 0:00:08
+epoch [98/100] batch [12/12] time 0.297 (0.341) data 0.000 (0.043) loss_val nan (nan) lr 4.4380e-06 eta 0:00:08
+epoch [99/100] batch [1/12] time 0.831 (0.831) data 0.483 (0.483) loss_val nan (nan) lr 4.4380e-06 eta 0:00:19
+epoch [99/100] batch [2/12] time 0.304 (0.568) data 0.000 (0.242) loss_val nan (nan) lr 4.4380e-06 eta 0:00:12
+epoch [99/100] batch [3/12] time 0.313 (0.483) data 0.000 (0.161) loss_val nan (nan) lr 4.4380e-06 eta 0:00:10
+epoch [99/100] batch [4/12] time 0.326 (0.443) data 0.000 (0.121) loss_val nan (nan) lr 4.4380e-06 eta 0:00:08
+epoch [99/100] batch [5/12] time 0.324 (0.419) data 0.000 (0.097) loss_val nan (nan) lr 4.4380e-06 eta 0:00:07
+epoch [99/100] batch [6/12] time 0.293 (0.398) data 0.000 (0.081) loss_val nan (nan) lr 4.4380e-06 eta 0:00:07
+epoch [99/100] batch [7/12] time 0.302 (0.385) data 0.000 (0.069) loss_val nan (nan) lr 4.4380e-06 eta 0:00:06
+epoch [99/100] batch [8/12] time 0.291 (0.373) data 0.000 (0.060) loss_val nan (nan) lr 4.4380e-06 eta 0:00:05
+epoch [99/100] batch [9/12] time 0.286 (0.363) data 0.000 (0.054) loss_val nan (nan) lr 4.4380e-06 eta 0:00:05
+epoch [99/100] batch [10/12] time 0.285 (0.355) data 0.000 (0.048) loss_val nan (nan) lr 4.4380e-06 eta 0:00:04
+epoch [99/100] batch [11/12] time 0.284 (0.349) data 0.000 (0.044) loss_val nan (nan) lr 4.4380e-06 eta 0:00:04
+epoch [99/100] batch [12/12] time 0.287 (0.344) data 0.000 (0.040) loss_val nan (nan) lr 1.9733e-06 eta 0:00:04
+epoch [100/100] batch [1/12] time 0.842 (0.842) data 0.525 (0.525) loss_val nan (nan) lr 1.9733e-06 eta 0:00:09
+epoch [100/100] batch [2/12] time 0.298 (0.570) data 0.000 (0.263) loss_val nan (nan) lr 1.9733e-06 eta 0:00:05
+epoch [100/100] batch [3/12] time 0.319 (0.487) data 0.000 (0.175) loss_val nan (nan) lr 1.9733e-06 eta 0:00:04
+epoch [100/100] batch [4/12] time 0.316 (0.444) data 0.000 (0.131) loss_val nan (nan) lr 1.9733e-06 eta 0:00:03
+epoch [100/100] batch [5/12] time 0.308 (0.417) data 0.000 (0.105) loss_val nan (nan) lr 1.9733e-06 eta 0:00:02
+epoch [100/100] batch [6/12] time 0.290 (0.396) data 0.000 (0.088) loss_val nan (nan) lr 1.9733e-06 eta 0:00:02
+epoch [100/100] batch [7/12] time 0.282 (0.380) data 0.000 (0.075) loss_val nan (nan) lr 1.9733e-06 eta 0:00:01
+epoch [100/100] batch [8/12] time 0.281 (0.367) data 0.000 (0.066) loss_val nan (nan) lr 1.9733e-06 eta 0:00:01
+epoch [100/100] batch [9/12] time 0.287 (0.358) data 0.000 (0.058) loss_val nan (nan) lr 1.9733e-06 eta 0:00:01
+epoch [100/100] batch [10/12] time 0.281 (0.351) data 0.000 (0.053) loss_val nan (nan) lr 1.9733e-06 eta 0:00:00
+epoch [100/100] batch [11/12] time 0.280 (0.344) data 0.000 (0.048) loss_val nan (nan) lr 1.9733e-06 eta 0:00:00
+epoch [100/100] batch [12/12] time 0.280 (0.339) data 0.000 (0.044) loss_val nan (nan) lr 4.9344e-07 eta 0:00:00
+Checkpoint saved to output/dtd/CoOp_dyntoken_1anchor_template/vit_b16_16shots/CTX_4_ACTX_1_EPO_100_MSE_1000.0_CE_1000.0/seed1/anchor_prompt_learner/model.pth.tar-100
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+evaluate on anchor prompts
+=> result
+* total: 864
+* correct: 482
+* accuracy: 55.787%
+* error: 44.21%
+* macro_f1: 51.52%
+Elapsed: 0:06:45
