@@ -37,7 +37,7 @@ Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang.
 
 ## 💡 Helpful Resources:
 
-- If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
+- If you are interested in prompt learning and want to know more about related work, we also maintain [a list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
 - If you attempt to reproduce the results of this implementation on the existing 15 datasets, the links to those datasets may be broken and unusable. For your convenience, we have provided 14 datasets (excluding ImageNet) in the HuggingFace platform. [[Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
 ## 🔥 Some other works may interest you:
@@ -77,6 +77,11 @@ To address this limitation, we propose AnchorOPT, a dynamic anchor-based prompt 
 
 Training occurs in two stages: we first learn the anchor tokens, then freeze and transfer them to the second stage for optimization of soft tokens and the position matrix.
 
+### Framework
+
+<div style="text-align:center"><img src="images/anchoropt.png" width="100%"></div>
+<figcaption class="content has-text-left"  style="word-break:normal">Fig 1. Architectural comparison among classic prompt learning, ATPrompt, and our proposed AnchorOPT. </figcaption>
+
 ### 🚀 Running
 
 Please see the [[AnchorOPT Reproduction Guide](docs/AnchorOPT.md)].
@@ -92,25 +97,16 @@ This method extends the learning space of soft prompts from the original one-dim
 
 Guided by these attributes, soft tokens acquire not only category-specific but also attribute-related general representations during training, thereby enhancing the alignment between images and unknown categories compared to the original method.
 
-<!-- 
+
 ### Framework
 
 <div style="text-align:center"><img src="images/attribute_compare.png" width="100%"></div>
-<figcaption class="content has-text-left"  style="word-break:normal">Figure 1. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-anchored prompt learning. </figcaption>
-
-<br>
-
-<div style="text-align:center"><img src="images/shallow_deep_version.png" width="100%"></div>
-<figcaption class="content has-text-left" style="word-break:normal">Figure 2. An illustration of the computation process for shallow and deep versions.  </figcaption> -->
+<figcaption class="content has-text-left"  style="word-break:normal">Fig 2. Architectural comparison among vanilla CLIP, classic prompt learning, and our proposed attribute-anchored prompt learning. </figcaption>
 
 
 ### 🚀 Running
 
 Please see the [[ATPrompt Reproduction Guide](docs/ATPrompt.md)].
-
-
-
-
 
 ## ✉️ Contact
 

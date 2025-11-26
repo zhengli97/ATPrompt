@@ -1,3 +1,9 @@
+# Experimental Results
+
+
+
+
+
 # Reproduction Guide for AnchorOPT
 
 ## 🔧 Experimental Setup
@@ -95,7 +101,7 @@ sh scripts/coop/anchoropt_xd_eval.sh imagenet_a 1
 
 - Anchor Token Pretraining.
 
-Detailed training logs and weights are provided in the `anchor_weights` folder.
+Detailed training logs and weights are provided in the `anchor_weights` folder. We've also added it to the [[GitHub releases](https://github.com/zhengli97/ATPrompt/releases/tag/anchoropt_anchor_logs_weights)].
 
 - Base-to-Novel Generalization. (TBD)
 
