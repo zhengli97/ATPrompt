@@ -37,17 +37,37 @@ Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang.
 
 ## 💡 Helpful Resources:
 
-1. If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
-2. If you attempt to reproduce the results of this implementation on the existing 15 datasets, the links to those datasets may be broken and unusable. For your convenience, we have provided 14 datasets (excluding ImageNet) in the HuggingFace platform. [[Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
+- If you are interested in prompt learning and want to know more about related work, we also maintain a [list of awesome papers](https://github.com/zhengli97/Awesome-Prompt-Adapter-Learning-for-Vision-Language-Models) for your reference.
+- If you attempt to reproduce the results of this implementation on the existing 15 datasets, the links to those datasets may be broken and unusable. For your convenience, we have provided 14 datasets (excluding ImageNet) in the HuggingFace platform. [[Download_Links](https://huggingface.co/zhengli97/prompt_learning_dataset)]
 
-## 🔥 Some other prompt learning works may interest you:
+## 🔥 Some other works may interest you:
 
 - **[CVPR 24] PromptKD: Unsupervised Prompt Distillation for Vision-Language Models**   
 Zheng Li, Xiang Li, Xinyi Fu, Xin Zhang, Weiqiang Wang, Shuo Chen, Jian Yang.   
 [[Paper](https://arxiv.org/abs/2403.02781)] [[Code](https://github.com/zhengli97/PromptKD)] [[Project Page](https://zhengli97.github.io/PromptKD)] [[Poster](https://github.com/zhengli97/PromptKD/blob/main/images/promptkd_poster.pdf)] [[中文论文解读](https://zhuanlan.zhihu.com/p/684269963)] [[视频解读](https://www.techbeat.net/talk-info?id=915)] [[中文翻译](https://github.com/zhengli97/PromptKD/blob/main/docs/PromptKD_chinese_version.pdf)].  
 PromptKD is a simple and effective prompt-driven unsupervised distillation framework for VLMs (e.g., CLIP), with state-of-the-art performance.
 
-## AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.
+## 🧪 Experimental Comparison
+
+
+| Methods    | Paper    | Pub      | Base   | Novel  | HM (main) | Code | Type |
+| :---:      | :---:    | :---:    | ---    | ---    | :---:     | :--: | :--: |
+| CLIP       | [Link](https://arxiv.org/abs/2103.00020) | ICML 21 | 69.34 | 74.22 | 71.70 | [Link](https://github.com/openai/CLIP)  | Model |
+| CoOp       | [Link](https://arxiv.org/abs/2203.05557) | IJCV 22 | 82.69 | 63.22 | 71.66 | [Link](https://github.com/kaiyangzhou/coop)  | Baseline |
+| +ATPrompt   | - | ICCV 25 | 82.68 | 68.04 | **74.65(+2.99)** | - | Plugin |
+| +AnchorOPT  | - | Arxiv   | 81.24 | 76.27 | **78.68(+7.02)** | - | Plugin |
+| CoCoOp     | [Link](https://arxiv.org/abs/2203.05557) | CVPR 22 | 80.47 | 71.69 | 75.83 | [Link](https://github.com/KaiyangZhou/CoOp)  | Baseline |
+| +ATPrompt  | - | ICCV 25 | 81.69 | 74.54 | **77.95(+2.21)** | - | Plugin |
+| +AnchorOPT | - | Arxiv   | 81.87 | 77.06 | **79.39(+3.56)** | - | Plugin |
+| MaPLe      | [Link](https://arxiv.org/abs/2210.03117) | CVPR 23 | 82.28 | 75.14 | 78.55 | [Link](https://github.com/muzairkhattak/multimodal-prompt-learning) | Baseline |
+| +ATPrompt  | - | ICCV 25 | 82.98 | 75.76 | **79.21(+0.66)** | - | Plugin |
+| +AnchorOPT | - | Arxiv   | 83.62 | 77.36 | **80.37(+1.82)** | - | Plugin |
+| DePT       | [Link](https://arxiv.org/abs/2309.07439) | CVPR 24 | 83.80 | 72.89 | 77.97 | [Link](https://github.com/Koorye/DePT) | Baseline |
+| +ATPrompt  | - | ICCV 25 | 83.80 | 73.75 | **78.45(+1.16)** | - | Plugin |
+| +AnchorOPT | - | Arxiv   | 84.27 | 76.90 | **80.42(+3.13)** | - | Plugin |
+
+
+## 🗒 [Arxiv] AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.
 
 ### Abstract
 
@@ -62,7 +82,7 @@ Training occurs in two stages: we first learn the anchor tokens, then freeze and
 Please see the [[AnchorOPT Reproduction Guide](docs/AnchorOPT.md)].
 
 
-## [ICCV 25] ATPrompt: Advancing Textual Prompt Learning with Anchored Attributes
+## 🗒 [ICCV 25] ATPrompt: Advancing Textual Prompt Learning with Anchored Attributes
 
 ### Abstract
 
@@ -87,6 +107,9 @@ Guided by these attributes, soft tokens acquire not only category-specific but a
 ### 🚀 Running
 
 Please see the [[ATPrompt Reproduction Guide](docs/ATPrompt.md)].
+
+
+
 
 
 ## ✉️ Contact
