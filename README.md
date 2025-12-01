@@ -4,7 +4,7 @@ This repo contains a series of anchor token-guided prompt learning methods for V
 
 - **[Arxiv] AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning.**    
 Zheng Li, Yibing Song, Xin Zhang, Lei Luo, Xiang Li, Jian Yang.    
-[[Paper]()]
+[[Paper](https://arxiv.org/abs/2511.21188)]
 
 - **[ICCV 25] Advancing Textual Prompt Learning with Anchored Attributes.**    
 Zheng Li, Yibing Song, Ming-Ming Cheng, Xiang Li, Jian Yang.   
@@ -93,6 +93,13 @@ If you have any questions, you can submit an [issue](https://github.com/zhengli9
 If you find our paper or repo helpful for your research, please consider citing the following paper and giving this repo a star. Thank you!
 
 ```
+@article{li2025anchoropt,
+  title={AnchorOPT: Towards Optimizing Dynamic Anchors for Adaptive Prompt Learning},
+  author={Li, Zheng and Song, Yibing and Zhang, Xin and Luo, Lei and Li, Xiang and Yang, Jian},
+  journal={arXiv preprint arXiv:2511.21188},
+  year={2025}
+}
+
 @inproceedings{li2025advancing,
   title={Advancing textual prompt learning with anchored attributes},
   author={Li, Zheng and Song, Yibing and Cheng, Ming-Ming and Li, Xiang and Yang, Jian},
