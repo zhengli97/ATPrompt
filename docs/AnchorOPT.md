@@ -1,10 +1,4 @@
-# Experimental Results
-
-
-
-
-
-# Reproduction Guide for AnchorOPT
+# How to reproduce AnchorOPT
 
 ## 🔧 Experimental Setup
 
