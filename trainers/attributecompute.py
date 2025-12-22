@@ -128,16 +128,11 @@ class PromptLearner(nn.Module):
 
         self.all_combinations = []
         for r in range(1, len(att_list) + 1):
-            if r>2:
-                combos = combinations(att_list, r)
-                self.all_combinations.extend(combos)
+            # if r>2:
+            combos = combinations(att_list, r)
+            self.all_combinations.extend(combos)
         random.shuffle(self.all_combinations)
         print(f'all combinations is {self.all_combinations}')
-        
-        # ('shape'), ('color') ('material') ('function') ('shape', 'color') ('shape', 'material') ('shape', 'function')
-        # ('color', 'material') ('color', 'function') ('material', 'function') ('shape', 'color', 'material')
-        # ('shape', 'color', 'function') ('shape', 'material', 'function') ('color', 'material', 'function')
-        # ('shape', 'color', 'material', 'function')
 
         all_comb_len = len(self.all_combinations)
         print(f'combine length is {all_comb_len}')
