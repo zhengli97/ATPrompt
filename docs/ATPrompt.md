@@ -226,6 +226,11 @@ In this experiment, other parameters are kept unchanged. On the ImageNet-1K sour
 
 In this experiment, other parameters are kept unchanged. On the ImageNet-1K source dataset, we set NCTX=4 and EPO=2.
 
+### PromptKD+ATPrompt
+
+(2026.1.29)
+I'm so sorry, I can't find the previous experiment records. I've completely forgotten the details of the reproduction process. The general idea was to reduce the constraints on the text branch when training the teacher model using the PromptSRC method. Complex parameter tuning is not necessary during the distillation process with PromptKD. I will provide the details before I graduate with my Ph.D.
+
 ## 论文结果复现指引 (中文版)
 
 在这一部分，我们会提供用于复现CoOp+ATPrompt，CoCoOp+ATPrompt, MaPLe+ATPrompt的实现细节和超参数设定。(DePT和PromptKD的实验因为代码还没整合进来，暂时没有提供，DePT和PromptKD由于是用的不一样的实现框架，所以需要一定的时间进行迁移)。
@@ -301,3 +306,7 @@ In this experiment, other parameters are kept unchanged. On the ImageNet-1K sour
 ### MaPLe+ATPrompt
 
 在该实验中，保持其他参数不变，在ImageNet-1K源数据集上，设定NCTX=4, EPO=2。
+
+### PromptKD+ATPrompt
+
+我真抱歉，我找不到之前的实验记录了。我真忘了复现的细节了，大概思路是在用promptsrc方法训教师的时候要降低文本分支的约束。在promptkd的蒸馏时候不需要复杂的调参。我会在博士毕业前把细节提供出来。
